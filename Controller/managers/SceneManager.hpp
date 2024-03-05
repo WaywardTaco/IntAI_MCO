@@ -3,7 +3,8 @@
 
 namespace managers{
     class SceneManager{
-
+        public:
+            void checkLoadScene();
 
         /* SINGLETON CODE */
         private:
@@ -12,6 +13,6 @@ namespace managers{
             SceneManager(const SceneManager&);
             SceneManager& operator = (const SceneManager&);
         public:
-            SceneManager* Instance();
+            static SceneManager* Instance();
     };
 }
