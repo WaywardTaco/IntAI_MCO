@@ -10,7 +10,7 @@ namespace components {
             sf::Event Event;
 
         public:
-            GenericInput(std::string name);
+            GenericInput(std::string name, GameObject* owner);
 
             virtual void perform();
             void assignEvent(sf::Event event);
