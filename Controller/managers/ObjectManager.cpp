@@ -66,6 +66,17 @@ GameObject* ObjectManager::findObjectByName(std::string name){
     return this->mapObjects[name];
 }
 
+std::vector<GameObject*> ObjectManager::getObjects(ObjectType type){
+    std::vector<GameObject*> output = {};
+    
+    int length = this->vecObjects.size();
+    for(int i = 0; i < length; i++)
+        if(this->vecObjects[i]->getType() == type)
+            output.push_back(this->vecObjects[i]);
+
+    return output;
+}
+
 void ObjectManager::deleteAllObjects(){
     for(GameObject* object : vecObjects)
         delete object;

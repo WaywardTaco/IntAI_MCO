@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include "../../Model/enums/ObjectType.hpp"
 #include "../../Model/enums/ComponentType.hpp"
 #include "../../Model/GameObject.hpp"
 #include "../../Model/components/Component.hpp"
@@ -28,6 +29,7 @@ namespace managers{
 
             void addObject(GameObject* object);
             GameObject* findObjectByName(std::string name);
+            std::vector<GameObject*> getObjects(ObjectType type);
             void deleteAllObjects();
 
         /* SINGLETON CODE */

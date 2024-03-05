@@ -3,8 +3,9 @@
 
 using namespace models;
 
-GameObject::GameObject(std::string name) :
+GameObject::GameObject(std::string name, ObjectType type) :
     name(name), 
+    type(type),
     sprite(NULL),
     texture(NULL),
     position({0.f, 0.f}), 
@@ -52,6 +53,10 @@ Component* GameObject::getComponent(std::string name){
 
 std::string GameObject::getName(){
     return this->name;
+}
+
+ObjectType GameObject::getType(){
+    return this->type;
 }
 
 sf::Sprite* GameObject::getSprite(){

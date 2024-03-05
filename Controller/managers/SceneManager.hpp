@@ -1,18 +1,34 @@
 
 #pragma once
 
+#include <unordered_map>
+#include "../../Model/enums/SceneTag.hpp"
+#include "../../Model/scenes/Scene.hpp"
+#include "ObjectManager.hpp"
+
 namespace managers{
-    class TextureManager{
+    using namespace scenes;
+    class SceneManager{
+        private:
+            std::unordered_map<SceneTag, Scene*> scenes;
+            Scene* activeScene;
+            bool loadNewScene;
+            SceneTag sceneToLoad;
+
         public:
+            void registerScene(Scene* scene);
+            void loadScene(SceneTag tag);
+            void unloadScene();
             void checkLoadScene();
+            bool isLoaded(SceneTag tag);
 
         /* SINGLETON CODE */
         private:
-            static TextureManager* SHARED_INSTANCE;
-            TextureManager();
-            TextureManager(const TextureManager&);
-            TextureManager& operator = (const TextureManager&);
+            static SceneManager* SHARED_INSTANCE;
+            SceneManager();
+            SceneManager(const SceneManager&);
+            SceneManager& operator = (const SceneManager&);
         public:
-            static TextureManager* Instance();
+            static SceneManager* Instance();
     };
 }

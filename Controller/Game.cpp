@@ -14,7 +14,7 @@ void Game::run(){
     sf::Clock clock;
     sf::Time timeSinceUpdate = sf::Time::Zero;
 
-    this->window.setFramerateLimit(60.f);
+    this->window.setFramerateLimit(Settings::Instance()->getFrameLimit());
 
     while(this->window.isOpen()){
         timeSinceUpdate += clock.restart();
@@ -26,7 +26,7 @@ void Game::run(){
             this->update();
         }
 
-        TextureManager::Instance()->checkLoadScene();
+        SceneManager::Instance()->checkLoadScene();
         this->render();
     }
 }

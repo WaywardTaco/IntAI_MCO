@@ -1,21 +1,26 @@
 
 #pragma once
 
+#include <string>
 #include <SFML/Graphics.hpp>
 
 namespace managers{
     class Settings{
         private:
             sf::VideoMode windowDim;
+            std::string windowName;
             sf::Time frameTime;
+            float frameLimit;
 
         public:
-            void setWindowDim(int height, int width);
+            void setWindowDim(unsigned int height, unsigned int width);
             sf::VideoMode getWindowDim();
             void setWindowName(std::string name);
             std::string getWindowName();
             void setFrameTime(sf::Time time);
             sf::Time getFrameTime();
+            void setFrameLimit(float limit);
+            float getFrameLimit();
 
         /* SINGLETON CODE */
         private:

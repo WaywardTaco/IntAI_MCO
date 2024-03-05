@@ -7,7 +7,7 @@
 #include "../../Model/enums/TextureType.hpp"
 
 namespace managers{
-    class TextureManager{
+    class SceneManager{
         private:
             std::unordered_map<TextureType, std::unordered_map<std::string, std::string>> texturePaths;
             std::unordered_map<TextureType, std::vector<sf::Texture*>> loadedTextures;
@@ -20,11 +20,11 @@ namespace managers{
 
         /* SINGLETON CODE */
         private:
-            static TextureManager* SHARED_INSTANCE;
-            TextureManager();
-            TextureManager(const TextureManager&);
-            TextureManager& operator = (const TextureManager&);
+            static SceneManager* SHARED_INSTANCE;
+            SceneManager();
+            SceneManager(const SceneManager&);
+            SceneManager& operator = (const SceneManager&);
         public:
-            TextureManager* Instance();
+            SceneManager* Instance();
     };
 }
