@@ -3,15 +3,18 @@
 
 using namespace components;
 
-Component::Component(std::string name, ComponentType type, GameObject* owner){
-    this->owner = owner;
+Component::Component(std::string name, ComponentType type){
     this->type = type;
-    this->name = this->owner->getName() + name;
+    this->name = name;
 }
 
 Component::~Component(){
     this->owner = NULL;
     this->type = ComponentType::NONE;
+}
+
+void Component::attachOwner(GameObject* owner){
+    this->owner = owner;
 }
 
 void Component::detachOwner(){

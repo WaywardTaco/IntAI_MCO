@@ -1,19 +1,23 @@
 
-#pragma once
+#include "GenericRenderer.hpp"
 
-#include <string>
-#include <SFML/Graphics.hpp>
-#include "../Component.hpp"
+using namespace components;
 
-namespace components {
-    class GenericRenderer : public Component {
-        protected:
-            sf::RenderWindow window;
+GenericRenderer::GenericRenderer(std::string name) :
+    Component(name, ComponentType::RENDERER),
+    drawables({}),
+    window(NULL){}
 
-        public:
-            GenericRenderer(std::string name, GameObject* owner);
-
-            virtual void perform();
-            void assignWindow(sf::RenderWindow* window);
-    };
+void GenericRenderer::perform(){
+    for(sf::Drawable* drawable : this->drawables)
+        this->window->draw(*drawable);
 }
+
+void GenericRenderer::assignWindow(sf::RenderWindow* window){
+    this->window = window;
+}
+
+void GenericRenderer::assignDrawable(sf::Drawable* drawable){
+    this->drawables.push_back(drawable);
+}
+ 

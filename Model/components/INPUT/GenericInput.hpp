@@ -7,13 +7,14 @@
 namespace components {
     class GenericInput : public Component {
         private:
-            sf::Event Event;
+            sf::Event event;
 
         public:
-            GenericInput(std::string name, GameObject* owner);
+            GenericInput(std::string name);
+
+            virtual void processKeyInput(sf::Keyboard::Key key, bool isPressed) = 0;
 
             virtual void perform();
             void assignEvent(sf::Event event);
-
     };
 }

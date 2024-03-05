@@ -11,7 +11,7 @@ namespace components {
             sf::Time deltaTime;
 
         public:
-            GenericScript(std::string name, GameObject* owner);
+            GenericScript(std::string name);
 
             virtual void perform() = 0;
             void assignDeltaTime(sf::Time deltaTime);
