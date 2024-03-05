@@ -2,17 +2,17 @@
 #pragma once
 
 namespace managers{
-    class SceneManager{
+    class TextureManager{
         public:
             void checkLoadScene();
 
         /* SINGLETON CODE */
         private:
-            static SceneManager* SHARED_INSTANCE;
-            SceneManager();
-            SceneManager(const SceneManager&);
-            SceneManager& operator = (const SceneManager&);
+            static TextureManager* SHARED_INSTANCE;
+            TextureManager();
+            TextureManager(const TextureManager&);
+            TextureManager& operator = (const TextureManager&);
         public:
-            static SceneManager* Instance();
+            static TextureManager* Instance();
     };
 }

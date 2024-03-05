@@ -7,7 +7,7 @@ Game::Game() :
     window(Settings::Instance()->getWindowDim(), Settings::Instance()->getWindowName()),
     windowToClose(false)
 {
-    
+
 }
 
 void Game::run(){
@@ -26,7 +26,7 @@ void Game::run(){
             this->update();
         }
 
-        SceneManager::Instance()->checkLoadScene();
+        TextureManager::Instance()->checkLoadScene();
         this->render();
     }
 }

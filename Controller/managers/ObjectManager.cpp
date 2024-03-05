@@ -52,15 +52,26 @@ void ObjectManager::draw(sf::RenderWindow* window){
 }
 
 void ObjectManager::addObject(GameObject* object){
-
+    this->vecObjects.push_back(object);
+    this->mapObjects[object->getName()] = object;
+    object->initialize();
 }
 
 GameObject* ObjectManager::findObjectByName(std::string name){
-
+    if(this->mapObjects[name] == NULL){
+        std::cout << "Error: Object [" << name << "] not found!" << std::endl;
+        return NULL;
+    }
+    
+    return this->mapObjects[name];
 }
 
 void ObjectManager::deleteAllObjects(){
+    for(GameObject* object : vecObjects)
+        delete object;
 
+    vecObjects.clear();
+    mapObjects.clear();
 }
 
 /* SINGLETON CODE */
