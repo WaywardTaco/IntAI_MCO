@@ -14,7 +14,7 @@ void MainMenuScene::onLoadResources(){
 }
 
 void MainMenuScene::onLoadObjects(){
-    ObjectManager::Instance()->addObject((GameObject*) new Entity());
+    ObjectManager::Instance()->addObject((GameObject*) new Tank("Tank"));
 }
 
 void MainMenuScene::onUnloadResources(){

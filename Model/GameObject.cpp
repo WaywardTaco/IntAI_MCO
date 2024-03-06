@@ -84,6 +84,9 @@ void GameObject::setPosition(sf::Vector2f position){
     this->position = position;
     this->sprite->setPosition(position);
 }
+void GameObject::movePosition(sf::Vector2f move){
+    this->setPosition({this->position.x + move.x, this->position.y + move.y});
+}
 
 sf::FloatRect GameObject::getBounds(){
     return this->sprite->getGlobalBounds();

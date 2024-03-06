@@ -21,12 +21,16 @@
 
 #include "Model/components/Component.cpp"
 #include "Model/components/INPUT/GenericInput.cpp"
+#include "Model/components/INPUT/MovementInput.cpp"
+#include "Model/components/INPUT/PlayerShipMoveInput.cpp"
 #include "Model/components/RENDERER/GenericRenderer.cpp"
 #include "Model/components/SCRIPT/GenericScript.cpp"
+#include "Model/components/SCRIPT/ShipMoveScript.cpp"
 
 #include "Model/GameObject.cpp"
 
 #include "Model/entities/Entity.cpp"
+#include "Model/entities/Tank.cpp"
 #include "Model/entities/Base.hpp"
 
 #include "Model/uiElements/GenericButton.hpp"

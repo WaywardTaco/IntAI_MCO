@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Scene.hpp"
-#include "../entities/Entity.hpp"
+#include "../entities/Tank.hpp"
 
 namespace scenes {
     using namespace entities;

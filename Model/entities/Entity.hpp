@@ -1,22 +1,21 @@
 
 #pragma once
 
+#include <string>
 #include "../enums/ObjectType.hpp"
 #include "../enums/TextureType.hpp"
-#include "../GameObject.hpp"
 #include "../../Controller/managers/TextureManager.hpp"
-#include "../../View/AnimateTexture.hpp"
+#include "../GameObject.hpp"
 #include "../components/RENDERER/GenericRenderer.hpp"
 
 namespace entities {
+    using namespace components;
     using namespace managers;
     using namespace models;
-    using namespace view;
-    using namespace components;
     class Entity : public GameObject {
         public:
-            Entity();
+            Entity(std::string name, ObjectType type);
 
-            void initialize();
+            virtual void initialize() = 0;
     };
 }

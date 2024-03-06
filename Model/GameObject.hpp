@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include "enums/ObjectType.hpp"
 #include "enums/ComponentType.hpp"
+#include "../Controller/managers/TextureManager.hpp"
 #include "components/Component.hpp"
 #include "../View/AnimateTexture.hpp"
 
@@ -39,6 +40,7 @@ namespace models {
             void setTexture(AnimateTexture* texture);
             sf::Vector2f getPosition();
             void setPosition(sf::Vector2f position);
+            void movePosition(sf::Vector2f position);
             sf::FloatRect getBounds();
             bool isEnabled();
             void enable();
