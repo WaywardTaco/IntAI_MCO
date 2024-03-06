@@ -70,7 +70,9 @@ void GameObject::setSprite(sf::Sprite* sprite){
 
 void GameObject::setTexture(AnimateTexture* texture){
     this->texture = texture;
-    this->sprite->setTexture(*this->texture->getFrame());
+    if(this->sprite == NULL)
+        this->sprite = new sf::Sprite;
+    this->sprite->setTexture(*(this->texture->getFrame()));
 }
 
 sf::Vector2f GameObject::getPosition(){

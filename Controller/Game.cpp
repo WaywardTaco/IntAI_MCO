@@ -13,6 +13,8 @@ void Game::run(){
 
     this->window.setFramerateLimit(Settings::Instance()->getFrameLimit());
 
+    SceneManager::Instance()->loadScene(SceneTag::MAIN_MENU);
+
     while(this->window.isOpen()){
         sf::Time timePerFrame = Settings::Instance()->getFrameTime();
         timeSinceUpdate += clock.restart();

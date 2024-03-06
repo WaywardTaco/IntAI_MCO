@@ -2,10 +2,14 @@
 #pragma once
 
 #include "../enums/SceneTag.hpp"
+#include "../enums/TextureType.hpp"
+#include "../../Controller/managers/ObjectManager.hpp"
+#include "../../Controller/managers/TextureManager.hpp"
 
 namespace scenes {
+    using namespace managers;
     class Scene {
-        private:
+        protected:
             SceneTag tag;
 
         public:

@@ -2,6 +2,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "../Model/enums/SceneTag.hpp"
 #include "managers/Settings.hpp"
 #include "managers/ObjectManager.hpp"
 #include "managers/SceneManager.hpp"

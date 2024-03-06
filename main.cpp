@@ -26,11 +26,13 @@
 
 #include "Model/GameObject.cpp"
 
+#include "Model/entities/Entity.cpp"
 #include "Model/entities/Base.hpp"
 
 #include "Model/uiElements/GenericButton.hpp"
 
 #include "Model/scenes/Scene.cpp"
+#include "Model/scenes/MainMenuScene.cpp"
 
 #include "Controller/Game.cpp"
 

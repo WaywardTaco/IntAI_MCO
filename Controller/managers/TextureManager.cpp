@@ -4,7 +4,10 @@
 using namespace managers;
 
 TextureManager::TextureManager(){
-    texturePaths[TextureType::PLAYER]["NAME"] = "NAME";
+    texturePaths[TextureType::TANK_ROLL_RIGHT]["Frame1"] = "View/Images/Tank/Roll/Tank_Roll_Right_Frame1.png";
+    texturePaths[TextureType::TANK_ROLL_RIGHT]["Frame2"] = "View/Images/Tank/Roll/Tank_Roll_Right_Frame2.png";
+    texturePaths[TextureType::TANK_ROLL_RIGHT]["Frame3"] = "View/Images/Tank/Roll/Tank_Roll_Right_Frame3.png";
+    texturePaths[TextureType::TANK_ROLL_RIGHT]["Frame4"] = "View/Images/Tank/Roll/Tank_Roll_Right_Frame4.png";
 }
 
 void TextureManager::loadTexture(TextureType type, std::string textureName){

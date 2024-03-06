@@ -6,6 +6,8 @@
 #include "../../Model/scenes/Scene.hpp"
 #include "ObjectManager.hpp"
 
+#include "../../Model/scenes/MainMenuScene.hpp"
+
 namespace managers{
     using namespace scenes;
     class SceneManager{

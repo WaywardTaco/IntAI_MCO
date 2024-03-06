@@ -3,6 +3,6 @@
 
 enum class TextureType : int {
     NONE = -1,
-    PLAYER,
+    TANK_ROLL_RIGHT,
     BACKGROUND,
 };

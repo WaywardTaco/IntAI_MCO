@@ -3,5 +3,5 @@
 
 enum class ObjectType : int {
     NONE = -1,
-    START,
+    TANK,
 };

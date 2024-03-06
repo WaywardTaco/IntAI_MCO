@@ -26,6 +26,6 @@ namespace managers{
             TextureManager(const TextureManager&);
             TextureManager& operator = (const TextureManager&);
         public:
-            TextureManager* Instance();
+            static TextureManager* Instance();
     };
 }

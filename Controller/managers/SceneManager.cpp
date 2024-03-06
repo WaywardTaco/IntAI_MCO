@@ -6,7 +6,7 @@ using namespace managers;
 SceneManager::SceneManager() :
     activeScene(NULL), loadNewScene(false), sceneToLoad(SceneTag::NONE)
 {
-    
+    this->registerScene(new MainMenuScene());
 }
 
 void SceneManager::registerScene(Scene* scene){

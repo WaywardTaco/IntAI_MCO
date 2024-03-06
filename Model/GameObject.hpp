@@ -13,7 +13,7 @@ namespace models {
     using namespace components;
     using namespace view;
     class GameObject{
-        private:
+        protected:
             std::vector<Component*> components;
             std::string name;
             ObjectType type;
