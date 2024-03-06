@@ -83,6 +83,10 @@ void GameObject::setPosition(sf::Vector2f position){
     this->sprite->setPosition(position);
 }
 
+sf::FloatRect GameObject::getBounds(){
+    return this->sprite->getGlobalBounds();
+}
+
 bool GameObject::isEnabled(){
     return enabled;
 }

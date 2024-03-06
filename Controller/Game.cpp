@@ -5,10 +5,7 @@ using namespace controllers;
 
 Game::Game() : 
     window(Settings::Instance()->getWindowDim(), Settings::Instance()->getWindowName()),
-    windowToClose(false)
-{
-
-}
+    windowToClose(false){}
 
 void Game::run(){
     sf::Clock clock;
@@ -17,10 +14,11 @@ void Game::run(){
     this->window.setFramerateLimit(Settings::Instance()->getFrameLimit());
 
     while(this->window.isOpen()){
+        sf::Time timePerFrame = Settings::Instance()->getFrameTime();
         timeSinceUpdate += clock.restart();
 
-        while(timeSinceUpdate > Settings::Instance()->getFrameTime()){
-            timeSinceUpdate -= Settings::Instance()->getFrameTime();
+        while(timeSinceUpdate > timePerFrame){
+            timeSinceUpdate -= timePerFrame;
 
             this->processEvents();
             this->update();
@@ -48,8 +46,9 @@ void Game::processEvents(){
 }
 
 void Game::update(){
-    if(this->windowToClose)
+    if(this->windowToClose){
         window.close();
+    }
 
     ObjectManager::Instance()->update(Settings::Instance()->getFrameTime());
 }

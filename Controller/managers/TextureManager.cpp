@@ -3,11 +3,11 @@
 
 using namespace managers;
 
-SceneManager::SceneManager(){
+TextureManager::TextureManager(){
     texturePaths[TextureType::PLAYER]["NAME"] = "NAME";
 }
 
-void SceneManager::loadTexture(TextureType type, std::string textureName){
+void TextureManager::loadTexture(TextureType type, std::string textureName){
     if(this->texturePaths[type][textureName].empty()){
         std::cout << "No texture of that type" << std::endl;
         return;
@@ -22,7 +22,7 @@ void SceneManager::loadTexture(TextureType type, std::string textureName){
     this->loadedTextures[type].push_back(texture);
 }
 
-std::vector<sf::Texture*> SceneManager::getTexturesOf(TextureType type){
+std::vector<sf::Texture*> TextureManager::getTexturesOf(TextureType type){
     if(this->loadedTextures[type].size() <= 0){
         std::cout << "Textures not loaded" << std::endl;
         return {};
@@ -31,14 +31,14 @@ std::vector<sf::Texture*> SceneManager::getTexturesOf(TextureType type){
     return this->loadedTextures[type];
 }
 
-sf::Texture* SceneManager::getTexture(TextureType type, unsigned int index = 0){
+sf::Texture* TextureManager::getTexture(TextureType type, unsigned int index = 0){
     if(index >= this->loadedTextures[type].size())
         return NULL;
 
     return this->loadedTextures[type][index];
 }
 
-void SceneManager::unloadTextures(){
+void TextureManager::unloadTextures(){
     for(std::unordered_map<TextureType, std::vector<sf::Texture*>>::iterator itr = loadedTextures.begin(); itr != loadedTextures.end(); itr++){
         for(sf::Texture* texture : itr->second){
             delete texture;
@@ -49,11 +49,11 @@ void SceneManager::unloadTextures(){
 }
 
 /* SINGLETON CODE */
-SceneManager* SceneManager::SHARED_INSTANCE = NULL;
-SceneManager::SceneManager(const SceneManager&){};
-SceneManager* SceneManager::Instance(){
+TextureManager* TextureManager::SHARED_INSTANCE = NULL;
+TextureManager::TextureManager(const TextureManager&){};
+TextureManager* TextureManager::Instance(){
     if(SHARED_INSTANCE == NULL)
-        SHARED_INSTANCE = new SceneManager();
+        SHARED_INSTANCE = new TextureManager();
 
     return SHARED_INSTANCE;
 }

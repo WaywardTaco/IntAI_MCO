@@ -45,7 +45,7 @@ bool SceneManager::isLoaded(SceneTag tag){
 SceneManager* SceneManager::SHARED_INSTANCE = NULL;
 SceneManager::SceneManager(const SceneManager&){}
 SceneManager* SceneManager::Instance(){
-    if(SHARED_INSTANCE = NULL)
+    if(SHARED_INSTANCE == NULL)
         SHARED_INSTANCE = new SceneManager();
 
     return SHARED_INSTANCE;

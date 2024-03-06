@@ -4,6 +4,10 @@
 #include <string>
 #include "../GameObject.hpp"
 
+namespace models {
+    class GameObject;
+}
+
 namespace components{
     using namespace models;
     class Component {

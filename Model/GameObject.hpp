@@ -39,6 +39,7 @@ namespace models {
             void setTexture(AnimateTexture* texture);
             sf::Vector2f getPosition();
             void setPosition(sf::Vector2f position);
+            sf::FloatRect getBounds();
             bool isEnabled();
             void enable();
             void disable();
