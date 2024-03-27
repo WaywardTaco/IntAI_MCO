@@ -7,10 +7,9 @@
 
 namespace entities {
     using namespace components;
-    class Tank : public Entity {
+    class Ship : public Entity {
         public:
-            Tank(std::string name);
-
+            Ship(std::string name);
             void initialize();
     };
 }

@@ -2,16 +2,15 @@
 #pragma once
 
 #include "Scene.hpp"
-#include "../entities/Tank.hpp"
+#include "../uiElements/Background.hpp"
 
 namespace scenes {
-    using namespace entities;
+    using namespace uiElements;
     class MainMenuScene : public Scene {
         public:
             MainMenuScene();
 
             void onLoadResources();
             void onLoadObjects();
-            void onUnloadResources();
     };
 }

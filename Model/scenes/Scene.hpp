@@ -17,7 +17,7 @@ namespace scenes {
 
             virtual void onLoadResources() = 0;
             virtual void onLoadObjects() = 0;
-            virtual void onUnloadResources() = 0;
+            virtual void onUnload();
 
             SceneTag getTag();
     };

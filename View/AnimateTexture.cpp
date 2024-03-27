@@ -4,34 +4,41 @@
 using namespace view;
 
 AnimateTexture::AnimateTexture(std::vector<sf::Texture*> frames) : 
-    frames(frames), currFrame(0) {}
+    frames(frames), 
+    currentFrameIndex(0),
+    animationStartFrameIndex(0),
+    animationEndFrameIndex(frames.size() - 1){}
 
-void AnimateTexture::nextFrame(){
-    this->currFrame = (this->currFrame + 1) % this->frames.size();
+void AnimateTexture::iterateFrames(){
+    this->currentFrameIndex = 
+        (this->currentFrameIndex - this->animationStartFrameIndex + 1) 
+        % (this->animationEndFrameIndex - this->animationStartFrameIndex + 1) 
+        + this->animationStartFrameIndex;
 }
 
-void AnimateTexture::setFrame(int frame){
-    if(frame < 0 || frame >= this->frames.size())
-        this->currFrame = this->frames.size() - 1;
-    else    
-        this->currFrame = (unsigned int) frame;
+void AnimateTexture::setFrame(int index){
+    if(index - this->animationStartFrameIndex < 0)
+        this->currentFrameIndex = this->animationStartFrameIndex;
+    else if (index + this->animationStartFrameIndex > this->animationEndFrameIndex)
+        this->currentFrameIndex = this->animationEndFrameIndex;
+    else
+        this->currentFrameIndex = index + this->animationStartFrameIndex;
 }
 
 sf::Texture* AnimateTexture::getFrame(){
-    return this->frames[this->currFrame];
+    return this->frames[this->currentFrameIndex];
 }
 
-sf::Texture* AnimateTexture::getFrameAt(int frame){
-    if(frame < 0 || frame >= this->frames.size())
-        return this->frames[this->frames.size() - 1];
+void AnimateTexture::setAnimationLimits(unsigned int startIndex, unsigned int endIndex){
+    if(startIndex > endIndex){
+        std::cout << "Undefined behavior, animation indecies inconsistent" << std::endl;
+        return;
+    }
+
+    if(endIndex > this->frames.size() - 1)
+        endIndex = this->frames.size() - 1;
     
-    return this->frames[frame];
+    this->animationStartFrameIndex = startIndex;
+    this->animationEndFrameIndex = endIndex;
 }
 
-unsigned int AnimateTexture::getFrameCount(){
-    return this->frames.size();
-}
-
-unsigned int AnimateTexture::getCurrFrame(){
-    return this->currFrame;
-}

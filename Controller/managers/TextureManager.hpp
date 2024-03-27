@@ -16,7 +16,6 @@ namespace managers{
         public:
             void loadTexture(TextureType type, std::string textureName);
             std::vector<sf::Texture*> getTexturesOf(TextureType type);
-            sf::Texture* getTexture(TextureType type, unsigned int index);
             void unloadTextures();
 
         /* SINGLETON CODE */

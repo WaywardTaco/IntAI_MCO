@@ -4,10 +4,12 @@
 using namespace managers;
 
 TextureManager::TextureManager(){
-    texturePaths[TextureType::TANK_ROLL_RIGHT]["Frame1"] = "View/Images/Tank/Roll/Tank_Roll_Right_Frame1.png";
+    texturePaths[TextureType::TANK_ROLL_RIGHT]["Frame1"] = "View/Images/Ship/shipNoBG.png";
     texturePaths[TextureType::TANK_ROLL_RIGHT]["Frame2"] = "View/Images/Tank/Roll/Tank_Roll_Right_Frame2.png";
     texturePaths[TextureType::TANK_ROLL_RIGHT]["Frame3"] = "View/Images/Tank/Roll/Tank_Roll_Right_Frame3.png";
     texturePaths[TextureType::TANK_ROLL_RIGHT]["Frame4"] = "View/Images/Tank/Roll/Tank_Roll_Right_Frame4.png";
+    texturePaths[TextureType::BULLET]["Frame1"] = "View/Images/Tank/Roll/Tank_Roll_Right_Frame4.png";
+    texturePaths[TextureType::BACKGROUND]["MainMenu"] = "View/Images/Background/SpaceBG.png";
 }
 
 void TextureManager::loadTexture(TextureType type, std::string textureName){
@@ -34,18 +36,10 @@ std::vector<sf::Texture*> TextureManager::getTexturesOf(TextureType type){
     return this->loadedTextures[type];
 }
 
-sf::Texture* TextureManager::getTexture(TextureType type, unsigned int index = 0){
-    if(index >= this->loadedTextures[type].size())
-        return NULL;
-
-    return this->loadedTextures[type][index];
-}
-
 void TextureManager::unloadTextures(){
     for(std::unordered_map<TextureType, std::vector<sf::Texture*>>::iterator itr = loadedTextures.begin(); itr != loadedTextures.end(); itr++){
-        for(sf::Texture* texture : itr->second){
+        for(sf::Texture* texture : itr->second)
             delete texture;
-        }
 
         itr->second.clear();
     }

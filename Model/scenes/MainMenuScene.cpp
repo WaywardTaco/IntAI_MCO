@@ -7,16 +7,10 @@ MainMenuScene::MainMenuScene() :
     Scene(SceneTag::MAIN_MENU){}
 
 void MainMenuScene::onLoadResources(){
-    TextureManager::Instance()->loadTexture(TextureType::TANK_ROLL_RIGHT, "Frame1");
-    TextureManager::Instance()->loadTexture(TextureType::TANK_ROLL_RIGHT, "Frame2");
-    TextureManager::Instance()->loadTexture(TextureType::TANK_ROLL_RIGHT, "Frame3");
-    TextureManager::Instance()->loadTexture(TextureType::TANK_ROLL_RIGHT, "Frame4");
+    TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "MainMenu");
 }
 
 void MainMenuScene::onLoadObjects(){
-    ObjectManager::Instance()->addObject((GameObject*) new Tank("Tank"));
-}
-
-void MainMenuScene::onUnloadResources(){
-    
+    Background* background = new Background("Background");
+    ObjectManager::Instance()->addObject(background);
 }

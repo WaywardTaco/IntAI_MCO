@@ -4,19 +4,20 @@
 using namespace controllers;
 
 Game::Game() : 
-    window(Settings::Instance()->getWindowDim(), Settings::Instance()->getWindowName()),
-    windowToClose(false){}
+    window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), GAME_NAME),
+    windowToClose(false)
+{
+    SceneManager::Instance()->loadScene(SceneTag::ARENA);
+}
 
 void Game::run(){
     sf::Clock clock;
     sf::Time timeSinceUpdate = sf::Time::Zero;
 
-    this->window.setFramerateLimit(Settings::Instance()->getFrameLimit());
+    this->window.setFramerateLimit(FRAME_LIMIT);
 
-    SceneManager::Instance()->loadScene(SceneTag::MAIN_MENU);
-
+    sf::Time timePerFrame = sf::seconds(FRAME_TIME);
     while(this->window.isOpen()){
-        sf::Time timePerFrame = Settings::Instance()->getFrameTime();
         timeSinceUpdate += clock.restart();
 
         while(timeSinceUpdate > timePerFrame){
@@ -33,7 +34,6 @@ void Game::run(){
 
 void Game::processEvents(){
     sf::Event event;
-
     while(this->window.pollEvent(event)){
         switch(event.type){
             case sf::Event::Closed:
@@ -45,21 +45,28 @@ void Game::processEvents(){
         }
     }
 
+    ColliderManager::Instance()->processCollisions();
 }
 
 void Game::update(){
-    if(this->windowToClose){
+    if(this->windowToClose)
         window.close();
-    }
 
-    ObjectManager::Instance()->update(Settings::Instance()->getFrameTime());
+    ObjectManager::Instance()->update(sf::seconds(FRAME_TIME));
 }
 
 void Game::render(){
     this->window.clear();
-
     ObjectManager::Instance()->draw(&this->window);
-
     this->window.display();
 }
 
+/* SINGLETON CODE */
+Game* Game::SHARED_INSTANCE = NULL;
+Game::Game(const Game&){}
+Game* Game::Instance(){
+    if(SHARED_INSTANCE == NULL)
+        SHARED_INSTANCE = new Game();
+
+    return SHARED_INSTANCE;
+}

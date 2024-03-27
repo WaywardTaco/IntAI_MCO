@@ -7,10 +7,15 @@
 #include <stack>
 #include <SFML/Graphics.hpp>
 
-#include "Controller/managers/Settings.cpp"
+#include "Config/GameSettings.hpp"
+#include "Config/BalanceSettings.hpp"
+#include "Config/ControlSettings.hpp"
+
 #include "Controller/managers/SceneManager.cpp"
 #include "Controller/managers/TextureManager.cpp"
 #include "Controller/managers/ObjectManager.cpp"
+#include "Controller/managers/ObjectPoolManager.cpp"
+#include "Controller/managers/ColliderManager.cpp"
 
 #include "Model/enums/ComponentType.hpp"
 #include "Model/enums/ObjectType.hpp"
@@ -23,25 +28,32 @@
 #include "Model/components/INPUT/GenericInput.cpp"
 #include "Model/components/INPUT/MovementInput.cpp"
 #include "Model/components/INPUT/PlayerShipMoveInput.cpp"
+#include "Model/components/COLLIDER/ColliderBase.cpp"
 #include "Model/components/RENDERER/GenericRenderer.cpp"
 #include "Model/components/SCRIPT/GenericScript.cpp"
 #include "Model/components/SCRIPT/ShipMoveScript.cpp"
+#include "Model/components/SCRIPT/BulletMoveScript.cpp"
 
 #include "Model/GameObject.cpp"
+#include "Model/ObjectPool.cpp"
 
 #include "Model/entities/Entity.cpp"
-#include "Model/entities/Tank.cpp"
+#include "Model/entities/Ship.cpp"
+#include "Model/entities/Bullet.cpp"
 #include "Model/entities/Base.hpp"
 
 #include "Model/uiElements/GenericButton.hpp"
+#include "Model/uiElements/Background.cpp"
 
 #include "Model/scenes/Scene.cpp"
 #include "Model/scenes/MainMenuScene.cpp"
+#include "Model/scenes/ArenaScene.cpp"
 
 #include "Controller/Game.cpp"
 
+/***********************************************/
+
 int main(){
-    Game game;
-    game.run();
+    Game::Instance()->run();
     return 0;
 }

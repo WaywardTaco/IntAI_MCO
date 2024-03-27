@@ -20,6 +20,9 @@ void PlayerShipMovementInput::processKeyInput(sf::Keyboard::Key key, bool isPres
         case sf::Keyboard::D:
             this->moveRight = isPressed;
             break;
+        case sf::Keyboard::Space:
+            this->spacePress = isPressed;
+            break;
     }
 }
 

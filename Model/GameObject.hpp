@@ -15,6 +15,8 @@ namespace models {
     using namespace view;
     class GameObject{
         protected:
+            GameObject* parent;
+            std::vector<GameObject*> children;
             std::vector<Component*> components;
             std::string name;
             ObjectType type;
@@ -25,11 +27,18 @@ namespace models {
 
         public:
             GameObject(std::string name, ObjectType type);
+            virtual GameObject* copy();
 
             virtual void initialize() = 0;
+            virtual void onActivate();
+            virtual void onRelease();
 
             void attachComponent(Component* component);
             void detachComponent(Component* component);
+
+            void attachParent(GameObject* parent);
+            void detachParent();
+            GameObject* getParent();
 
             std::vector<Component*> getComponents(ComponentType type);
             Component* getComponent(std::string name);
@@ -39,6 +48,7 @@ namespace models {
             void setSprite(sf::Sprite* sprite);
             void setTexture(AnimateTexture* texture);
             sf::Vector2f getPosition();
+            float getRotation();
             void setPosition(sf::Vector2f position);
             void movePosition(sf::Vector2f position);
             sf::FloatRect getBounds();

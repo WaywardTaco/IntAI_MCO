@@ -3,5 +3,10 @@
 
 enum class ObjectType : int {
     NONE = -1,
-    TANK,
+    SHIP,
+    BULLET,
+    BASE,
+    POWERUP,
+    DESTRUCTABLE,
+    BACKGROUND,
 };

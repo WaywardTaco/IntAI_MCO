@@ -21,3 +21,27 @@ bool MovementInput::getLeft(){
 bool MovementInput::getRight(){
     return this->moveRight ;
 }
+
+bool MovementInput::getSpace(){
+    return this->spacePress ;
+}
+
+void MovementInput::resetUp(){
+    this->moveUp = false ;
+}
+
+void MovementInput::resetDown(){
+    this->moveDown = false ;
+}
+
+void MovementInput::resetLeft(){
+    this->moveLeft = false ;
+}
+
+void MovementInput::resetRight(){
+    this->moveRight = false ;
+}
+
+void MovementInput::resetSpace(){
+    this->spacePress = false ;
+}

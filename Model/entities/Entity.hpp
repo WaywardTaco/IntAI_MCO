@@ -17,5 +17,6 @@ namespace entities {
             Entity(std::string name, ObjectType type);
 
             virtual void initialize() = 0;
+            virtual GameObject* copy();
     };
 }

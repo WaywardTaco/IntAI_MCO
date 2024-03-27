@@ -13,13 +13,29 @@ void ShipMoveScript::perform(){
         return;
     }
 
-    if(input->getUp())
-        this->getOwner()->movePosition({0, -2});
-    if(input->getDown())
-        this->getOwner()->movePosition({0, 2});
-    if(input->getLeft())
-        this->getOwner()->movePosition({-2, 0});
-    if(input->getRight())
-        this->getOwner()->movePosition({2, 0});
+    if(this->owner->getName() == "Ship2"){
+        return;
+    }
+
+    if(input->getUp()){
+        this->getOwner()->movePosition({0, -SHIP_SPEED * this->deltaTime.asSeconds()});
+        // input->resetUp();
+    }
+    if(input->getDown()){
+        this->getOwner()->movePosition({0, SHIP_SPEED * this->deltaTime.asSeconds()});
+        // input->resetDown();
+    }
+    if(input->getLeft()){
+        this->getOwner()->movePosition({-SHIP_SPEED * this->deltaTime.asSeconds(), 0});
+        // input->resetLeft();
+    }
+    if(input->getRight()){
+        this->getOwner()->movePosition({SHIP_SPEED * this->deltaTime.asSeconds(), 0});
+        // input->resetRight();
+    }
+    if(input->getSpace()){
+        ObjectPoolManager::Instance()->getObjectPoolByName(this->owner->getName() + "Bullets")->getObject();
+        input->resetSpace();
+    }
 
 }

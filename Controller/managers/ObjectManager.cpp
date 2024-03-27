@@ -57,6 +57,23 @@ void ObjectManager::addObject(GameObject* object){
     object->initialize();
 }
 
+void ObjectManager::deleteObject(GameObject* object){
+    int 
+        index = -1,
+        size = this->vecObjects.size();
+    for(int i = 0; i < size; i++){
+        if(this->vecObjects[i] != object)
+            continue;
+        index = i;
+        break;
+    }
+    if(index != -1){
+        this->mapObjects.erase(this->vecObjects[index]->getName());
+        this->vecObjects.erase(this->vecObjects.begin() + index);
+    }
+    delete object;
+}
+
 GameObject* ObjectManager::findObjectByName(std::string name){
     if(this->mapObjects[name] == NULL){
         std::cout << "Error: Object [" << name << "] not found!" << std::endl;
@@ -78,11 +95,11 @@ std::vector<GameObject*> ObjectManager::getObjects(ObjectType type){
 }
 
 void ObjectManager::deleteAllObjects(){
-    for(GameObject* object : vecObjects)
+    for(GameObject* object : this->vecObjects)
         delete object;
 
-    vecObjects.clear();
-    mapObjects.clear();
+    this->vecObjects.clear();
+    this->mapObjects.clear();
 }
 
 /* SINGLETON CODE */

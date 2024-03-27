@@ -28,6 +28,7 @@ namespace managers{
             void draw(sf::RenderWindow* window);
 
             void addObject(GameObject* object);
+            void deleteObject(GameObject* object);
             GameObject* findObjectByName(std::string name);
             std::vector<GameObject*> getObjects(ObjectType type);
             void deleteAllObjects();

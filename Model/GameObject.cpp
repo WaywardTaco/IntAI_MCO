@@ -4,12 +4,22 @@
 using namespace models;
 
 GameObject::GameObject(std::string name, ObjectType type) :
+    parent(NULL),
+    children({}),
     name(name), 
     type(type),
     sprite(NULL),
     texture(NULL),
     position({0.f, 0.f}), 
     enabled(true){}
+
+void GameObject::onActivate(){}
+
+void GameObject::onRelease(){}
+
+GameObject* GameObject::copy(){
+    return this;
+}
 
 void GameObject::attachComponent(Component* component){
     component->attachOwner(this);
@@ -29,6 +39,35 @@ void GameObject::detachComponent(Component* component){
         components[found]->detachOwner();
         components.erase(this->components.begin() + found);
     }
+}
+
+void GameObject::attachParent(GameObject* parent){
+    this->parent = parent;
+    this->parent->children.push_back(this);
+}
+
+void GameObject::detachParent(){
+    if(this->parent == NULL)
+        return;
+    
+    int 
+        index = -1, 
+        size = this->parent->children.size();
+    for(int i = 0; i < size; i++){
+        if(this->parent->children[i] == this){
+            index = i;
+            break;
+        }
+    }
+
+    if(index != -1)
+        this->parent->children.erase(this->parent->children.begin() + index);
+
+    this->parent = NULL;
+}
+
+GameObject* GameObject::getParent(){
+    return this->parent;
 }
 
 std::vector<Component*> GameObject::getComponents(ComponentType type){
@@ -78,6 +117,10 @@ void GameObject::setTexture(AnimateTexture* texture){
 sf::Vector2f GameObject::getPosition(){
     this->position = this->sprite->getPosition();
     return this->position;
+}
+
+float GameObject::getRotation(){
+    return this->sprite->getRotation();
 }
 
 void GameObject::setPosition(sf::Vector2f position){

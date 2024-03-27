@@ -10,7 +10,8 @@ namespace components {
                 moveUp,
                 moveDown,
                 moveLeft,
-                moveRight;
+                moveRight,
+                spacePress;
         public:
             MovementInput(std::string name);
 
@@ -21,5 +22,12 @@ namespace components {
             bool getDown();
             bool getLeft();
             bool getRight();
+            bool getSpace();
+
+            void resetUp();
+            void resetDown();
+            void resetLeft();
+            void resetRight();
+            void resetSpace();
     };
 }

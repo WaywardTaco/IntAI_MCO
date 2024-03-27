@@ -5,8 +5,11 @@
 #include "../../Model/enums/SceneTag.hpp"
 #include "../../Model/scenes/Scene.hpp"
 #include "ObjectManager.hpp"
+#include "TextureManager.hpp"
+#include "ColliderManager.hpp"
 
 #include "../../Model/scenes/MainMenuScene.hpp"
+#include "../../Model/scenes/ArenaScene.hpp"
 
 namespace managers{
     using namespace scenes;
@@ -18,11 +21,12 @@ namespace managers{
             SceneTag sceneToLoad;
 
         public:
-            void registerScene(Scene* scene);
             void loadScene(SceneTag tag);
-            void unloadScene();
             void checkLoadScene();
             bool isLoaded(SceneTag tag);
+
+        private:
+            void registerScene(Scene* scene);
 
         /* SINGLETON CODE */
         private:

@@ -8,3 +8,5 @@ Scene::Scene(SceneTag tag) :
 SceneTag Scene::getTag(){
     return this->tag;
 }
+
+void Scene::onUnload(){}

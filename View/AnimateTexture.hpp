@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <iostream>
 #include <vector>
 #include <SFML/Graphics.hpp>
 
@@ -8,16 +9,18 @@ namespace view {
     class AnimateTexture {
         private:
             std::vector<sf::Texture*> frames;
-            unsigned int currFrame;
+            unsigned int 
+                currentFrameIndex,
+                animationStartFrameIndex,
+                animationEndFrameIndex;
 
         public:
             AnimateTexture(std::vector<sf::Texture*> frames);
-
-            void nextFrame();
-            void setFrame(int frame);
+            
+            void iterateFrames();
             sf::Texture* getFrame();
-            sf::Texture* getFrameAt(int frame);
-            unsigned int getFrameCount();
-            unsigned int getCurrFrame();
+            void setFrame(int index);
+
+            void setAnimationLimits(unsigned int startFrame, unsigned int endFrame);
     };
 }

@@ -7,6 +7,7 @@ SceneManager::SceneManager() :
     activeScene(NULL), loadNewScene(false), sceneToLoad(SceneTag::NONE)
 {
     this->registerScene(new MainMenuScene());
+    this->registerScene(new ArenaScene());
 }
 
 void SceneManager::registerScene(Scene* scene){
@@ -18,28 +19,28 @@ void SceneManager::loadScene(SceneTag tag){
     this->sceneToLoad = tag;
 }
 
-void SceneManager::unloadScene(){
-    ObjectManager::Instance()->deleteAllObjects();
-
-    if(this->activeScene != NULL)
-        activeScene->onUnloadResources();
-}
-
 void SceneManager::checkLoadScene(){
     if(!this->loadNewScene)
         return;
 
-    this->unloadScene();
+    /* Scene Unloading */
+    if(this->activeScene != NULL)
+        this->activeScene->onUnload();
+    ColliderManager::Instance()->clearAllColliders();
+    ObjectManager::Instance()->deleteAllObjects();
+    TextureManager::Instance()->unloadTextures();
+
+    /* Scene Loading */
     this->activeScene = this->scenes[this->sceneToLoad];
     this->activeScene->onLoadResources();
     this->activeScene->onLoadObjects();
+    
     this->loadNewScene = false;
 }
 
 bool SceneManager::isLoaded(SceneTag tag){
     return (tag == this->activeScene->getTag());
 }
-
 
 /* SINGLETON CODE */
 SceneManager* SceneManager::SHARED_INSTANCE = NULL;
