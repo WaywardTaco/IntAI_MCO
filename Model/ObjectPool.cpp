@@ -4,7 +4,12 @@
 using namespace models;
 
 ObjectPool::ObjectPool(std::string name, int poolSize, GameObject* refObject) :
-    name(name), poolSize(poolSize), refObject(refObject), availableObjects({}), usedObjects({}){}
+    name(name), 
+    poolType(refObject->getType()),
+    poolSize(poolSize), 
+    refObject(refObject), 
+    availableObjects({}), 
+    usedObjects({}){}
 
 ObjectPool::~ObjectPool(){
     for(GameObject* object : this->usedObjects)

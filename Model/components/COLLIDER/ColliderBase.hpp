@@ -17,12 +17,14 @@ namespace components{
             std::vector<ColliderBase*> collisions;
 
         public:
+            ColliderBase(std::string name, sf::Sprite referenceSprite);
             ColliderBase(std::string name, float xRadius, float yRadius);
 
             void perform();
 
             void addCollision(ColliderBase* collider);
             void removeCollision(ColliderBase* collider);
+            void removeAllCollisions();
 
             float getXRadius();
             float getYRadius();

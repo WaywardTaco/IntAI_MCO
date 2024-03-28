@@ -4,12 +4,22 @@
 using namespace managers;
 
 TextureManager::TextureManager(){
-    texturePaths[TextureType::TANK_ROLL_RIGHT]["Frame1"] = "View/Images/Ship/shipNoBG.png";
-    texturePaths[TextureType::TANK_ROLL_RIGHT]["Frame2"] = "View/Images/Tank/Roll/Tank_Roll_Right_Frame2.png";
-    texturePaths[TextureType::TANK_ROLL_RIGHT]["Frame3"] = "View/Images/Tank/Roll/Tank_Roll_Right_Frame3.png";
-    texturePaths[TextureType::TANK_ROLL_RIGHT]["Frame4"] = "View/Images/Tank/Roll/Tank_Roll_Right_Frame4.png";
-    texturePaths[TextureType::BULLET]["Frame1"] = "View/Images/Tank/Roll/Tank_Roll_Right_Frame4.png";
+    texturePaths[TextureType::ASTEROID]["Frame1"] = "View/Images/Asteroid/Asteroid.PNG" ;
+    texturePaths[TextureType::BACKGROUND]["StartMenu"] = "View/Images/Background/SpaceMainMenu.png";
     texturePaths[TextureType::BACKGROUND]["MainMenu"] = "View/Images/Background/SpaceBG.png";
+    texturePaths[TextureType::BASE]["Normal"] = "View/Images/Base/Base_Normal.PNG" ;
+    texturePaths[TextureType::BASE]["Ruined"] = "View/Images/Base/Base_Ruined.PNG" ;
+    texturePaths[TextureType::BASE]["Shielded"] = "View/Images/Base/Base_Shielded.PNG" ;
+    texturePaths[TextureType::BULLET]["Frame1"] = "View/Images/Tank/Roll/Tank_Roll_Right_Frame4.png";
+    texturePaths[TextureType::POWERUP]["Chaos"] = "View/Images/Powerup/Powerup_Chaos.PNG" ;
+    texturePaths[TextureType::POWERUP]["Mine"] = "View/Images/Powerup/Powerup_Mine.PNG" ;
+    texturePaths[TextureType::POWERUP]["Shield"] = "View/Images/Powerup/Powerup_Shield.PNG" ;
+    texturePaths[TextureType::SHIP]["Basic"] = "View/Images/Ship/Ship_Basic.PNG" ;
+    texturePaths[TextureType::SHIP]["Gunner"] = "View/Images/Ship/Ship_Basic.PNG" ;
+    texturePaths[TextureType::SHIP]["Intercepter"] = "View/Images/Ship/Ship_Intercepter.PNG" ;
+    texturePaths[TextureType::SHIP]["Tanker"] = "View/Images/Ship/Ship_Tanker.PNG" ;
+
+    texturePaths[TextureType::TANK_ROLL_RIGHT]["Frame1"] = "View/Images/Ship/shipNoBG.png";
 }
 
 void TextureManager::loadTexture(TextureType type, std::string textureName){

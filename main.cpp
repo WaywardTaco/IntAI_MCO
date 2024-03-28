@@ -26,21 +26,22 @@
 
 #include "Model/components/Component.cpp"
 #include "Model/components/INPUT/GenericInput.cpp"
-#include "Model/components/INPUT/MovementInput.cpp"
-#include "Model/components/INPUT/PlayerShipMoveInput.cpp"
+#include "Model/components/INPUT/PlayerInput.cpp"
 #include "Model/components/COLLIDER/ColliderBase.cpp"
 #include "Model/components/RENDERER/GenericRenderer.cpp"
 #include "Model/components/SCRIPT/GenericScript.cpp"
-#include "Model/components/SCRIPT/ShipMoveScript.cpp"
+#include "Model/components/SCRIPT/PlayerShipActions.cpp"
 #include "Model/components/SCRIPT/BulletMoveScript.cpp"
+#include "Model/components/SCRIPT/PowerupScript.cpp"
 
 #include "Model/GameObject.cpp"
 #include "Model/ObjectPool.cpp"
 
 #include "Model/entities/Entity.cpp"
-#include "Model/entities/Ship.cpp"
+#include "Model/entities/PlayerShip.cpp"
 #include "Model/entities/Bullet.cpp"
 #include "Model/entities/Base.hpp"
+#include "Model/entities/Powerup.cpp"
 
 #include "Model/uiElements/GenericButton.hpp"
 #include "Model/uiElements/Background.cpp"

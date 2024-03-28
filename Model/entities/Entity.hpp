@@ -15,8 +15,8 @@ namespace entities {
     class Entity : public GameObject {
         public:
             Entity(std::string name, ObjectType type);
-
-            virtual void initialize() = 0;
+            
+            virtual void initialize();
             virtual GameObject* copy();
     };
 }

@@ -5,13 +5,13 @@
 #include "../../../Config/BalanceSettings.hpp"
 #include "../../../Controller/managers/ObjectPoolManager.hpp"
 #include "GenericScript.hpp"
-#include "../INPUT/MovementInput.hpp"
+#include "../INPUT/PlayerInput.hpp"
 
 namespace components {
     using namespace managers;
-    class ShipMoveScript : public GenericScript {
+    class PlayerShipActions : public GenericScript {
         public:
-            ShipMoveScript(std::string name);
+            PlayerShipActions(std::string name);
             void perform();
     };
 }

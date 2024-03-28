@@ -17,10 +17,9 @@ void BulletMoveScript::perform(){
     this->owner->movePosition({this->deltaTime.asSeconds() * BULLET_SPEED, 0.f});
     this->elapsedTime += this->deltaTime.asSeconds();
     if(this->elapsedTime >= BULLET_MAX_SECONDS || collider->hasColliding()){
-        for(ColliderBase* collision : collider->getCollisions()){
-            std::cout << "Collision with " << collision->getOwner()->getName() << std::endl;
+        for(ColliderBase* collision : collider->getCollisions())
             collider->removeCollision(collision);
-        }
+        
         ObjectPoolManager::Instance()->getObjectPoolByName((this->owner)->getParent()->getName() + "Bullets")->releaseObject(this->owner);
         this->elapsedTime = 0;
     }

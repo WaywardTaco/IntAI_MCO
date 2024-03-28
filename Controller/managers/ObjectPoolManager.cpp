@@ -4,24 +4,29 @@
 using namespace managers;
 
 void ObjectPoolManager::registerPool(ObjectPool* objectPool){
-    this->mapObjectPools[objectPool->getPoolType()] = objectPool;
+    this->mapObjectPools[objectPool->getPoolType()].push_back(objectPool);
 }
 
 void ObjectPoolManager::clearAllPools(){
-    for(std::unordered_map<ObjectType, ObjectPool*>::iterator itr = this->mapObjectPools.begin(); itr != this->mapObjectPools.end(); itr++)
-        delete itr->second;
+    for(std::unordered_map<ObjectType, std::vector<ObjectPool*>>::iterator itr = this->mapObjectPools.begin(); itr != this->mapObjectPools.end(); itr++){
+        for(ObjectPool* pool : itr->second)
+            delete pool;
+        itr->second.clear();
+    }
 }
 
 ObjectPool* ObjectPoolManager::getObjectPoolByName(std::string name){
-    for(std::unordered_map<ObjectType, ObjectPool*>::iterator itr = this->mapObjectPools.begin(); itr != this->mapObjectPools.end(); itr++){
-        if(itr->second->getName() == name)
-            return itr->second;
+    for(std::unordered_map<ObjectType, std::vector<ObjectPool*>>::iterator itr = this->mapObjectPools.begin(); itr != this->mapObjectPools.end(); itr++){
+        for(ObjectPool* pool : itr->second){
+            if(pool->getName() == name)
+                return pool;
+        }
     }
     return NULL;
 }
 
 ObjectPool* ObjectPoolManager::getObjectPool(ObjectType tag){
-    return this->mapObjectPools[tag];
+    return this->mapObjectPools[tag].front();
 }
 
 /* SINGLETON CODE */

@@ -70,6 +70,13 @@ GameObject* GameObject::getParent(){
     return this->parent;
 }
 
+void GameObject::centerOrigin(){
+    if(this->sprite == NULL)
+        return;
+
+    this->sprite->setOrigin(this->sprite->getTexture()->getSize().x/2.f, this->sprite->getTexture()->getSize().y/2.f);
+}
+
 std::vector<Component*> GameObject::getComponents(ComponentType type){
     std::vector<Component*> output = {};
 

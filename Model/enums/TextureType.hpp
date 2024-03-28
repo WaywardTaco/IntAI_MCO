@@ -3,7 +3,11 @@
 
 enum class TextureType : int {
     NONE = -1,
-    TANK_ROLL_RIGHT,
+    ASTEROID,
     BACKGROUND,
+    BASE,
     BULLET,
+    POWERUP,
+    SHIP,
+    TANK_ROLL_RIGHT,
 };

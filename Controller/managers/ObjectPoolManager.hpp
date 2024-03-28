@@ -9,7 +9,7 @@
 namespace managers {
     class ObjectPoolManager {
         private:
-            std::unordered_map<ObjectType, ObjectPool*> mapObjectPools;
+            std::unordered_map<ObjectType, std::vector<ObjectPool*>> mapObjectPools;
 
         public:
             void registerPool(ObjectPool* objectPool);

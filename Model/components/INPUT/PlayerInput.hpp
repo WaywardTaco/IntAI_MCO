@@ -2,9 +2,10 @@
 #pragma once
 
 #include "GenericInput.hpp"
+#include "../../../Config/ControlSettings.hpp"
 
 namespace components {
-    class MovementInput : public GenericInput {
+    class PlayerInput : public GenericInput {
         protected:
             bool
                 moveUp,
@@ -13,10 +14,10 @@ namespace components {
                 moveRight,
                 spacePress;
         public:
-            MovementInput(std::string name);
+            PlayerInput(std::string name);
 
-            virtual void processKeyInput(sf::Keyboard::Key key, bool isPressed) = 0;
-            virtual void processMousePress(sf::Event::MouseButtonEvent buttonEvent, bool isPressed) = 0;
+            virtual void processKeyInput(sf::Keyboard::Key key, bool isPressed);
+            virtual void processMousePress(sf::Event::MouseButtonEvent buttonEvent, bool isPressed);
 
             bool getUp();            
             bool getDown();
@@ -24,10 +25,6 @@ namespace components {
             bool getRight();
             bool getSpace();
 
-            void resetUp();
-            void resetDown();
-            void resetLeft();
-            void resetRight();
             void resetSpace();
     };
 }

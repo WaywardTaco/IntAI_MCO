@@ -40,6 +40,8 @@ namespace models {
             void detachParent();
             GameObject* getParent();
 
+            void centerOrigin();
+
             std::vector<Component*> getComponents(ComponentType type);
             Component* getComponent(std::string name);
             std::string getName();

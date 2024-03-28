@@ -1,11 +1,11 @@
 
-#include "Ship.hpp"
+#include "PlayerShip.hpp"
 
 using namespace entities;
 
-Ship::Ship(std::string name) : Entity(name, ObjectType::SHIP){}
+PlayerShip::PlayerShip(std::string name) : Entity(name, ObjectType::SHIP){}
 
-void Ship::initialize(){
+void PlayerShip::initialize(){
     this->setTexture(new AnimateTexture(TextureManager::Instance()->getTexturesOf(TextureType::SHIP)));
     this->sprite->scale(5.f, 5.f);
     this->centerOrigin();

@@ -3,6 +3,11 @@
 
 using namespace components;
 
+ColliderBase::ColliderBase(std::string name, sf::Sprite referenceSprite) :
+    ColliderBase(name, 
+    referenceSprite.getLocalBounds().width / 2.f * referenceSprite.getScale().x, 
+    referenceSprite.getLocalBounds().height / 2.f * referenceSprite.getScale().y){}
+
 ColliderBase::ColliderBase(std::string name, float xRadius, float yRadius) :
     Component(name, ComponentType::COLLIDER),
     xRadius(xRadius),
@@ -39,6 +44,11 @@ void ColliderBase::removeCollision(ColliderBase* collider){
         
     if(this->collisions.size() <= 0)
         this->hasCollisions = false;
+}
+
+void ColliderBase::removeAllCollisions(){
+    this->collisions.clear();
+    this->hasCollisions = false;
 }
 
 float ColliderBase::getXRadius(){

@@ -4,6 +4,8 @@
 #include "Entity.hpp"
 #include "../enums/PowerupType.hpp"
 #include "../enums/ObjectType.hpp"
+#include "../components/COLLIDER/ColliderBase.hpp"
+#include "../components/SCRIPT/PowerupScript.hpp"
 
 #include "../../View/AnimateTexture.hpp"
 #include "../../Controller/managers/TextureManager.hpp"
@@ -13,11 +15,13 @@ namespace entities{
     using namespace managers;
     class Powerup : public Entity {
         protected:
-            PowerupType type;
+            PowerupType powerupType;
 
         public:
-            Powerup(std::string name, PowerupType type);
+            Powerup(std::string name, PowerupType powerupType);
             void initialize();
             GameObject* copy();
+
+            PowerupType getPowerupType();
     };
 }
