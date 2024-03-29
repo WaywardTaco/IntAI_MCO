@@ -17,8 +17,19 @@ void BulletMoveScript::perform(){
     this->owner->movePosition({this->deltaTime.asSeconds() * BULLET_SPEED, 0.f});
     this->elapsedTime += this->deltaTime.asSeconds();
     if(this->elapsedTime >= BULLET_MAX_SECONDS || collider->hasColliding()){
-        for(ColliderBase* collision : collider->getCollisions())
+        for(ColliderBase* collision : collider->getCollisions()){
+            if(collision->getOwner()->getType() == ObjectType::BASE){
+                Base* base = (Base*) collision->getOwner();
+                if(base->getTeam() != ((Bullet*)this->getOwner())->getTeam())
+                    base->damage(BULLET_DAMAGE);
+            }
+            if(collision->getOwner()->getType() == ObjectType::SHIP){
+                Ship* enemy = (Ship*) collision->getOwner();
+                if(enemy->getTeam() != ((Bullet*)this->getOwner())->getTeam())
+                    enemy->damage(BULLET_DAMAGE);
+            }
             collider->removeCollision(collision);
+        }
         
         ObjectPoolManager::Instance()->getObjectPoolByName((this->owner)->getParent()->getName() + "Bullets")->releaseObject(this->owner);
         this->elapsedTime = 0;

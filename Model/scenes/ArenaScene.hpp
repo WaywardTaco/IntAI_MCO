@@ -10,8 +10,11 @@
 #include "Scene.hpp"
 #include "../uiElements/Background.hpp"
 #include "../entities/PlayerShip.hpp"
+#include "../entities/EnemyShip.hpp"
 #include "../entities/Bullet.hpp"
 #include "../entities/Powerup.hpp"
+#include "../entities/Base.hpp"
+#include "../systems/Spawner.hpp"
 #include "../ObjectPool.hpp"
 #include "../../View/AnimateTexture.hpp"
 

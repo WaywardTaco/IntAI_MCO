@@ -33,15 +33,23 @@
 #include "Model/components/SCRIPT/PlayerShipActions.cpp"
 #include "Model/components/SCRIPT/BulletMoveScript.cpp"
 #include "Model/components/SCRIPT/PowerupScript.cpp"
+#include "Model/components/SCRIPT/SpawnerScript.cpp"
 
 #include "Model/GameObject.cpp"
 #include "Model/ObjectPool.cpp"
 
 #include "Model/entities/Entity.cpp"
-#include "Model/entities/PlayerShip.cpp"
-#include "Model/entities/Bullet.cpp"
-#include "Model/entities/Base.hpp"
 #include "Model/entities/Powerup.cpp"
+
+#include "Model/entities/TeamMember.cpp"
+#include "Model/entities/Ship.cpp"
+#include "Model/entities/PlayerShip.cpp"
+#include "Model/entities/EnemyShip.cpp"
+#include "Model/entities/Bullet.cpp"
+#include "Model/entities/Base.cpp"
+
+#include "Model/systems/System.cpp"
+#include "Model/systems/Spawner.cpp"
 
 #include "Model/uiElements/GenericButton.hpp"
 #include "Model/uiElements/Background.cpp"

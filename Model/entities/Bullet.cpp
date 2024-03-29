@@ -4,7 +4,7 @@
 using namespace entities;
 
 Bullet::Bullet(std::string name, GameObject* owner) : 
-    Entity(name, ObjectType::BULLET) 
+    TeamMember(name, ObjectType::BULLET, 1.f, ((TeamMember*)owner)->getTeam()) 
 {
     this->attachParent(owner);
 }
@@ -32,4 +32,8 @@ void Bullet::onRelease(){
 
 GameObject* Bullet::copy(){
     return (GameObject*) new Bullet(this->getName(), this->getParent());
+}
+
+void Bullet::kill(){
+    
 }

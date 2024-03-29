@@ -41,6 +41,7 @@ namespace models {
             GameObject* getParent();
 
             void centerOrigin();
+            void iterateFrames();
 
             std::vector<Component*> getComponents(ComponentType type);
             Component* getComponent(std::string name);

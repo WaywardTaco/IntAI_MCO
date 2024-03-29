@@ -3,7 +3,8 @@
 
 using namespace entities;
 
-PlayerShip::PlayerShip(std::string name) : Entity(name, ObjectType::SHIP){}
+PlayerShip::PlayerShip(std::string name) : 
+    Ship(name, ObjectTeams::PLAYER){}
 
 void PlayerShip::initialize(){
     this->setTexture(new AnimateTexture(TextureManager::Instance()->getTexturesOf(TextureType::SHIP)));

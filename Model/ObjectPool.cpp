@@ -105,3 +105,7 @@ ObjectType ObjectPool::getPoolType(){
 std::string ObjectPool::getName(){
     return this->name;
 }
+
+bool ObjectPool::isEmpty(){
+    return this->availableObjects.empty();
+}

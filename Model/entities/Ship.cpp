@@ -3,20 +3,13 @@
 
 using namespace entities;
 
-Ship::Ship(std::string name) : Entity(name, ObjectType::SHIP){}
+Ship::Ship(std::string name, ObjectTeams team) : 
+    TeamMember(name, ObjectType::SHIP, SHIP_MAX_HEALTH, team){}
 
 void Ship::initialize(){
-    this->setTexture(new AnimateTexture(TextureManager::Instance()->getTexturesOf(TextureType::SHIP)));
-    this->sprite->scale(5.f, 5.f);
-    this->centerOrigin();
+    TeamMember::initialize();
+}
 
-    this->attachComponent(new PlayerInput(this->getName() + "PlayerInput"));    
-    this->attachComponent(new PlayerShipActions(this->getName() + "ShipActions"));    
-
-    Entity::initialize();
-
-    ObjectPool* bullets = new ObjectPool(this->getName() + "Bullets", MAX_PLAYER_BULLETS, new Bullet("Bullet", this));
-    bullets->initialize();
-    ObjectPoolManager::Instance()->registerPool(bullets);
-    
+void Ship::kill(){
+    std::cout << "Ship Died!" << std::endl;
 }

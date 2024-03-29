@@ -77,6 +77,11 @@ void GameObject::centerOrigin(){
     this->sprite->setOrigin(this->sprite->getTexture()->getSize().x/2.f, this->sprite->getTexture()->getSize().y/2.f);
 }
 
+void GameObject::iterateFrames(){
+    this->texture->iterateFrames();
+    this->sprite->setTexture(*this->texture->getFrame());
+}
+
 std::vector<Component*> GameObject::getComponents(ComponentType type){
     std::vector<Component*> output = {};
 

@@ -11,6 +11,8 @@ void ArenaScene::onLoadResources(){
     TextureManager::Instance()->loadTexture(TextureType::BULLET, "Frame1");
     TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "MainMenu");
     TextureManager::Instance()->loadTexture(TextureType::POWERUP, "Mine");
+    TextureManager::Instance()->loadTexture(TextureType::BASE, "Normal");
+    TextureManager::Instance()->loadTexture(TextureType::BASE, "Ruined");
 }
 
 void ArenaScene::onLoadObjects(){
@@ -26,11 +28,17 @@ void ArenaScene::onLoadObjects(){
 
     Powerup* mine = new Powerup("Mine", PowerupType::SPACE_MINE);
     ObjectPool* mines = new ObjectPool("MinePool", 10, mine);
-    mines->initialize();
-    ObjectPoolManager::Instance()->registerPool(mines);
-    Powerup* mine1 = (Powerup*)mines->getObject();
+    
+    Spawner* spawner = new Spawner("MineSpawner", mines);
+    ObjectManager::Instance()->addObject(spawner);
 
-    mine1->setPosition({250.f, 250.f});
+    Base* base = new Base("Base", ObjectTeams::ENEMY);
+    ObjectManager::Instance()->addObject(base);
+    base->setPosition({300.f, 300.f});
+    
+    EnemyShip* enemy = new EnemyShip("Enemy");
+    ObjectManager::Instance()->addObject(enemy);
+    enemy->setPosition({500.f, 500.f});
     // ObjectManager::Instance()->addObject(mine1);
     // PlayerShip* ship2 = new PlayerShip("Ship2");
     // ObjectManager::Instance()->addObject(ship2);

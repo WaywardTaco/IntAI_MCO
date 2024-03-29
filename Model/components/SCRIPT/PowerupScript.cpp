@@ -60,5 +60,5 @@ void PowerupScript::shieldEffect(Ship* ship){
 }
 
 void PowerupScript::mineEffect(Ship* ship){
-
+    ship->damage(MINE_DAMAGE);
 }

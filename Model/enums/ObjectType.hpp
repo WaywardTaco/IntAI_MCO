@@ -9,4 +9,5 @@ enum class ObjectType : int {
     POWERUP,
     DESTRUCTABLE,
     BACKGROUND,
+    SPAWNER,
 };

@@ -29,5 +29,7 @@ namespace models {
             void releaseObjects(std::vector<GameObject*> vecObjects);
             ObjectType getPoolType();
             std::string getName();
+
+            bool isEmpty();
     };
 }
