@@ -7,6 +7,9 @@ Game::Game() :
     window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), GAME_NAME),
     windowToClose(false)
 {
+    SceneManager::Instance()->registerScene(new MainMenuScene());
+    SceneManager::Instance()->registerScene(new ArenaScene());
+    
     SceneManager::Instance()->loadScene(SceneTag::ARENA);
 }
 

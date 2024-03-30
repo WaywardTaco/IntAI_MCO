@@ -10,6 +10,7 @@
 #include "Config/GameSettings.hpp"
 #include "Config/BalanceSettings.hpp"
 #include "Config/ControlSettings.hpp"
+#include "Controller/Utility.cpp"
 
 #include "Controller/managers/SceneManager.cpp"
 #include "Controller/managers/TextureManager.cpp"

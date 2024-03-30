@@ -12,6 +12,9 @@ void Powerup::initialize(){
     this->sprite->setScale({10.f, 10.f});
     this->centerOrigin();
 
+    if(this->powerupType == PowerupType::BASE_CHAOS)
+        this->iterateFrames();
+
     this->attachComponent(new PowerupScript(this->getName() + "Script"));
 
     Entity::initialize();

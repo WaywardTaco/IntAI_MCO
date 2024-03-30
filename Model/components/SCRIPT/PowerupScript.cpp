@@ -52,7 +52,11 @@ void PowerupScript::perform(){
 }
 
 void PowerupScript::chaosEffect(Ship* ship){
-    
+    std::vector<GameObject*> bases = ObjectManager::Instance()->getObjects(ObjectType::BASE);
+    for(GameObject* object : bases){
+        Base* base = (Base*) object;
+        Utility::setRandomLoc(base);
+    }
 }
 
 void PowerupScript::shieldEffect(Ship* ship){

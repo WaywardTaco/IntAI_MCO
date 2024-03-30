@@ -8,9 +8,6 @@
 #include "TextureManager.hpp"
 #include "ColliderManager.hpp"
 
-#include "../../Model/scenes/MainMenuScene.hpp"
-#include "../../Model/scenes/ArenaScene.hpp"
-
 namespace managers{
     using namespace scenes;
     class SceneManager{
@@ -24,8 +21,6 @@ namespace managers{
             void loadScene(SceneTag tag);
             void checkLoadScene();
             bool isLoaded(SceneTag tag);
-
-        private:
             void registerScene(Scene* scene);
 
         /* SINGLETON CODE */

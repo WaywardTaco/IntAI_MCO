@@ -42,7 +42,7 @@ void TeamMember::heal(float amount){
 void TeamMember::damage(float amount){
     this->currHealth -= amount;
     if(this->currHealth <= 0){
-        this->kill();
         this->currHealth = 0;
+        this->kill();
     }
 }

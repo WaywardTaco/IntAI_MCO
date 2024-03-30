@@ -24,8 +24,5 @@ void SpawnerScript::perform(){
 
     this->elapsedTime = 0.f;
 
-    GameObject* object = spawnPool->getObject();
-
-    // To randomize
-    object->setPosition({200.f, 200.f});
+    Utility::setRandomLoc((Entity*) spawnPool->getObject());
 }
