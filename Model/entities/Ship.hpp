@@ -15,6 +15,6 @@ namespace entities {
         public:
             Ship(std::string name, ObjectTeams team);
             virtual void initialize();
-            void kill();
+            virtual void kill();
     };
 }

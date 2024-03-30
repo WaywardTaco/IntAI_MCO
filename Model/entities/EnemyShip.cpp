@@ -14,3 +14,8 @@ void EnemyShip::initialize(){
 
     Ship::initialize();
 }
+
+void EnemyShip::kill(){
+    Ship::kill();
+    ((MatchTrackerScript*) ObjectManager::Instance()->findObjectByName("MatchTracker")->getComponent("MatchTrackerScript"))->incrementPlayerScore();
+}

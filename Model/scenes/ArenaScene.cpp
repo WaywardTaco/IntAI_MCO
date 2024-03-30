@@ -21,6 +21,8 @@ void ArenaScene::onLoadObjects(){
     ObjectManager::Instance()->addObject(background);
     background->getSprite()->setScale(2.f, 2.f);
         
+    ObjectManager::Instance()->addObject(new MatchTracker("MatchTracker"));
+    
     ObjectManager::Instance()->addObject(
         new Spawner("MineSpawner", 
         new ObjectPool("MinePool", 7, 

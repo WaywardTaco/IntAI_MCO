@@ -3,6 +3,7 @@
 
 #include "TeamMember.hpp"
 #include "../../Config/BalanceSettings.hpp"
+#include "../components/SCRIPT/MatchTrackerScript.hpp"
 
 namespace entities {
     class Base : public TeamMember {

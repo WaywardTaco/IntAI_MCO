@@ -1,15 +1,15 @@
 
 #pragma once
 
-#include "Ship.hpp"
+#include "System.hpp"
 #include "../components/SCRIPT/MatchTrackerScript.hpp"
 
-namespace entities {
+namespace systems {
     using namespace components;
-    class EnemyShip : public Ship {
+    class MatchTracker : public System {
         public:
-            EnemyShip(std::string name);
+            MatchTracker(std::string name);
+
             void initialize();
-            void kill();
     };
 }

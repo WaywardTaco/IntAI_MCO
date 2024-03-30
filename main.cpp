@@ -35,6 +35,7 @@
 #include "Model/components/SCRIPT/BulletMoveScript.cpp"
 #include "Model/components/SCRIPT/PowerupScript.cpp"
 #include "Model/components/SCRIPT/SpawnerScript.cpp"
+#include "Model/components/SCRIPT/MatchTrackerScript.cpp"
 
 #include "Model/GameObject.cpp"
 #include "Model/ObjectPool.cpp"
@@ -51,6 +52,7 @@
 
 #include "Model/systems/System.cpp"
 #include "Model/systems/Spawner.cpp"
+#include "Model/systems/MatchTracker.cpp"
 
 #include "Model/uiElements/GenericButton.hpp"
 #include "Model/uiElements/Background.cpp"

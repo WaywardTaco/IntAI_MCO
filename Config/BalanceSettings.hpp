@@ -13,4 +13,5 @@ const float
     ;
 
 const int
-    MAX_PLAYER_BULLETS = 3;
+    MAX_PLAYER_BULLETS = 3,
+    SCORE_GOAL = 5;

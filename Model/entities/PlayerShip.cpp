@@ -21,3 +21,8 @@ void PlayerShip::initialize(){
     ObjectPoolManager::Instance()->registerPool(bullets);
     
 }
+
+void PlayerShip::kill(){
+    Ship::kill();
+    ((MatchTrackerScript*) ObjectManager::Instance()->findObjectByName("MatchTracker")->getComponent("MatchTrackerScript"))->incrementEnemyScore();
+}

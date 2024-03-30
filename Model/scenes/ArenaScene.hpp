@@ -15,6 +15,7 @@
 #include "../entities/Powerup.hpp"
 #include "../entities/Base.hpp"
 #include "../systems/Spawner.hpp"
+#include "../systems/MatchTracker.hpp"
 #include "../ObjectPool.hpp"
 #include "../../View/AnimateTexture.hpp"
 
