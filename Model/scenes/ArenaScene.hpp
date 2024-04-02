@@ -10,6 +10,8 @@
 #include "../../Config/BalanceSettings.hpp"
 #include "Scene.hpp"
 #include "../uiElements/Background.hpp"
+#include "../uiElements/TimerUI.hpp"
+#include "../uiElements/ScoreUI.hpp"
 #include "../entities/PlayerShip.hpp"
 #include "../entities/EnemyShip.hpp"
 #include "../entities/Bullet.hpp"
@@ -26,6 +28,9 @@ namespace scenes {
     using namespace entities;
     using namespace view;
     class ArenaScene : public Scene {
+        private:
+            sf::Font uiFont;
+
         public:
             ArenaScene();
 

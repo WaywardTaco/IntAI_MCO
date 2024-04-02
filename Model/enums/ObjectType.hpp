@@ -10,5 +10,8 @@ enum class ObjectType : int {
     DESTRUCTABLE,
     BACKGROUND,
     SPAWNER,
-    MATCH_TRACKER
+    MATCH_TRACKER,
+    SCORE_UI,
+    TIMER_UI,
+    PROMPT,
 };

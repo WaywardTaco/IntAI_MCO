@@ -27,6 +27,7 @@ namespace models {
 
         public:
             GameObject(std::string name, ObjectType type);
+            ~GameObject();
             virtual GameObject* copy();
 
             virtual void initialize() = 0;

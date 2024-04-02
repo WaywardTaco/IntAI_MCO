@@ -29,6 +29,8 @@
 #include "Model/components/Component.cpp"
 #include "Model/components/INPUT/GenericInput.cpp"
 #include "Model/components/INPUT/PlayerInput.cpp"
+#include "Model/components/INPUT/MainMenuPromptInput.cpp"
+#include "Model/components/INPUT/ResultsPromptInput.cpp"
 #include "Model/components/COLLIDER/ColliderBase.cpp"
 #include "Model/components/RENDERER/GenericRenderer.cpp"
 #include "Model/components/SCRIPT/GenericScript.cpp"
@@ -38,6 +40,10 @@
 #include "Model/components/SCRIPT/SpawnerScript.cpp"
 #include "Model/components/SCRIPT/BaseCaptureScript.cpp"
 #include "Model/components/SCRIPT/MatchTrackerScript.cpp"
+#include "Model/components/SCRIPT/ScoreUIScript.cpp"
+#include "Model/components/SCRIPT/TimerUIScript.cpp"
+#include "Model/components/SCRIPT/MainMenuPromptScript.cpp"
+#include "Model/components/SCRIPT/ResultsPromptScript.cpp"
 
 #include "Model/GameObject.cpp"
 #include "Model/ObjectPool.cpp"
@@ -57,10 +63,14 @@
 #include "Model/systems/MatchTracker.cpp"
 
 #include "Model/uiElements/Background.cpp"
+#include "Model/uiElements/TextElement.cpp"
+#include "Model/uiElements/ScoreUI.cpp"
+#include "Model/uiElements/TimerUI.cpp"
 
 #include "Model/scenes/Scene.cpp"
 #include "Model/scenes/MainMenuScene.cpp"
 #include "Model/scenes/ArenaScene.cpp"
+#include "Model/scenes/ResultsScene.cpp"
 
 #include "Controller/Game.cpp"
 

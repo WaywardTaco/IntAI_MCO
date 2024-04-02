@@ -11,7 +11,20 @@ GameObject::GameObject(std::string name, ObjectType type) :
     sprite(NULL),
     texture(NULL),
     position({0.f, 0.f}), 
-    enabled(true){}
+    enabled(true),
+    components({}){}
+
+GameObject::~GameObject(){
+    if(this->sprite != NULL)
+        delete this->sprite;
+    if(this->texture != NULL)
+        delete this->texture;
+    for(Component* component : this->components){
+        component->detachOwner();
+    }
+    this->components.clear();
+    this->children.clear();
+}
 
 void GameObject::onActivate(){}
 

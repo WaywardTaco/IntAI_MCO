@@ -25,5 +25,9 @@ namespace components {
             void incrementEnemyBases();
             void decrementEnemyBases();
             void disableNextScore();
+
+            float getMatchTime();
+            int getPlayerScore();
+            int getEnemyScore();
     };
 }

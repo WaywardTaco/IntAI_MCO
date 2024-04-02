@@ -10,6 +10,7 @@
 #include "../../entities/Ship.hpp"
 
 namespace components {
+    using namespace entities;
     using namespace managers;
     class PlayerShipActions : public GenericScript {
         public:

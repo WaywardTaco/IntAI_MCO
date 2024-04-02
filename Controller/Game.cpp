@@ -9,8 +9,9 @@ Game::Game() :
 {
     SceneManager::Instance()->registerScene(new MainMenuScene());
     SceneManager::Instance()->registerScene(new ArenaScene());
+    SceneManager::Instance()->registerScene(new ResultsScene());
     
-    SceneManager::Instance()->loadScene(SceneTag::ARENA);
+    SceneManager::Instance()->loadScene(SceneTag::MAIN_MENU);
 }
 
 void Game::run(){
@@ -30,8 +31,8 @@ void Game::run(){
             this->update();
         }
 
-        SceneManager::Instance()->checkLoadScene();
         this->render();
+        SceneManager::Instance()->checkLoadScene();
     }
 }
 
@@ -62,6 +63,10 @@ void Game::render(){
     this->window.clear();
     ObjectManager::Instance()->draw(&this->window);
     this->window.display();
+}
+
+void Game::close(){
+    this->windowToClose = true;
 }
 
 /* SINGLETON CODE */

@@ -6,6 +6,7 @@
 #include "../../enums/PowerupType.hpp"
 #include "../COLLIDER/ColliderBase.hpp"
 #include "../../entities/Ship.hpp"
+#include "../../entities/Base.hpp"
 #include "../../entities/Powerup.hpp"
 
 namespace components{

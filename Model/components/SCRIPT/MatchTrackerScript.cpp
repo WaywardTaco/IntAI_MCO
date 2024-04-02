@@ -32,6 +32,10 @@ void MatchTrackerScript::perform(){
         else {
             std::cout << "It's a tie!" << std::endl;
         }
+        SceneManager::Instance()->loadScene(SceneTag::RESULTS);
+        
+        
+        // SceneManager::Instance()->getScene(SceneTag::RESULTS);
     }
 }
 
@@ -69,4 +73,16 @@ void MatchTrackerScript::decrementEnemyBases(){
 
 void MatchTrackerScript::disableNextScore(){
     this->skipNextScore = true;
+}
+
+float MatchTrackerScript::getMatchTime(){
+    return this->matchTime;
+}
+
+int MatchTrackerScript::getPlayerScore(){
+    return this->playerTeamScore;
+}
+
+int MatchTrackerScript::getEnemyScore(){
+    return this->enemyTeamScore;
 }

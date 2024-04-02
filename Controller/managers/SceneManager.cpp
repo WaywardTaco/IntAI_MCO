@@ -24,6 +24,7 @@ void SceneManager::checkLoadScene(){
     if(this->activeScene != NULL)
         this->activeScene->onUnload();
     ColliderManager::Instance()->clearAllColliders();
+    ObjectPoolManager::Instance()->clearAllPools();
     ObjectManager::Instance()->deleteAllObjects();
     TextureManager::Instance()->unloadTextures();
 
@@ -37,6 +38,10 @@ void SceneManager::checkLoadScene(){
 
 bool SceneManager::isLoaded(SceneTag tag){
     return (tag == this->activeScene->getTag());
+}
+
+Scene* SceneManager::getScene(SceneTag tag){
+    return this->scenes[tag];
 }
 
 /* SINGLETON CODE */

@@ -7,6 +7,7 @@
 #include "ObjectManager.hpp"
 #include "TextureManager.hpp"
 #include "ColliderManager.hpp"
+#include "ObjectPoolManager.hpp"
 
 namespace managers{
     using namespace scenes;
@@ -22,6 +23,7 @@ namespace managers{
             void checkLoadScene();
             bool isLoaded(SceneTag tag);
             void registerScene(Scene* scene);
+            Scene* getScene(SceneTag tag);
 
         /* SINGLETON CODE */
         private:

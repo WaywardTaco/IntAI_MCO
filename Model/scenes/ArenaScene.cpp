@@ -16,6 +16,9 @@ void ArenaScene::onLoadResources(){
     TextureManager::Instance()->loadTexture(TextureType::BASE, "Normal");
     TextureManager::Instance()->loadTexture(TextureType::BASE, "Shielded");
     TextureManager::Instance()->loadTexture(TextureType::BASE, "Ruined");
+    sf::Font font = sf::Font();
+    font.loadFromFile("View/Fonts/Astrud-Regular.ttf");
+    this->uiFont = font;
 }
 
 void ArenaScene::onLoadObjects(){
@@ -120,4 +123,16 @@ void ArenaScene::onLoadObjects(){
 
     PlayerShip* player = new PlayerShip("Ship1", {playerXSpawn, playerYSpawn});
     ObjectManager::Instance()->addObject(player);
+
+    ScoreUI* playerScore = new ScoreUI("PlayerScore", ObjectTeams::PLAYER, &this->uiFont);
+    ObjectManager::Instance()->addObject(playerScore);
+    playerScore->setPosition(PLAYER_SCORE_POSITION);    
+
+    ScoreUI* enemyScore = new ScoreUI("EnemyScore", ObjectTeams::ENEMY, &this->uiFont);
+    ObjectManager::Instance()->addObject(enemyScore);
+    enemyScore->setPosition(ENEMY_SCORE_POSITION);    
+
+    TimerUI* timer = new TimerUI("TimerUI", &this->uiFont);
+    ObjectManager::Instance()->addObject(timer);
+    timer->setPosition(TIMER_UI_POSITION);    
 }

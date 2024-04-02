@@ -17,6 +17,8 @@ namespace controllers{
 
         public:
             void run();
+
+            void close();
         
         private:
             void processEvents();
