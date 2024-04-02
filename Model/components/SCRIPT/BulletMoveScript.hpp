@@ -5,9 +5,9 @@
 #include "GenericScript.hpp"
 #include "../../../Controller/managers/ObjectPoolManager.hpp"
 #include "../COLLIDER/ColliderBase.hpp"
-#include "../../entities/Base.hpp"
 #include "../../entities/Ship.hpp"
 #include "../../entities/Bullet.hpp"
+#include "../../enums/FacingDir.hpp"
 
 namespace components {
     using namespace entities;
@@ -15,9 +15,11 @@ namespace components {
     class BulletMoveScript : public GenericScript {
         private:
             float elapsedTime;
+            FacingDir facing;
 
         public:
             BulletMoveScript(std::string name);
             void perform();
+            void setFacing(FacingDir direction);
     };
 }

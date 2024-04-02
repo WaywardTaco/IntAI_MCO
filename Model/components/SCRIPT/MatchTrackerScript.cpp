@@ -8,15 +8,37 @@ MatchTrackerScript::MatchTrackerScript(std::string name) :
     playerLivingBases(0),
     playerTeamScore(0),
     enemyLivingBases(0),
-    enemyTeamScore(0){}
+    enemyTeamScore(0),
+    matchTime(0),
+    skipNextScore(false){}
 
 void MatchTrackerScript::perform(){
+    this->matchTime += this->deltaTime.asSeconds();
+
+    if(this->matchTime >= MATCH_SECONDS || this->playerLivingBases == 0 || this->enemyLivingBases == 0){
+        std::cout << "Game Over!" << std::endl;
+        if(this->playerLivingBases <= 0)
+            std::cout << "Enemy Wins!" << std::endl;
+        else if(this->enemyLivingBases <= 0)
+            std::cout << "Player Wins!" << std::endl;
+        else if(this->playerLivingBases > this->enemyLivingBases)
+            std::cout << "Player Wins!" << std::endl;
+        else if(this->playerLivingBases < this->enemyLivingBases)
+            std::cout << "Enemy Wins!" << std::endl;
+        else if(this->playerTeamScore > this->enemyTeamScore)
+            std::cout << "Player Wins!" << std::endl;
+        else if(this->playerTeamScore > this->enemyTeamScore)
+            std::cout << "Enemy Wins!" << std::endl;
+        else {
+            std::cout << "It's a tie!" << std::endl;
+        }
+    }
 }
 
 void MatchTrackerScript::incrementPlayerScore(){
-    this->playerTeamScore++;
-    if(this->playerTeamScore >= SCORE_GOAL)
-        std::cout << "Player Reached Max Score!" << std::endl;
+    if(!this->skipNextScore)
+        this->playerTeamScore++;
+    this->skipNextScore = false;
 }
 
 void MatchTrackerScript::incrementPlayerBases(){
@@ -27,14 +49,12 @@ void MatchTrackerScript::decrementPlayerBases(){
     this->playerLivingBases--;
     if(this->playerLivingBases <= 0)
         this->playerLivingBases = 0;
-    if(this->playerLivingBases == 0)
-        std::cout << "All Player Bases Destroyed!" << std::endl;
 }
 
 void MatchTrackerScript::incrementEnemyScore(){
-    this->enemyTeamScore++;
-    if(this->enemyTeamScore >= SCORE_GOAL)
-        std::cout << "Enemy Reached Max Score!" << std::endl;
+    if(!this->skipNextScore)
+        this->enemyTeamScore++;
+    this->skipNextScore = false;
 }
 
 void MatchTrackerScript::incrementEnemyBases(){
@@ -45,6 +65,8 @@ void MatchTrackerScript::decrementEnemyBases(){
     this->enemyLivingBases--;
     if(this->enemyLivingBases <= 0)
         this->enemyLivingBases = 0;
-    if(this->enemyLivingBases == 0)
-        std::cout << "All Enemy Bases Destroyed!" << std::endl;
+}
+
+void MatchTrackerScript::disableNextScore(){
+    this->skipNextScore = true;
 }

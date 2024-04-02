@@ -12,8 +12,12 @@ void Powerup::initialize(){
     this->sprite->setScale({10.f, 10.f});
     this->centerOrigin();
 
+    if(this->powerupType == PowerupType::SPACE_MINE)
+        this->setFrame(0);
     if(this->powerupType == PowerupType::BASE_CHAOS)
-        this->iterateFrames();
+        this->setFrame(1);
+    if(this->powerupType == PowerupType::BASE_INVINCIBILITY)
+        this->setFrame(2);
 
     this->attachComponent(new PowerupScript(this->getName() + "Script"));
 

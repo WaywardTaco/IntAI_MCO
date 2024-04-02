@@ -12,7 +12,9 @@ void ArenaScene::onLoadResources(){
     TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "MainMenu");
     TextureManager::Instance()->loadTexture(TextureType::POWERUP, "Mine");
     TextureManager::Instance()->loadTexture(TextureType::POWERUP, "Chaos");
+    TextureManager::Instance()->loadTexture(TextureType::POWERUP, "Shield");
     TextureManager::Instance()->loadTexture(TextureType::BASE, "Normal");
+    TextureManager::Instance()->loadTexture(TextureType::BASE, "Shielded");
     TextureManager::Instance()->loadTexture(TextureType::BASE, "Ruined");
 }
 
@@ -24,15 +26,14 @@ void ArenaScene::onLoadObjects(){
     ObjectManager::Instance()->addObject(new MatchTracker("MatchTracker"));
     
     ObjectManager::Instance()->addObject(
-        new Spawner("MineSpawner", 
-        new ObjectPool("MinePool", 7, 
-        new Powerup("Mine", PowerupType::SPACE_MINE)))
-    );
-        
-    ObjectManager::Instance()->addObject(
-        new Spawner("ChaosSpawner", 
-        new ObjectPool("ChaosPool", 2, 
-        new Powerup("Chaos", PowerupType::BASE_CHAOS)))
+        new Spawner("PowerupSpawner", 
+            new ObjectPool("MinePool", MAX_MINES, 
+            new Powerup("Mine", PowerupType::SPACE_MINE)), 
+            new ObjectPool("ChaosPool", MAX_CHAOS, 
+            new Powerup("Chaos", PowerupType::BASE_CHAOS)),
+            new ObjectPool("ShieldPool", MAX_SHIELDS, 
+            new Powerup("Shield", PowerupType::BASE_INVINCIBILITY))
+        )
     );
 
     Base* base1 = new Base("Base1", ObjectTeams::ENEMY);
@@ -62,12 +63,61 @@ void ArenaScene::onLoadObjects(){
     ObjectManager::Instance()->addObject(base6);
     Utility::setRandomLoc(base6);
 
-    EnemyShip* enemy = new EnemyShip("Enemy");
-    ObjectManager::Instance()->addObject(enemy);
-    Utility::setRandomLoc(enemy);
+    Base* enemySpawnBase = NULL;
+    switch(Utility::getRandomNumber(0, 2)){
+        case 0:
+            enemySpawnBase = base1;
+            break;
+        case 1:
+            enemySpawnBase = base2;
+            break;
+        case 2:
+            enemySpawnBase = base3;
+            break;
+    }
 
-    PlayerShip* player = new PlayerShip("Ship1");
+    float 
+        enemyXSpawn = Utility::getRandomNumber(-SHIP_SPAWN_RADIUS, SHIP_SPAWN_RADIUS) + enemySpawnBase->getPosition().x,
+        enemyYSpawn = Utility::getRandomNumber(-SHIP_SPAWN_RADIUS, SHIP_SPAWN_RADIUS) + enemySpawnBase->getPosition().y;
+
+    if(enemyXSpawn < 0.f)
+        enemyXSpawn = 0.f;
+    if(enemyXSpawn > WINDOW_WIDTH)
+        enemyXSpawn = WINDOW_WIDTH;
+    if(enemyYSpawn < 0.f)
+        enemyYSpawn = 0.f;
+    if(enemyYSpawn > WINDOW_HEIGHT)
+        enemyYSpawn = WINDOW_HEIGHT;
+
+    Base* playerSpawnBase = NULL;
+    switch(Utility::getRandomNumber(0, 2)){
+        case 0:
+            playerSpawnBase = base4;
+            break;
+        case 1:
+            playerSpawnBase = base5;
+            break;
+        case 2:
+            playerSpawnBase = base6;
+            break;
+    }
+
+    float 
+        playerXSpawn = Utility::getRandomNumber(-SHIP_SPAWN_RADIUS, SHIP_SPAWN_RADIUS) + playerSpawnBase->getPosition().x,
+        playerYSpawn = Utility::getRandomNumber(-SHIP_SPAWN_RADIUS, SHIP_SPAWN_RADIUS) + playerSpawnBase->getPosition().y;
+
+    if(playerXSpawn < 0.f)
+        playerXSpawn = 0.f;
+    if(playerXSpawn > WINDOW_WIDTH)
+        playerXSpawn = WINDOW_WIDTH;
+    if(playerYSpawn < 0.f)
+        playerYSpawn = 0.f;
+    if(playerYSpawn > WINDOW_HEIGHT)
+        playerYSpawn = WINDOW_HEIGHT;
+        
+    EnemyShip* enemy = new EnemyShip("Enemy", {enemyXSpawn, enemyYSpawn});
+    ObjectManager::Instance()->addObject(enemy);
+
+    PlayerShip* player = new PlayerShip("Ship1", {playerXSpawn, playerYSpawn});
     ObjectManager::Instance()->addObject(player);
-    Utility::setRandomLoc(player);
-    player->getSprite()->setRotation(90.f);
 }

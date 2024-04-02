@@ -55,14 +55,23 @@ void PowerupScript::chaosEffect(Ship* ship){
     std::vector<GameObject*> bases = ObjectManager::Instance()->getObjects(ObjectType::BASE);
     for(GameObject* object : bases){
         Base* base = (Base*) object;
-        Utility::setRandomLoc(base);
+        if(base->getHealth() > 0.f)
+            Utility::setRandomLoc(base);
     }
 }
 
 void PowerupScript::shieldEffect(Ship* ship){
-
+    std::vector<GameObject*> bases = ObjectManager::Instance()->getObjects(ObjectType::BASE);
+    for(GameObject* object : bases){
+        Base* base = (Base*) object;
+        if(base->getHealth() > 0.f && base->getTeam() == ship->getTeam()){
+            base->startShield();
+        }
+    }
 }
 
 void PowerupScript::mineEffect(Ship* ship){
+    if(ship->getHealth() <= MINE_DAMAGE)
+        ((MatchTrackerScript*)ObjectManager::Instance()->findObjectByName("MatchTracker")->getComponent("MatchTrackerScript"))->disableNextScore();
     ship->damage(MINE_DAMAGE);
 }

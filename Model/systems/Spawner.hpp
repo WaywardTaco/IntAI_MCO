@@ -11,12 +11,16 @@ namespace systems{
     using namespace components;
     class Spawner : public System {
         public: 
-            ObjectPool* spawnPool;
+            ObjectPool* minePool;
+            ObjectPool* chaosPool;
+            ObjectPool* shieldPool;
 
         public:
-            Spawner(std::string name, ObjectPool* spawnPool);
+            Spawner(std::string name, ObjectPool* minePool, ObjectPool* chaosPool, ObjectPool* shieldPool);
 
             void initialize();
-            ObjectPool* getPool();
+            ObjectPool* getMinePool();
+            ObjectPool* getChaosPool();
+            ObjectPool* getShieldPool();
     };
 }

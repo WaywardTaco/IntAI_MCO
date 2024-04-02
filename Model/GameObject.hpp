@@ -42,6 +42,7 @@ namespace models {
 
             void centerOrigin();
             void iterateFrames();
+            void setFrame(int frame);
 
             std::vector<Component*> getComponents(ComponentType type);
             Component* getComponent(std::string name);

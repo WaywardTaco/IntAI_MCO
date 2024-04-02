@@ -7,6 +7,7 @@
 #include "../../Controller/managers/TextureManager.hpp"
 #include "../../Controller/managers/ObjectManager.hpp"
 #include "../../Controller/managers/ObjectPoolManager.hpp"
+#include "../../Config/BalanceSettings.hpp"
 #include "Scene.hpp"
 #include "../uiElements/Background.hpp"
 #include "../entities/PlayerShip.hpp"

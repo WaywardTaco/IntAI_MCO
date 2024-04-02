@@ -4,6 +4,7 @@
 #include "TeamMember.hpp"
 #include "../../Config/BalanceSettings.hpp"
 #include "../components/SCRIPT/MatchTrackerScript.hpp"
+#include "../components/SCRIPT/BaseCaptureScript.hpp"
 
 namespace entities {
     class Base : public TeamMember {
@@ -12,5 +13,6 @@ namespace entities {
 
             void initialize();
             void kill();
+            void startShield();
     };
 }

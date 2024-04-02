@@ -8,6 +8,7 @@ PlayerShipActions::PlayerShipActions(std::string name) :
 
 void PlayerShipActions::perform(){
     PlayerInput* input = (PlayerInput*) this->getOwner()->getComponent(this->getOwner()->getName() + "PlayerInput");
+    Ship* ship = (Ship*) this->getOwner();
 
     if(input == NULL){
         std::cout << "[ERROR] Dependency Missing" << std::endl;
@@ -15,19 +16,27 @@ void PlayerShipActions::perform(){
     }
 
     if(input->getUp()){
-        this->getOwner()->movePosition({0, -SHIP_SPEED * this->deltaTime.asSeconds()});
+        ship->movePosition({0, -SHIP_SPEED * this->deltaTime.asSeconds()});
+        ship->setFacing(FacingDir::UP);
+        ship->getSprite()->setRotation(0.f);
     }
     if(input->getDown()){
-        this->getOwner()->movePosition({0, SHIP_SPEED * this->deltaTime.asSeconds()});
+        ship->movePosition({0, SHIP_SPEED * this->deltaTime.asSeconds()});
+        ship->setFacing(FacingDir::DOWN);
+        ship->getSprite()->setRotation(180.f);
     }
     if(input->getLeft()){
-        this->getOwner()->movePosition({-SHIP_SPEED * this->deltaTime.asSeconds(), 0});
+        ship->movePosition({-SHIP_SPEED * this->deltaTime.asSeconds(), 0});
+        ship->setFacing(FacingDir::LEFT);
+        ship->getSprite()->setRotation(-90.f);
     }
     if(input->getRight()){
-        this->getOwner()->movePosition({SHIP_SPEED * this->deltaTime.asSeconds(), 0});
+        ship->movePosition({SHIP_SPEED * this->deltaTime.asSeconds(), 0});
+        ship->setFacing(FacingDir::RIGHT);
+        ship->getSprite()->setRotation(90.f);
     }
     if(input->getSpace()){
-        ObjectPoolManager::Instance()->getObjectPoolByName(this->owner->getName() + "Bullets")->getObject();
+        ObjectPoolManager::Instance()->getObjectPoolByName(ship->getName() + "Bullets")->getObject();
         input->resetSpace();
     }
 

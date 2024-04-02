@@ -15,17 +15,25 @@ void Base::initialize(){
     if(this->getTeam() == ObjectTeams::ENEMY)
         ((MatchTrackerScript*) ObjectManager::Instance()->findObjectByName("MatchTracker")->getComponent("MatchTrackerScript"))->incrementEnemyBases();
 
-    // Base script
+    this->attachComponent(new BaseCaptureScript(this->getName() + "Script"));
 
     TeamMember::initialize();
 }
 
 void Base::kill(){
     std::cout << "Base died" << std::endl;
-    this->iterateFrames();
+    this->setFrame(2);
     if(this->getTeam() == ObjectTeams::PLAYER)
         ((MatchTrackerScript*) ObjectManager::Instance()->findObjectByName("MatchTracker")->getComponent("MatchTrackerScript"))->decrementPlayerBases();
     if(this->getTeam() == ObjectTeams::ENEMY)
         ((MatchTrackerScript*) ObjectManager::Instance()->findObjectByName("MatchTracker")->getComponent("MatchTrackerScript"))->decrementEnemyBases();
 
+}
+
+void Base::startShield(){
+    if(this->getHealth() <= 0.f)
+        return;
+    this->setFrame(1);
+    BaseCaptureScript* script = (BaseCaptureScript*) this->getComponent(this->getName() + "Script");
+    script->startShield();
 }

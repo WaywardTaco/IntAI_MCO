@@ -12,7 +12,7 @@ namespace entities {
     using namespace components;
     class PlayerShip : public Ship {
         public:
-            PlayerShip(std::string name);
+            PlayerShip(std::string name, sf::Vector2f spawnCoords);
             void initialize();
             void kill();
     };

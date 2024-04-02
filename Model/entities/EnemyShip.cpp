@@ -3,8 +3,8 @@
 
 using namespace entities;
 
-EnemyShip::EnemyShip(std::string name) :
-    Ship(name, ObjectTeams::ENEMY){}
+EnemyShip::EnemyShip(std::string name, sf::Vector2f spawnCoords) :
+    Ship(name, ObjectTeams::ENEMY, spawnCoords){}
 
 void EnemyShip::initialize(){
     this->setTexture(new AnimateTexture(TextureManager::Instance()->getTexturesOf(TextureType::SHIP)));

@@ -12,6 +12,8 @@ namespace components {
                 playerLivingBases,
                 enemyTeamScore,
                 enemyLivingBases;
+            float matchTime;
+            bool skipNextScore;
         public:
             MatchTrackerScript(std::string name);
             void perform();
@@ -22,5 +24,6 @@ namespace components {
             void incrementEnemyScore();
             void incrementEnemyBases();
             void decrementEnemyBases();
+            void disableNextScore();
     };
 }

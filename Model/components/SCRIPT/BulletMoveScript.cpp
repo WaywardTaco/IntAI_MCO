@@ -14,15 +14,25 @@ void BulletMoveScript::perform(){
 
     collider->removeCollision((ColliderBase*) this->getOwner()->getParent()->getComponent(this->getOwner()->getParent()->getName() + "Collider"));
 
-    this->owner->movePosition({this->deltaTime.asSeconds() * BULLET_SPEED, 0.f});
+    switch(this->facing){
+        case FacingDir::UP:
+            this->owner->movePosition({0.f, this->deltaTime.asSeconds() * -BULLET_SPEED});
+            break;
+        case FacingDir::DOWN:
+            this->owner->movePosition({0.f, this->deltaTime.asSeconds() * BULLET_SPEED});
+            break;
+        case FacingDir::LEFT:
+            this->owner->movePosition({this->deltaTime.asSeconds() * -BULLET_SPEED, 0.f});
+            break;
+        case FacingDir::RIGHT:
+            this->owner->movePosition({this->deltaTime.asSeconds() * BULLET_SPEED, 0.f});
+            break;
+    }
+    
+    
     this->elapsedTime += this->deltaTime.asSeconds();
     if(this->elapsedTime >= BULLET_MAX_SECONDS || collider->hasColliding()){
         for(ColliderBase* collision : collider->getCollisions()){
-            if(collision->getOwner()->getType() == ObjectType::BASE){
-                Base* base = (Base*) collision->getOwner();
-                if(base->getTeam() != ((Bullet*)this->getOwner())->getTeam())
-                    base->damage(BULLET_DAMAGE);
-            }
             if(collision->getOwner()->getType() == ObjectType::SHIP){
                 Ship* enemy = (Ship*) collision->getOwner();
                 if(enemy->getTeam() != ((Bullet*)this->getOwner())->getTeam())
@@ -34,4 +44,8 @@ void BulletMoveScript::perform(){
         ObjectPoolManager::Instance()->getObjectPoolByName((this->owner)->getParent()->getName() + "Bullets")->releaseObject(this->owner);
         this->elapsedTime = 0;
     }
+}
+
+void BulletMoveScript::setFacing(FacingDir direction){
+    this->facing = direction;
 }

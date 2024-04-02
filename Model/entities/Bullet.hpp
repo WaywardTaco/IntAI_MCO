@@ -3,6 +3,7 @@
 
 #include "TeamMember.hpp"
 #include "../enums/ObjectType.hpp"
+#include "../enums/FacingDir.hpp"
 #include "../components/COLLIDER/ColliderBase.hpp"
 #include "../components/RENDERER/GenericRenderer.hpp"
 #include "../components/SCRIPT/BulletMoveScript.hpp"

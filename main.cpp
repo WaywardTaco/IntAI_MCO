@@ -22,6 +22,7 @@
 #include "Model/enums/ObjectType.hpp"
 #include "Model/enums/SceneTag.hpp"
 #include "Model/enums/TextureType.hpp"
+#include "Model/enums/FacingDir.hpp"
 
 #include "View/AnimateTexture.cpp"
 
@@ -35,6 +36,7 @@
 #include "Model/components/SCRIPT/BulletMoveScript.cpp"
 #include "Model/components/SCRIPT/PowerupScript.cpp"
 #include "Model/components/SCRIPT/SpawnerScript.cpp"
+#include "Model/components/SCRIPT/BaseCaptureScript.cpp"
 #include "Model/components/SCRIPT/MatchTrackerScript.cpp"
 
 #include "Model/GameObject.cpp"
@@ -54,7 +56,6 @@
 #include "Model/systems/Spawner.cpp"
 #include "Model/systems/MatchTracker.cpp"
 
-#include "Model/uiElements/GenericButton.hpp"
 #include "Model/uiElements/Background.cpp"
 
 #include "Model/scenes/Scene.cpp"

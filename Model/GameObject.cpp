@@ -82,6 +82,11 @@ void GameObject::iterateFrames(){
     this->sprite->setTexture(*this->texture->getFrame());
 }
 
+void GameObject::setFrame(int frame){
+    this->texture->setFrame(frame);
+    this->sprite->setTexture(*this->texture->getFrame());
+}
+
 std::vector<Component*> GameObject::getComponents(ComponentType type){
     std::vector<Component*> output = {};
 
