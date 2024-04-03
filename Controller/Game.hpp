@@ -7,9 +7,13 @@
 #include "managers/ObjectManager.hpp"
 #include "managers/SceneManager.hpp"
 #include "managers/ColliderManager.hpp"
+#include "../Model/scenes/MainMenuScene.hpp"
+#include "../Model/scenes/ArenaScene.hpp"
+#include "../Model/scenes/ResultsScene.hpp"
 
 namespace controllers{
     using namespace managers;
+    using namespace scenes;
     class Game {
         private:
             sf::RenderWindow window;

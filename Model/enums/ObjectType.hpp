@@ -14,4 +14,5 @@ enum class ObjectType : int {
     SCORE_UI,
     TIMER_UI,
     PROMPT,
+    PLAIN_TEXT
 };

@@ -22,7 +22,7 @@ void ScoreUIScript::perform(){
     }
     
     if(owner->getTeam() == ObjectTeams::PLAYER)
-        owner->setText("Player Score: " + std::to_string(tracker->getPlayerScore()), false);
+        owner->setText("Player Kills: " + std::to_string(tracker->getPlayerScore()), false);
     if(owner->getTeam() == ObjectTeams::ENEMY)
-        owner->setText("Enemy Score: " + std::to_string(tracker->getEnemyScore()), false);
+        owner->setText("Enemy Kills: " + std::to_string(tracker->getEnemyScore()), false);
 }

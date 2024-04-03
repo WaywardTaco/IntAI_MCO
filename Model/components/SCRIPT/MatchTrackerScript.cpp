@@ -16,26 +16,8 @@ void MatchTrackerScript::perform(){
     this->matchTime += this->deltaTime.asSeconds();
 
     if(this->matchTime >= MATCH_SECONDS || this->playerLivingBases == 0 || this->enemyLivingBases == 0){
-        std::cout << "Game Over!" << std::endl;
-        if(this->playerLivingBases <= 0)
-            std::cout << "Enemy Wins!" << std::endl;
-        else if(this->enemyLivingBases <= 0)
-            std::cout << "Player Wins!" << std::endl;
-        else if(this->playerLivingBases > this->enemyLivingBases)
-            std::cout << "Player Wins!" << std::endl;
-        else if(this->playerLivingBases < this->enemyLivingBases)
-            std::cout << "Enemy Wins!" << std::endl;
-        else if(this->playerTeamScore > this->enemyTeamScore)
-            std::cout << "Player Wins!" << std::endl;
-        else if(this->playerTeamScore > this->enemyTeamScore)
-            std::cout << "Enemy Wins!" << std::endl;
-        else {
-            std::cout << "It's a tie!" << std::endl;
-        }
         SceneManager::Instance()->loadScene(SceneTag::RESULTS);
-        
-        
-        // SceneManager::Instance()->getScene(SceneTag::RESULTS);
+        ((ResultsScene*)SceneManager::Instance()->getScene(SceneTag::RESULTS))->passResults(MATCH_SECONDS - this->matchTime, this->playerTeamScore, this->enemyTeamScore, this->playerLivingBases, this->enemyLivingBases);
     }
 }
 

@@ -3,8 +3,10 @@
 
 #include "GenericScript.hpp"
 #include "../../../Config/BalanceSettings.hpp"
+#include "../../scenes/ResultsScene.hpp"
 
 namespace components {
+    using namespace scenes;
     class MatchTrackerScript : public GenericScript {
         private:
             int
