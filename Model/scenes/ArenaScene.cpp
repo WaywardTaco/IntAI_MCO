@@ -26,6 +26,39 @@ void ArenaScene::onLoadResources(){
 }
 
 void ArenaScene::onLoadObjects(){
+    float  
+        maxMines = 0,
+        maxChaos = 0,
+        maxShields = 0,
+        maxBases = 0;
+
+    switch(this->currentMap){
+        case MapTypes::PLAIN:
+            maxMines = MAP_PLAIN_MAX_MINES;
+            maxChaos = MAP_PLAIN_MAX_CHAOS;
+            maxShields = MAP_PLAIN_MAX_SHIELDS;
+            maxBases = MAP_PLAIN_MAX_BASES;
+            break;
+        case MapTypes::CHAOS:
+            maxMines = MAP_CHAOS_MAX_MINES;
+            maxChaos = MAP_CHAOS_MAX_CHAOS;
+            maxShields = MAP_CHAOS_MAX_SHIELDS;
+            maxBases = MAP_CHAOS_MAX_BASES;
+            break;
+        case MapTypes::MINE:
+            maxMines = MAP_MINE_MAX_MINES;
+            maxChaos = MAP_MINE_MAX_CHAOS;
+            maxShields = MAP_MINE_MAX_SHIELDS;
+            maxBases = MAP_MINE_MAX_BASES;
+            break;
+        case MapTypes::SHIELD:
+            maxMines = MAP_SHIELD_MAX_MINES;
+            maxChaos = MAP_SHIELD_MAX_CHAOS;
+            maxShields = MAP_SHIELD_MAX_SHIELDS;
+            maxBases = MAP_SHIELD_MAX_BASES;
+            break;
+    }
+
     Background* background = new Background("Background");
     ObjectManager::Instance()->addObject(background);
     if(this->currentMap == MapTypes::MINE){
@@ -42,57 +75,32 @@ void ArenaScene::onLoadObjects(){
     }
 
     ObjectManager::Instance()->addObject(new MatchTracker("MatchTracker"));
-    
+
     ObjectManager::Instance()->addObject(
         new Spawner("PowerupSpawner", 
-            new ObjectPool("MinePool", MAX_MINES, 
+            new ObjectPool("MinePool", maxMines, 
             new Powerup("Mine", PowerupType::SPACE_MINE)), 
-            new ObjectPool("ChaosPool", MAX_CHAOS, 
+            new ObjectPool("ChaosPool", maxChaos, 
             new Powerup("Chaos", PowerupType::BASE_CHAOS)),
-            new ObjectPool("ShieldPool", MAX_SHIELDS, 
+            new ObjectPool("ShieldPool", maxShields, 
             new Powerup("Shield", PowerupType::BASE_INVINCIBILITY))
         )
     );
 
-    Base* base1 = new Base("Base1", ObjectTeams::ENEMY);
-    ObjectManager::Instance()->addObject(base1);
-    Utility::setRandomLoc(base1);
-    base1->getSprite()->setColor(sf::Color::Red);
-
-    Base* base2 = new Base("Base2", ObjectTeams::ENEMY);
-    ObjectManager::Instance()->addObject(base2);
-    Utility::setRandomLoc(base2);
-    base2->getSprite()->setColor(sf::Color::Red);
-
-    Base* base3 = new Base("Base3", ObjectTeams::ENEMY);
-    ObjectManager::Instance()->addObject(base3);
-    Utility::setRandomLoc(base3);
-    base3->getSprite()->setColor(sf::Color::Red);
-
-    Base* base4 = new Base("Base4", ObjectTeams::PLAYER);
-    ObjectManager::Instance()->addObject(base4);
-    Utility::setRandomLoc(base4);
-
-    Base* base5 = new Base("Base5", ObjectTeams::PLAYER);
-    ObjectManager::Instance()->addObject(base5);
-    Utility::setRandomLoc(base5);
-
-    Base* base6 = new Base("Base6", ObjectTeams::PLAYER);
-    ObjectManager::Instance()->addObject(base6);
-    Utility::setRandomLoc(base6);
-
-    Base* enemySpawnBase = NULL;
-    switch(Utility::getRandomNumber(0, 2)){
-        case 0:
-            enemySpawnBase = base1;
-            break;
-        case 1:
-            enemySpawnBase = base2;
-            break;
-        case 2:
-            enemySpawnBase = base3;
-            break;
+    for(int i = 0; i < maxBases; i++){
+        Base* base = new Base("BaseE" + std::to_string(i), ObjectTeams::ENEMY);
+        ObjectManager::Instance()->addObject(base);
+        Utility::setRandomLoc(base);
+        base->getSprite()->setColor(sf::Color::Red);
     }
+
+    for(int i = 0; i < maxBases; i++){
+        Base* base = new Base("BaseP" + std::to_string(i), ObjectTeams::PLAYER);
+        ObjectManager::Instance()->addObject(base);
+        Utility::setRandomLoc(base);
+    }
+
+    Base* enemySpawnBase = (Base*) ObjectManager::Instance()->findObjectByName("BaseE" + std::to_string(Utility::getRandomNumber(0, maxBases - 1)));
 
     float 
         enemyXSpawn = Utility::getRandomNumber(-SHIP_SPAWN_RADIUS, SHIP_SPAWN_RADIUS) + enemySpawnBase->getPosition().x,
@@ -107,18 +115,7 @@ void ArenaScene::onLoadObjects(){
     if(enemyYSpawn > WINDOW_HEIGHT - WINDOW_BORDER)
         enemyYSpawn = WINDOW_HEIGHT - WINDOW_BORDER;
 
-    Base* playerSpawnBase = NULL;
-    switch(Utility::getRandomNumber(0, 2)){
-        case 0:
-            playerSpawnBase = base4;
-            break;
-        case 1:
-            playerSpawnBase = base5;
-            break;
-        case 2:
-            playerSpawnBase = base6;
-            break;
-    }
+    Base* playerSpawnBase = (Base*) ObjectManager::Instance()->findObjectByName("BaseP" + std::to_string(Utility::getRandomNumber(0, maxBases - 1)));
 
     float 
         playerXSpawn = Utility::getRandomNumber(-SHIP_SPAWN_RADIUS, SHIP_SPAWN_RADIUS) + playerSpawnBase->getPosition().x,

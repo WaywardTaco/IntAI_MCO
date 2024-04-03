@@ -19,4 +19,7 @@ void Background::initialize(){
         WINDOW_WIDTH / this->sprite->getLocalBounds().width, 
         WINDOW_HEIGHT / this->sprite->getLocalBounds().height
     );
+    this->getSprite()->setColor(
+        sf::Color(100, 100, 100)
+    );
 }

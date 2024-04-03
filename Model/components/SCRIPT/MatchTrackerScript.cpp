@@ -17,10 +17,10 @@ void MatchTrackerScript::perform(){
 
     if(this->matchTime >= MATCH_SECONDS || this->playerLivingBases == 0 || this->enemyLivingBases == 0){
         SceneManager::Instance()->loadScene(SceneTag::RESULTS);
-        ((ResultsScene*)SceneManager::Instance()->getScene(SceneTag::RESULTS))->passResults(MATCH_SECONDS - this->matchTime, this->playerTeamScore, this->enemyTeamScore, this->playerLivingBases, this->enemyLivingBases);
         ((ResultsScene*)SceneManager::Instance()->getScene(SceneTag::RESULTS))->passMap(
             ((ArenaScene*)SceneManager::Instance()->getScene(SceneTag::ARENA))->getMap()
         );
+        ((ResultsScene*)SceneManager::Instance()->getScene(SceneTag::RESULTS))->passResults(MATCH_SECONDS - this->matchTime, this->playerTeamScore, this->enemyTeamScore, this->playerLivingBases, this->enemyLivingBases);
     }
 }
 

@@ -118,7 +118,23 @@ void ResultsScene::passResults(float timeLeft, int playerKills, int enemyKills, 
     this->playerKills = playerKills;
     this->enemyKills = enemyKills;
     this->playerBasesLeft = playerBases;
-    this->enemyBasesDestroyed = TOTAL_BASES - enemyBases;
+    float totalBases = 0;
+    switch(this->currentMap){
+        case MapTypes::PLAIN:
+            totalBases = MAP_PLAIN_MAX_BASES;
+            break;
+        case MapTypes::MINE:
+            totalBases = MAP_PLAIN_MAX_BASES;
+            break;
+        case MapTypes::CHAOS:
+            totalBases = MAP_CHAOS_MAX_BASES;
+            break;
+        case MapTypes::SHIELD:
+            totalBases = MAP_SHIELD_MAX_BASES;
+            break;
+    }    
+
+    this->enemyBasesDestroyed = totalBases - enemyBases;
 
     this->playerScore =
         SCORE_PER_KILL * playerKills +
