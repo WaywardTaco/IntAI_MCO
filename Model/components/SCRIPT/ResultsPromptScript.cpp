@@ -16,6 +16,9 @@ void ResultsPromptScript::perform(){
     if(input->isEscapePressed()){
         input->resetEscapePress();
         SceneManager::Instance()->loadScene(SceneTag::MAIN_MENU);
+        ((MainMenuScene*)SceneManager::Instance()->getScene(SceneTag::MAIN_MENU))->passMap(
+            ((ResultsScene*)SceneManager::Instance()->getScene(SceneTag::RESULTS))->getMap()
+        );
     }
 
 }

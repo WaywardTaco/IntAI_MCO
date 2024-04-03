@@ -7,9 +7,6 @@ Background::Background(std::string name) :
     GameObject(name, ObjectType::BACKGROUND)
 {
     this->setTexture(new AnimateTexture(TextureManager::Instance()->getTexturesOf(TextureType::BACKGROUND)));
-    this->sprite->setScale(
-        WINDOW_WIDTH / this->sprite->getTexture()->getSize().x, 
-        WINDOW_HEIGHT / this->sprite->getTexture()->getSize().y);
 }
 
 void Background::initialize(){
@@ -18,4 +15,8 @@ void Background::initialize(){
     renderer->assignDrawable(this->getSprite());
     this->attachComponent(renderer);
     
+    this->getSprite()->setScale(
+        WINDOW_WIDTH / this->sprite->getLocalBounds().width, 
+        WINDOW_HEIGHT / this->sprite->getLocalBounds().height
+    );
 }
