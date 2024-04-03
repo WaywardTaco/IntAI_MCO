@@ -5,6 +5,8 @@
 #include "../../enums/ComponentType.hpp"
 #include "../../enums/FacingDir.hpp"
 #include "../../../Controller/Utility.hpp"
+#include "../../../Controller/managers/ObjectManager.hpp"
+#include "../../../Config/BalanceSettings.hpp"
 
 namespace components {
     using namespace controllers;
@@ -21,5 +23,6 @@ namespace components {
             FacingDir moveDirection();
             bool isShooting();
             void resetShooting();
+            void ChasePlayer(sf::Vector2f PlayerShipDis);
     };
 }
