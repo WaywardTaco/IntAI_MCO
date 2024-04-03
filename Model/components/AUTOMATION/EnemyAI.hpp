@@ -3,6 +3,7 @@
 
 #include "../SCRIPT/GenericScript.hpp"
 #include "../../enums/ComponentType.hpp"
+#include "../../enums/ObjectType.hpp"
 #include "../../enums/FacingDir.hpp"
 #include "../../../Controller/Utility.hpp"
 #include "../../../Controller/managers/ObjectManager.hpp"
@@ -15,6 +16,12 @@ namespace components {
             FacingDir nextDirection;
             bool shooting; 
             float elapsedTime;
+            float shootDis = BULLET_SPEED * BULLET_MAX_SECONDS;
+            float viewDis = shootDis + 50.0f;
+            int nPlayerBases;
+            std::vector<GameObject*> vecPlayerBases;
+            sf::Vector2f EnemyPos;
+            sf::Vector2f Ship1Pos;
 
         public:
             EnemyAI(std::string name);
@@ -23,6 +30,8 @@ namespace components {
             FacingDir moveDirection();
             bool isShooting();
             void resetShooting();
-            void ChasePlayer(sf::Vector2f PlayerShipDis);
+            void MoveTo(sf::Vector2f DisToObj);
+            bool inDistance(float Distance);
+            bool lessDistance(sf::Vector2f first, sf::Vector2f second);
     };
 }

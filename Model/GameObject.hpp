@@ -24,6 +24,7 @@ namespace models {
             AnimateTexture* texture;
             sf::Vector2f position;
             bool enabled;
+            int frame = 0;
 
         public:
             GameObject(std::string name, ObjectType type);
@@ -60,5 +61,6 @@ namespace models {
             bool isEnabled();
             void enable();
             void disable();
+            int getFrame();
     };
 }

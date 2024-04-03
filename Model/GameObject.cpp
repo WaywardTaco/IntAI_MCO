@@ -96,6 +96,7 @@ void GameObject::iterateFrames(){
 }
 
 void GameObject::setFrame(int frame){
+    this->frame = frame;
     this->texture->setFrame(frame);
     this->sprite->setTexture(*this->texture->getFrame());
 }
@@ -175,4 +176,8 @@ void GameObject::enable(){
 
 void GameObject::disable(){
     this->enabled = false;
+}
+
+int GameObject::getFrame() {
+    return this->frame;
 }

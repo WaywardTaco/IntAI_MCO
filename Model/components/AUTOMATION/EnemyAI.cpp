@@ -7,46 +7,57 @@ EnemyAI::EnemyAI(std::string name) :
     GenericScript(name),
     nextDirection(FacingDir::NONE),
     shooting(false),
-    elapsedTime(2.f){};
+    elapsedTime(2.f)
+    {
+        this->nPlayerBases = (int) ObjectManager::Instance()->getObjects(ObjectType::BASE).size() / 2;
+        std::vector<GameObject*> vecPlayerBases;
+        for(int i = 0; i < nPlayerBases; i++) {
+        vecPlayerBases.push_back(ObjectManager::Instance()->findObjectByName("BaseP" + std::to_string(i)));
+        }
+        this->vecPlayerBases = vecPlayerBases;
+    };
 
 void EnemyAI::perform(){
     this->elapsedTime += this->deltaTime.asSeconds();
-    if(this->elapsedTime < 0.1f)
+    if(this->elapsedTime < 0.3f)
         return;
 
-    sf::Vector2f 
-    EnemyPos = ObjectManager::Instance()->findObjectByName("Enemy")->getPosition(),
-    Ship1Pos = ObjectManager::Instance()->findObjectByName("Ship1")->getPosition(),
-    PlayerShipDis = EnemyPos - Ship1Pos;
+    this->EnemyPos = ObjectManager::Instance()->getObjects(ObjectType::SHIP)[0]->getPosition();
+    this->Ship1Pos = ObjectManager::Instance()->getObjects(ObjectType::SHIP)[1]->getPosition();
 
-    float viewDist = BULLET_SPEED * BULLET_MAX_SECONDS + 50.0f;
+    sf::Vector2f BaseDis, ClosestBaseDis{99999,99999}, PlayerShipDis = EnemyPos - Ship1Pos;
+    int nClosestBaseNum = 0;
+    for(int i = 0; i < nPlayerBases; i++) {
+        if(vecPlayerBases[i]->getFrame() != 2) {
+            BaseDis = EnemyPos - vecPlayerBases[i]->getPosition();
 
-    if(Ship1Pos.x >= (EnemyPos.x - viewDist) && 
-       Ship1Pos.x <= (EnemyPos.x + viewDist) &&
-       Ship1Pos.y >= (EnemyPos.y - viewDist) && 
-       Ship1Pos.y <= (EnemyPos.y + viewDist) )
-       ChasePlayer(PlayerShipDis);
+            if(lessDistance(BaseDis, ClosestBaseDis)) {
+                ClosestBaseDis = BaseDis;
+                nClosestBaseNum = i;
+            }
+        }
+    }
 
-    if(Utility::getRandomNumber(0, 1) == 1)
-        this->shooting = !this->shooting;
-    
-    // switch(Utility::getRandomNumber(0, 4)){
-    //     case 0:
-    //         this->nextDirection = FacingDir::UP;
-    //         break;
-    //     case 1:
-    //         this->nextDirection = FacingDir::DOWN;
-    //         break;
-    //     case 2:
-    //         this->nextDirection = FacingDir::LEFT;
-    //         break;
-    //     case 3:
-    //         this->nextDirection = FacingDir::RIGHT;
-    //         break;
-    //     case 4:
-    //         this->nextDirection = FacingDir::NONE;
-    //         break;
-    // }
+    if(inDistance(shootDis))
+       this->shooting = true;
+    else this->shooting = false;
+
+    if(vecPlayerBases[nClosestBaseNum]->getFrame() == 1) {
+        //std::cout << "Player" << std::endl;
+        MoveTo(PlayerShipDis);
+    }
+    else if(lessDistance(ClosestBaseDis, PlayerShipDis)) {
+        //std::cout << "base" << std::endl;
+        MoveTo(ClosestBaseDis);
+    }
+    else if(inDistance(viewDis)) {
+        //std::cout << "Player" << std::endl;
+        MoveTo(PlayerShipDis);
+    }
+    else {
+        //std::cout << "base" << std::endl;
+        MoveTo(ClosestBaseDis);
+    }
 
     this->elapsedTime = 0.f;
 }
@@ -64,13 +75,28 @@ void EnemyAI::resetShooting(){
         this->shooting = false;
 }
 
-void EnemyAI::ChasePlayer(sf::Vector2f PlayerShipDis) {
-    if(abs(PlayerShipDis.x) > abs(PlayerShipDis.y)) {
-        if(PlayerShipDis.x > 0) this->nextDirection = FacingDir::LEFT;
-        else if(PlayerShipDis.x < 0) this->nextDirection = FacingDir::RIGHT;
+void EnemyAI::MoveTo(sf::Vector2f DisToObj) {
+    if(abs(DisToObj.x) > abs(DisToObj.y)) {
+        if(DisToObj.x > 0) this->nextDirection = FacingDir::LEFT;
+        else if(DisToObj.x < 0) this->nextDirection = FacingDir::RIGHT;
     }
     else {
-        if(PlayerShipDis.y > 0) this->nextDirection = FacingDir::UP;
-        else if(PlayerShipDis.y < 0) this->nextDirection = FacingDir::DOWN;
+        if(DisToObj.y > 0) this->nextDirection = FacingDir::UP;
+        else if(DisToObj.y < 0) this->nextDirection = FacingDir::DOWN;
     }
+}
+
+bool EnemyAI::inDistance(float Distance) {
+    if(this->Ship1Pos.x >= (this->EnemyPos.x - Distance) && 
+       this->Ship1Pos.x <= (this->EnemyPos.x + Distance) &&
+       this->Ship1Pos.y >= (this->EnemyPos.y - Distance) && 
+       this->Ship1Pos.y <= (this->EnemyPos.y + Distance) )
+       return true;
+    return false;
+}
+
+bool EnemyAI::lessDistance(sf::Vector2f disOne, sf::Vector2f disTwo) {
+    if(disOne.x*disOne.x + disOne.y*disOne.y < disTwo.x*disTwo.x + disTwo.y*disTwo.y)
+       return true;
+    return false;
 }
