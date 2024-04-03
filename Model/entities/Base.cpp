@@ -21,7 +21,6 @@ void Base::initialize(){
 }
 
 void Base::kill(){
-    std::cout << "Base died" << std::endl;
     this->setFrame(2);
     if(this->getTeam() == ObjectTeams::PLAYER)
         ((MatchTrackerScript*) ObjectManager::Instance()->findObjectByName("MatchTracker")->getComponent("MatchTrackerScript"))->decrementPlayerBases();

@@ -42,7 +42,20 @@ void MainMenuScene::onLoadObjects(){
 
     TextElement* mapSelect = new TextElement("MapSelect", "", &this->uiFont, MAP_SELECT_FONT_SIZE, ObjectType::PROMPT);
     ObjectManager::Instance()->addObject(mapSelect);
-    mapSelect->setText("<= The Vast Expanse =>", true);
+    switch(this->currentMap){
+        case MapTypes::PLAIN:
+            mapSelect->setText("<= The Vast Expanse =>", true);
+            break;
+        case MapTypes::MINE:
+            mapSelect->setText("<= Planet Vaspar Orbit =>", true);
+            break;
+        case MapTypes::CHAOS:
+            mapSelect->setText("<= Proxi Elumnar =>", true);
+            break;
+        case MapTypes::SHIELD:
+            mapSelect->setText("<= U.C.G. Headquarters =>", true);
+            break;
+    }
     mapSelect->setPosition({PROMPT_POSITION.x, PROMPT_POSITION.y + MAP_SELECT_OFFSET});
     mapSelect->attachComponent(new MapSelectPromptInput(mapSelect->getName() + "Input"));
     mapSelect->attachComponent(new MapSelectPromptScript(mapSelect->getName() + "Script"));

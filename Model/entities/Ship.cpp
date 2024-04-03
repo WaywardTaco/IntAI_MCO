@@ -15,7 +15,6 @@ void Ship::initialize(){
 }
 
 void Ship::kill(){
-    std::cout << "Ship Died!" << std::endl;
     this->resetHealth();
     this->setPosition(this->spawnCoords);
 }
