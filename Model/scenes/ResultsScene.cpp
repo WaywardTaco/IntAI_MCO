@@ -19,7 +19,7 @@ void ResultsScene::onLoadObjects(){
     
     TextElement* backPrompt = new TextElement("Prompt", "", &this->uiFont, PROMPT_FONT_SIZE, ObjectType::PROMPT);
     ObjectManager::Instance()->addObject(backPrompt);
-    backPrompt->setText("< Press SPACE to go back to Main Menu >", true);
+    backPrompt->setText("< Press Esc to go back to Main Menu >", true);
     backPrompt->setPosition(PROMPT_POSITION);
     backPrompt->attachComponent(new ResultsPromptInput(backPrompt->getName() + "Input"));
     backPrompt->attachComponent(new ResultsPromptScript(backPrompt->getName() + "Script"));

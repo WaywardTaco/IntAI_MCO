@@ -15,11 +15,11 @@ void Utility::setRandomLoc(Entity* refEntity){
         collider->removeAllCollisions();
         object->setPosition({
             Utility::getRandomNumber(
-                ((object->getSprite()->getLocalBounds().width * object->getSprite()->getScale().x)), 
-                (WINDOW_WIDTH - ((object->getSprite()->getLocalBounds().width * object->getSprite()->getScale().x)))), 
+                (WINDOW_BORDER + (object->getSprite()->getLocalBounds().width * object->getSprite()->getScale().x)), 
+                ((WINDOW_WIDTH - WINDOW_BORDER) - ((object->getSprite()->getLocalBounds().width * object->getSprite()->getScale().x)))), 
             Utility::getRandomNumber(
-                ((object->getSprite()->getLocalBounds().height * object->getSprite()->getScale().y)), 
-                (WINDOW_HEIGHT - ((object->getSprite()->getLocalBounds().height * object->getSprite()->getScale().y))))});
+                (WINDOW_BORDER + (object->getSprite()->getLocalBounds().height * object->getSprite()->getScale().y)), 
+                ((WINDOW_HEIGHT - WINDOW_BORDER) - ((object->getSprite()->getLocalBounds().height * object->getSprite()->getScale().y))))});
         ColliderManager::Instance()->processCollisions();
     } while (collider->hasColliding());
     collider->removeAllCollisions();

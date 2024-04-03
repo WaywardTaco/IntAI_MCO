@@ -7,7 +7,7 @@ namespace components {
     class ResultsPromptInput : public GenericInput {
         private:
             bool   
-                spacePressed;
+                escapePressed;
 
         public:
             ResultsPromptInput(std::string name);
@@ -15,7 +15,7 @@ namespace components {
             void processKeyInput(sf::Keyboard::Key key, bool isPressed);
             void processMousePress(sf::Event::MouseButtonEvent buttonEvent, bool isPressed);
 
-            bool isSpacePressed();
-            void resetSpacePressed();
+            bool isEscapePressed();
+            void resetEscapePress();
     };
 }

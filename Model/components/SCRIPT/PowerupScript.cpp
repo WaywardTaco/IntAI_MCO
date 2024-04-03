@@ -17,7 +17,8 @@ void PowerupScript::perform(){
 
     std::vector<ColliderBase*> 
         collisions = collider->getCollisions(),
-        shipColliders;
+        shipColliders = {},
+        bulletColliders = {};
 
     if(collisions.size() <= 0)
         return;
@@ -25,30 +26,33 @@ void PowerupScript::perform(){
     for(ColliderBase* checkCollider : collisions){
         if(checkCollider->getOwner()->getType() == ObjectType::SHIP)
             shipColliders.push_back(checkCollider);
+        if(checkCollider->getOwner()->getType() == ObjectType::BULLET)
+            bulletColliders.push_back(checkCollider);
     }
 
     collider->removeAllCollisions();
-
-    if(shipColliders.size() <= 0)
-        return;
 
     for(ColliderBase* shipCollider : shipColliders){
         Ship* ship = (Ship*) shipCollider->getOwner(); 
         switch(((Powerup*) this->owner)->getPowerupType()){
             case PowerupType::BASE_CHAOS:
                 this->chaosEffect(ship);
+                ObjectPoolManager::Instance()->getObjectPoolByName(this->getOwner()->getName() + "Pool")->releaseObject(this->owner);
                 break;
             case PowerupType::BASE_INVINCIBILITY:
                 this->shieldEffect(ship);
+                ObjectPoolManager::Instance()->getObjectPoolByName(this->getOwner()->getName() + "Pool")->releaseObject(this->owner);
                 break;
             case PowerupType::SPACE_MINE:
                 this->mineEffect(ship);
+                ObjectPoolManager::Instance()->getObjectPoolByName(this->getOwner()->getName() + "Pool")->releaseObject(this->owner);
                 break;
 
         }
     }
+    if(bulletColliders.size() >= 0)
+        ObjectPoolManager::Instance()->getObjectPoolByName(this->getOwner()->getName() + "Pool")->releaseObject(this->owner);
     
-    ObjectPoolManager::Instance()->getObjectPoolByName(this->getOwner()->getName() + "Pool")->releaseObject(this->owner);
 }
 
 void PowerupScript::chaosEffect(Ship* ship){

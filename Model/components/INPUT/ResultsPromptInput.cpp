@@ -4,22 +4,22 @@
 using namespace components;
 
 ResultsPromptInput::ResultsPromptInput(std::string name) :
-    GenericInput(name), spacePressed(false){}
+    GenericInput(name), escapePressed(false){}
 
 void ResultsPromptInput::processKeyInput(sf::Keyboard::Key key, bool isPressed){
     switch(key){
-        case sf::Keyboard::Space:
-            this->spacePressed = isPressed;
+        case sf::Keyboard::Escape:
+            this->escapePressed = isPressed;
             break;
     }
 }
 
 void ResultsPromptInput::processMousePress(sf::Event::MouseButtonEvent buttonEvent, bool isPressed){}
 
-bool ResultsPromptInput::isSpacePressed(){
-    return this->spacePressed;
+bool ResultsPromptInput::isEscapePressed(){
+    return this->escapePressed;
 }
 
-void ResultsPromptInput::resetSpacePressed(){
-    this->spacePressed = false;
+void ResultsPromptInput::resetEscapePress(){
+    this->escapePressed = false;
 }

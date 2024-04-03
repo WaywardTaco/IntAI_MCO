@@ -83,14 +83,14 @@ void ArenaScene::onLoadObjects(){
         enemyXSpawn = Utility::getRandomNumber(-SHIP_SPAWN_RADIUS, SHIP_SPAWN_RADIUS) + enemySpawnBase->getPosition().x,
         enemyYSpawn = Utility::getRandomNumber(-SHIP_SPAWN_RADIUS, SHIP_SPAWN_RADIUS) + enemySpawnBase->getPosition().y;
 
-    if(enemyXSpawn < 0.f)
-        enemyXSpawn = 0.f;
-    if(enemyXSpawn > WINDOW_WIDTH)
-        enemyXSpawn = WINDOW_WIDTH;
-    if(enemyYSpawn < 0.f)
-        enemyYSpawn = 0.f;
-    if(enemyYSpawn > WINDOW_HEIGHT)
-        enemyYSpawn = WINDOW_HEIGHT;
+    if(enemyXSpawn < WINDOW_BORDER)
+        enemyXSpawn = WINDOW_BORDER;
+    if(enemyXSpawn > WINDOW_WIDTH - WINDOW_BORDER)
+        enemyXSpawn = WINDOW_WIDTH - WINDOW_BORDER;
+    if(enemyYSpawn < WINDOW_BORDER)
+        enemyYSpawn = WINDOW_BORDER;
+    if(enemyYSpawn > WINDOW_HEIGHT - WINDOW_BORDER)
+        enemyYSpawn = WINDOW_HEIGHT - WINDOW_BORDER;
 
     Base* playerSpawnBase = NULL;
     switch(Utility::getRandomNumber(0, 2)){
@@ -109,14 +109,14 @@ void ArenaScene::onLoadObjects(){
         playerXSpawn = Utility::getRandomNumber(-SHIP_SPAWN_RADIUS, SHIP_SPAWN_RADIUS) + playerSpawnBase->getPosition().x,
         playerYSpawn = Utility::getRandomNumber(-SHIP_SPAWN_RADIUS, SHIP_SPAWN_RADIUS) + playerSpawnBase->getPosition().y;
 
-    if(playerXSpawn < 0.f)
-        playerXSpawn = 0.f;
-    if(playerXSpawn > WINDOW_WIDTH)
-        playerXSpawn = WINDOW_WIDTH;
-    if(playerYSpawn < 0.f)
-        playerYSpawn = 0.f;
-    if(playerYSpawn > WINDOW_HEIGHT)
-        playerYSpawn = WINDOW_HEIGHT;
+    if(playerXSpawn < WINDOW_BORDER)
+        playerXSpawn = WINDOW_BORDER;
+    if(playerXSpawn > WINDOW_WIDTH - WINDOW_BORDER)
+        playerXSpawn = WINDOW_WIDTH - WINDOW_BORDER;
+    if(playerYSpawn < WINDOW_BORDER)
+        playerYSpawn = WINDOW_BORDER;
+    if(playerYSpawn > WINDOW_HEIGHT - WINDOW_BORDER)
+        playerYSpawn = WINDOW_HEIGHT - WINDOW_BORDER;
         
     EnemyShip* enemy = new EnemyShip("Enemy", {enemyXSpawn, enemyYSpawn});
     ObjectManager::Instance()->addObject(enemy);

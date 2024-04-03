@@ -13,8 +13,8 @@ void ResultsPromptScript::perform(){
         return;
     }
 
-    if(input->isSpacePressed()){
-        input->resetSpacePressed();
+    if(input->isEscapePressed()){
+        input->resetEscapePress();
         SceneManager::Instance()->loadScene(SceneTag::MAIN_MENU);
     }
 

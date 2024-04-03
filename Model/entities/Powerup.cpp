@@ -9,7 +9,8 @@ Powerup::Powerup(std::string name, PowerupType powerupType) :
 
 void Powerup::initialize(){
     this->setTexture(new AnimateTexture(TextureManager::Instance()->getTexturesOf(TextureType::POWERUP)));
-    this->sprite->setScale({10.f, 10.f});
+    sf::Vector2f scale = {POWERUP_SCALE, POWERUP_SCALE};
+    this->sprite->setScale(scale);
     this->centerOrigin();
 
     if(this->powerupType == PowerupType::SPACE_MINE)

@@ -3,8 +3,8 @@
 
 const float
     // Bullets should be notably faster than the ship
-    SHIP_SPEED = 400.f,
-    BULLET_SPEED = 1000.f,
+    SHIP_SPEED = 300.f,
+    BULLET_SPEED = 700.f,
 
     BULLET_MAX_SECONDS = 0.5f,
     SPAWN_SECONDS = 1.f,
@@ -27,6 +27,7 @@ const float
 
 const int
     MAX_PLAYER_BULLETS = 3,
+    MAX_ENEMY_BULLETS = 5,
     MAX_MINES = 5,
     MAX_CHAOS = 2,
     MAX_SHIELDS = 3,

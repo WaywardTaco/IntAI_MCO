@@ -12,6 +12,13 @@ void EnemyShip::initialize(){
     this->sprite->setColor(sf::Color::Red);
     this->centerOrigin();
 
+    this->attachComponent(new EnemyAI(this->getName() + "Brain"));
+    this->attachComponent(new EnemyShipActions(this->getName() + "Script"));
+
+    ObjectPool* bullets = new ObjectPool(this->getName() + "Bullets", MAX_ENEMY_BULLETS, new Bullet("Bullet", this));
+    bullets->initialize();
+    ObjectPoolManager::Instance()->registerPool(bullets);
+
     Ship::initialize();
 }
 

@@ -27,6 +27,7 @@
 #include "View/AnimateTexture.cpp"
 
 #include "Model/components/Component.cpp"
+#include "Model/components/AUTOMATION/EnemyAI.cpp"
 #include "Model/components/INPUT/GenericInput.cpp"
 #include "Model/components/INPUT/PlayerInput.cpp"
 #include "Model/components/INPUT/MainMenuPromptInput.cpp"
@@ -35,6 +36,7 @@
 #include "Model/components/RENDERER/GenericRenderer.cpp"
 #include "Model/components/SCRIPT/GenericScript.cpp"
 #include "Model/components/SCRIPT/PlayerShipActions.cpp"
+#include "Model/components/SCRIPT/EnemyShipActions.cpp"
 #include "Model/components/SCRIPT/BulletMoveScript.cpp"
 #include "Model/components/SCRIPT/PowerupScript.cpp"
 #include "Model/components/SCRIPT/SpawnerScript.cpp"

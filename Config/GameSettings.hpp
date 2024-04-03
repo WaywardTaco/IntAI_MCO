@@ -11,7 +11,9 @@ const unsigned int
 
 const float
     FRAME_LIMIT = 60.f,
-    FRAME_TIME = 1.f / 60.f;
+    FRAME_TIME = 1.f / 60.f,
+    WINDOW_BORDER = 60.f,
+    POWERUP_SCALE = 5.f;
 
 const int
     SCORE_FONT_SIZE = 50,
