@@ -9,12 +9,17 @@ EnemyAI::EnemyAI(std::string name) :
     shooting(false),
     elapsedTime(2.f)
     {
-        this->nPlayerBases = (int) ObjectManager::Instance()->getObjects(ObjectType::BASE).size() / 2;
-        std::vector<GameObject*> vecPlayerBases;
-        for(int i = 0; i < nPlayerBases; i++) {
-        vecPlayerBases.push_back(ObjectManager::Instance()->findObjectByName("BaseP" + std::to_string(i)));
+        this->nBases = (int) ObjectManager::Instance()->getObjects(ObjectType::BASE).size() / 2;
+
+        for(int i = 0; i < nBases; i++) {
+        this->vecPlayerBases.push_back(ObjectManager::Instance()->findObjectByName("BaseP" + std::to_string(i)));
         }
-        this->vecPlayerBases = vecPlayerBases;
+
+        for(int i = 0; i < nBases; i++) {
+        this->vecEnemyBases.push_back(ObjectManager::Instance()->findObjectByName("BaseE" + std::to_string(i)));
+        }
+
+        this->vecPowerUps = ObjectManager::Instance()->getObjects(ObjectType::POWERUP);
     };
 
 void EnemyAI::perform(){
@@ -27,7 +32,7 @@ void EnemyAI::perform(){
 
     sf::Vector2f BaseDis, ClosestBaseDis{99999,99999}, PlayerShipDis = EnemyPos - Ship1Pos;
     int nClosestBaseNum = 0;
-    for(int i = 0; i < nPlayerBases; i++) {
+    for(int i = 0; i < nBases; i++) {
         if(vecPlayerBases[i]->getFrame() != 2) {
             BaseDis = EnemyPos - vecPlayerBases[i]->getPosition();
 
@@ -38,13 +43,64 @@ void EnemyAI::perform(){
         }
     }
 
+    sf::Vector2f powerupDis, ClosestMineDis{99999,99999}, ClosestChaosDis{99999,99999}, ClosestInvinDis{99999,99999};
+    int nClosestMineNum = 0, nClosestChaosNum = 0, nClosestInvinNum = 0;
+    for(int i = 0; i < vecPowerUps.size(); i++) {
+        if(vecPowerUps[i]->isEnabled()) {
+            powerupDis = EnemyPos - vecPowerUps[i]->getPosition();
+            switch(vecPowerUps[i]->getFrame()) {
+                //SPACE_MINE Powerup
+                case 0 : if(lessDistance(powerupDis, ClosestMineDis)) ClosestMineDis = powerupDis;
+                break;
+
+                //BASE_CHAOS Powerup
+                case 1 : if(lessDistance(powerupDis, ClosestChaosDis)) ClosestChaosDis = powerupDis;
+                break;
+                
+                //BASE_INVINCIBILITY Powerup
+                case 2 : if(lessDistance(powerupDis, ClosestInvinDis)) ClosestInvinDis = powerupDis;
+                break;
+            }
+        }
+    }
+
+    //EBCTP: Enemy Base Closest to Player
+    sf::Vector2f EnemyBaseDis, EBCPDis{99999,99999};
+    int nEBCPNum = 0;
+    for(int i = 0; i < nBases; i++) {
+        if(vecEnemyBases[i]->getFrame() != 2) {
+            EnemyBaseDis = Ship1Pos - vecEnemyBases[i]->getPosition();
+
+            if(lessDistance(EnemyBaseDis, EBCPDis)) {
+                EBCPDis = EnemyBaseDis;
+                nEBCPNum = i;
+            }
+        }
+    }
+
     if(inDistance(shootDis))
        this->shooting = true;
     else this->shooting = false;
 
-    if(vecPlayerBases[nClosestBaseNum]->getFrame() == 1) {
+    if(getDistance(EBCPDis) < 50*50 && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
+        if(lessDistance(ClosestInvinDis, ClosestChaosDis) 
+        && lessDistance(ClosestInvinDis, PlayerShipDis)
+        && lessDistance(ClosestInvinDis, ClosestBaseDis))
+            MoveTo(ClosestInvinDis);
+        else if(lessDistance(ClosestChaosDis, ClosestInvinDis) 
+        && lessDistance(ClosestChaosDis, PlayerShipDis)
+        && lessDistance(ClosestChaosDis, ClosestBaseDis))
+            MoveTo(ClosestChaosDis);
+        else if(lessDistance(PlayerShipDis, ClosestInvinDis) 
+        && lessDistance(PlayerShipDis, ClosestChaosDis)
+        && lessDistance(PlayerShipDis, ClosestBaseDis))
+            MoveTo(PlayerShipDis);
+        else MoveTo(ClosestBaseDis);
+    }
+    else if(vecPlayerBases[nClosestBaseNum]->getFrame() == 1) {
         //std::cout << "Player" << std::endl;
-        MoveTo(PlayerShipDis);
+        if(lessDistance(ClosestInvinDis, PlayerShipDis)) MoveTo(ClosestInvinDis);
+        else MoveTo(PlayerShipDis);
     }
     else if(lessDistance(ClosestBaseDis, PlayerShipDis)) {
         //std::cout << "base" << std::endl;
@@ -95,8 +151,12 @@ bool EnemyAI::inDistance(float Distance) {
     return false;
 }
 
+float EnemyAI::getDistance(sf::Vector2f distance) {
+    return distance.x*distance.x + distance.y*distance.y;
+}
+
 bool EnemyAI::lessDistance(sf::Vector2f disOne, sf::Vector2f disTwo) {
-    if(disOne.x*disOne.x + disOne.y*disOne.y < disTwo.x*disTwo.x + disTwo.y*disTwo.y)
+    if(getDistance(disOne) < getDistance(disTwo))
        return true;
     return false;
 }

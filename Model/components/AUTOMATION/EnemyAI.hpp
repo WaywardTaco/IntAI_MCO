@@ -18,8 +18,10 @@ namespace components {
             float elapsedTime;
             float shootDis = BULLET_SPEED * BULLET_MAX_SECONDS;
             float viewDis = shootDis + 50.0f;
-            int nPlayerBases;
+            int nBases;
             std::vector<GameObject*> vecPlayerBases;
+            std::vector<GameObject*> vecEnemyBases;
+            std::vector<GameObject*> vecPowerUps;
             sf::Vector2f EnemyPos;
             sf::Vector2f Ship1Pos;
 
@@ -32,6 +34,7 @@ namespace components {
             void resetShooting();
             void MoveTo(sf::Vector2f DisToObj);
             bool inDistance(float Distance);
+            float getDistance(sf::Vector2f distance);
             bool lessDistance(sf::Vector2f first, sf::Vector2f second);
     };
 }
