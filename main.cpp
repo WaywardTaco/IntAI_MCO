@@ -19,10 +19,13 @@
 #include "Controller/managers/ColliderManager.cpp"
 
 #include "Model/enums/ComponentType.hpp"
+#include "Model/enums/FacingDir.hpp"
+#include "Model/enums/MapTypes.hpp"
+#include "Model/enums/ObjectTeams.hpp"
 #include "Model/enums/ObjectType.hpp"
+#include "Model/enums/PowerupType.hpp"
 #include "Model/enums/SceneTag.hpp"
 #include "Model/enums/TextureType.hpp"
-#include "Model/enums/FacingDir.hpp"
 
 #include "View/AnimateTexture.cpp"
 
@@ -31,6 +34,7 @@
 #include "Model/components/INPUT/GenericInput.cpp"
 #include "Model/components/INPUT/PlayerInput.cpp"
 #include "Model/components/INPUT/MainMenuPromptInput.cpp"
+#include "Model/components/INPUT/MapSelectPromptInput.cpp"
 #include "Model/components/INPUT/ResultsPromptInput.cpp"
 #include "Model/components/COLLIDER/ColliderBase.cpp"
 #include "Model/components/RENDERER/GenericRenderer.cpp"
@@ -45,6 +49,7 @@
 #include "Model/components/SCRIPT/ScoreUIScript.cpp"
 #include "Model/components/SCRIPT/TimerUIScript.cpp"
 #include "Model/components/SCRIPT/MainMenuPromptScript.cpp"
+#include "Model/components/SCRIPT/MapSelectPromptScript.cpp"
 #include "Model/components/SCRIPT/ResultsPromptScript.cpp"
 
 #include "Model/GameObject.cpp"

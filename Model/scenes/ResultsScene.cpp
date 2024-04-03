@@ -3,10 +3,15 @@
 
 using namespace scenes;
 
-ResultsScene::ResultsScene() : Scene(SceneTag::RESULTS){}
+ResultsScene::ResultsScene() : 
+    Scene(SceneTag::RESULTS),
+    currentMap(MapTypes::PLAIN){}
 
 void ResultsScene::onLoadResources(){
-    TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "MainMenu");
+    TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "PlainBG");
+    TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "MineBG");
+    TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "ChaosBG");
+    TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "ShieldBG");
     sf::Font font = sf::Font();
     font.loadFromFile("View/Fonts/Astrud-Regular.ttf");
     this->uiFont = font;
@@ -15,7 +20,18 @@ void ResultsScene::onLoadResources(){
 void ResultsScene::onLoadObjects(){
     Background* background = new Background("Background");
     ObjectManager::Instance()->addObject(background);
-    background->getSprite()->setScale(2.f, 2.f);
+    if(this->currentMap == MapTypes::MINE){
+        background->iterateFrames();
+    }
+    if(this->currentMap == MapTypes::CHAOS){
+        background->iterateFrames();
+        background->iterateFrames();
+    }
+    if(this->currentMap == MapTypes::SHIELD){
+        background->iterateFrames();
+        background->iterateFrames();
+        background->iterateFrames();
+    }
     
     TextElement* backPrompt = new TextElement("Prompt", "", &this->uiFont, PROMPT_FONT_SIZE, ObjectType::PROMPT);
     ObjectManager::Instance()->addObject(backPrompt);
@@ -87,6 +103,14 @@ void ResultsScene::onLoadObjects(){
     ObjectManager::Instance()->addObject(timeLeft);
     timeLeft->setText(std::to_string((int)this->timeLeft) + " Seconds Left x " + std::to_string(SCORE_PER_SECOND_LEFT) + " = " + std::to_string(((int)this->timeLeft) * SCORE_PER_SECOND_LEFT), true);
     timeLeft->setPosition({RESULTS_WINNER_CENTER.x, RESULTS_WINNER_CENTER.y + 4*RESULTS_BREAKDOWN_PADDING + RESULTS_BREAKDOWN_OFFSET + RESULTS_SCORE_OFFSET});
+}
+
+void ResultsScene::passMap(MapTypes map){
+    this->currentMap = map;
+}
+
+MapTypes ResultsScene::getMap(){
+    return this->currentMap;
 }
 
 void ResultsScene::passResults(float timeLeft, int playerKills, int enemyKills, int playerBases, int enemyBases){

@@ -4,6 +4,7 @@
 #include "../enums/SceneTag.hpp"
 #include "../enums/TextureType.hpp"
 #include "../enums/PowerupType.hpp"
+#include "../enums/MapTypes.hpp"
 #include "../../Controller/managers/TextureManager.hpp"
 #include "../../Controller/managers/ObjectManager.hpp"
 #include "../../Controller/managers/ObjectPoolManager.hpp"
@@ -30,11 +31,14 @@ namespace scenes {
     class ArenaScene : public Scene {
         private:
             sf::Font uiFont;
+            MapTypes currentMap;
 
         public:
             ArenaScene();
 
             void onLoadResources();
             void onLoadObjects();
+            void passMap(MapTypes map);
+            MapTypes getMap();
     };
 }

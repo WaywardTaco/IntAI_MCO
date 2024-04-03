@@ -12,6 +12,10 @@ Bullet::Bullet(std::string name, GameObject* owner) :
 void Bullet::initialize(){
     this->setTexture(new AnimateTexture(TextureManager::Instance()->getTexturesOf(TextureType::BULLET)));
     this->centerOrigin();
+    this->getSprite()->setScale({8.f, 8.f});
+    if(this->getTeam() == ObjectTeams::ENEMY)
+        this->getSprite()->setColor(sf::Color::Red);
+
 
     GenericRenderer* renderer = new GenericRenderer(this->getName() + "Renderer");
     renderer->assignDrawable(this->sprite);
@@ -28,16 +32,16 @@ void Bullet::onActivate(){
     ((BulletMoveScript*) this->getComponent(this->getName() + "Movement"))->setFacing(facing);
     switch(facing){
         case FacingDir::UP:
-            this->sprite->setRotation(-90.f);
+            this->sprite->setRotation(0.f);
             break;
         case FacingDir::DOWN:
-            this->sprite->setRotation(90.f);
-            break;
-        case FacingDir::LEFT:
             this->sprite->setRotation(180.f);
             break;
+        case FacingDir::LEFT:
+            this->sprite->setRotation(-90.f);
+            break;
         case FacingDir::RIGHT:
-            this->sprite->setRotation(0.f);
+            this->sprite->setRotation(90.f);
             break;
 
     }

@@ -3,6 +3,7 @@
 
 #include "GenericScript.hpp"
 #include "../../../Config/BalanceSettings.hpp"
+#include "../../scenes/ArenaScene.hpp"
 #include "../../scenes/ResultsScene.hpp"
 
 namespace components {

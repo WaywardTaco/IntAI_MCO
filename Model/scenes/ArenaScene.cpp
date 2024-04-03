@@ -3,13 +3,17 @@
 
 using namespace scenes;
 
-ArenaScene::ArenaScene() 
-    : Scene(SceneTag::ARENA){}
+ArenaScene::ArenaScene() : 
+    Scene(SceneTag::ARENA),
+    currentMap(MapTypes::PLAIN){}
 
 void ArenaScene::onLoadResources(){
     TextureManager::Instance()->loadTexture(TextureType::SHIP, "Basic");
     TextureManager::Instance()->loadTexture(TextureType::BULLET, "Frame1");
-    TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "MainMenu");
+    TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "PlainBG");
+    TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "MineBG");
+    TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "ChaosBG");
+    TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "ShieldBG");
     TextureManager::Instance()->loadTexture(TextureType::POWERUP, "Mine");
     TextureManager::Instance()->loadTexture(TextureType::POWERUP, "Chaos");
     TextureManager::Instance()->loadTexture(TextureType::POWERUP, "Shield");
@@ -24,8 +28,19 @@ void ArenaScene::onLoadResources(){
 void ArenaScene::onLoadObjects(){
     Background* background = new Background("Background");
     ObjectManager::Instance()->addObject(background);
-    background->getSprite()->setScale(2.f, 2.f);
-        
+    if(this->currentMap == MapTypes::MINE){
+        background->iterateFrames();
+    }
+    if(this->currentMap == MapTypes::CHAOS){
+        background->iterateFrames();
+        background->iterateFrames();
+    }
+    if(this->currentMap == MapTypes::SHIELD){
+        background->iterateFrames();
+        background->iterateFrames();
+        background->iterateFrames();
+    }
+
     ObjectManager::Instance()->addObject(new MatchTracker("MatchTracker"));
     
     ObjectManager::Instance()->addObject(
@@ -135,4 +150,12 @@ void ArenaScene::onLoadObjects(){
     TimerUI* timer = new TimerUI("TimerUI", &this->uiFont);
     ObjectManager::Instance()->addObject(timer);
     timer->setPosition(TIMER_UI_POSITION);    
+}
+
+void ArenaScene::passMap(MapTypes map){
+    this->currentMap = map;
+}
+
+MapTypes ArenaScene::getMap(){
+    return this->currentMap;
 }
