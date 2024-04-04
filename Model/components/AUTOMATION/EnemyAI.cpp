@@ -184,7 +184,7 @@ bool EnemyAI::lessDistance(sf::Vector2f disOne, sf::Vector2f disTwo) {
 }
 
 void EnemyAI::BASE_CHASE() {
-    if(lessDistance(EBCPDis, viewRange) && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
+    if(lessDistance(EBCPDis, BaseRange) && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
         this->nextMove = EnemyState::BASE_PROTECTION;
     }
     else if(vecPlayerBases[nClosestBaseNum]->getFrame() == 1) {
@@ -198,7 +198,7 @@ void EnemyAI::BASE_CHASE() {
 }
 
 void EnemyAI::BASE_PROTECTION() {
-    if(lessDistance(EBCPDis, viewRange) && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
+    if(lessDistance(EBCPDis, BaseRange) && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
         sf::Vector2f shortestDis = PlayerShipDis;
 
         if(lessDistance(ClosestChaosDis, shortestDis))

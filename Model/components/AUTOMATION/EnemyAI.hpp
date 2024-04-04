@@ -19,8 +19,9 @@ namespace components {
             float elapsedTime;
             float shootDis = BULLET_SPEED * BULLET_MAX_SECONDS;
             float viewDis = shootDis + 50.0f;
-            sf::Vector2f viewRange{50,50};
+            float viewRange = 50.0f;
             int nBases;
+            sf::Vector2f BaseRange{50, 50};
             std::vector<GameObject*> vecPlayerBases;
             std::vector<GameObject*> vecEnemyBases;
             std::vector<GameObject*> vecPowerUps;
