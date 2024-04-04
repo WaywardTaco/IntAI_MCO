@@ -17,7 +17,7 @@ TextureManager::TextureManager(){
     texturePaths[TextureType::POWERUP]["Mine"] = "View/Images/Powerup/Powerup_Mine.PNG" ;
     texturePaths[TextureType::POWERUP]["Shield"] = "View/Images/Powerup/Powerup_Shield.PNG" ;
     texturePaths[TextureType::SHIP]["Basic"] = "View/Images/Ship/Ship_Basic.PNG" ;
-    texturePaths[TextureType::SHIP]["Gunner"] = "View/Images/Ship/Ship_Basic.PNG" ;
+    texturePaths[TextureType::SHIP]["Gunner"] = "View/Images/Ship/Ship_Gunner.PNG" ;
     texturePaths[TextureType::SHIP]["Intercepter"] = "View/Images/Ship/Ship_Intercepter.PNG" ;
     texturePaths[TextureType::SHIP]["Tanker"] = "View/Images/Ship/Ship_Tanker.PNG" ;
 

@@ -22,7 +22,7 @@ const float
     BASE_CAPTURE_DEGRADE_RATE = 0.5f,
     BASE_CAPTURE_RATE = 1.f,
 
-    SHIP_SPAWN_RADIUS = 200.f
+    SHIP_SPAWN_RADIUS = 100.f
     ;
 
 const int
