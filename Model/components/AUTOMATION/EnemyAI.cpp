@@ -30,15 +30,14 @@ void EnemyAI::perform(){
     this->EnemyPos = ObjectManager::Instance()->getObjects(ObjectType::SHIP)[0]->getPosition();
     this->Ship1Pos = ObjectManager::Instance()->getObjects(ObjectType::SHIP)[1]->getPosition();
 
-    sf::Vector2f BaseDis, ClosestBaseDis{99999,99999}, PlayerShipDis = EnemyPos - Ship1Pos;
-    int nClosestBaseNum = 0;
+    sf::Vector2f BaseDis, ClosestBaseDis{99999,99999};
     for(int i = 0; i < nBases; i++) {
         if(vecPlayerBases[i]->getFrame() != 2) {
             BaseDis = EnemyPos - vecPlayerBases[i]->getPosition();
 
             if(lessDistance(BaseDis, ClosestBaseDis)) {
                 ClosestBaseDis = BaseDis;
-                nClosestBaseNum = i;
+                this->nClosestBaseNum = i;
             }
         }
     }
@@ -66,50 +65,32 @@ void EnemyAI::perform(){
 
     //EBCTP: Enemy Base Closest to Player
     sf::Vector2f EnemyBaseDis, EBCPDis{99999,99999};
-    int nEBCPNum = 0;
     for(int i = 0; i < nBases; i++) {
         if(vecEnemyBases[i]->getFrame() != 2) {
             EnemyBaseDis = Ship1Pos - vecEnemyBases[i]->getPosition();
 
             if(lessDistance(EnemyBaseDis, EBCPDis)) {
                 EBCPDis = EnemyBaseDis;
-                nEBCPNum = i;
+                this->nEBCPNum = i;
             }
         }
     }
 
-    if(lessDistance(EBCPDis, {50,50}) && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
-        if(lessDistance(ClosestInvinDis, ClosestChaosDis) 
-        && lessDistance(ClosestInvinDis, PlayerShipDis)
-        && lessDistance(ClosestInvinDis, ClosestBaseDis))
-            MoveTo(ClosestInvinDis);
-        else if(lessDistance(ClosestChaosDis, ClosestInvinDis) 
-        && lessDistance(ClosestChaosDis, PlayerShipDis)
-        && lessDistance(ClosestChaosDis, ClosestBaseDis))
-            MoveTo(ClosestChaosDis);
-        else if(lessDistance(PlayerShipDis, ClosestInvinDis) 
-        && lessDistance(PlayerShipDis, ClosestChaosDis)
-        && lessDistance(PlayerShipDis, ClosestBaseDis))
-            MoveTo(PlayerShipDis);
-        else if(vecPlayerBases[nClosestBaseNum]->getFrame() == 0)  MoveTo(ClosestBaseDis);
-        else MoveTo(PlayerShipDis);
-    }
-    else if(vecPlayerBases[nClosestBaseNum]->getFrame() == 1) {
-        //std::cout << "Player" << std::endl;
-        if(lessDistance(ClosestInvinDis, PlayerShipDis)) MoveTo(ClosestInvinDis);
-        else MoveTo(PlayerShipDis);
-    }
-    else if(lessDistance(ClosestBaseDis, PlayerShipDis)) {
-        //std::cout << "base" << std::endl;
-        MoveTo(ClosestBaseDis);
-    }
-    else if(inDistance(viewDis)) {
-        //std::cout << "Player" << std::endl;
-        MoveTo(PlayerShipDis);
-    }
-    else {
-        //std::cout << "base" << std::endl;
-        MoveTo(ClosestBaseDis);
+    this->EBCPDis = EBCPDis;
+    this->ClosestBaseDis = ClosestBaseDis;
+    this->PlayerShipDis = EnemyPos - Ship1Pos;
+    this->ClosestChaosDis = ClosestChaosDis;
+    this->ClosestInvinDis = ClosestInvinDis;
+
+    switch(this->nextMove) {
+        case EnemyState::BASE_CHASE : BASE_CHASE();
+        break;
+        case EnemyState::BASE_PROTECTION : BASE_PROTECTION();
+        break;
+        case EnemyState::PICKUP_MODE : PICKUP_MODE();
+        break;
+        case EnemyState::PLAYER_CHASE : PLAYER_CHASE();
+        break;
     }
 
     this->shooting = false;
@@ -169,4 +150,56 @@ bool EnemyAI::lessDistance(sf::Vector2f disOne, sf::Vector2f disTwo) {
     if(getDistance(disOne) < getDistance(disTwo))
        return true;
     return false;
+}
+
+void EnemyAI::BASE_CHASE() {
+    if(lessDistance(EBCPDis, {50,50}) && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
+        this->nextMove = EnemyState::BASE_PROTECTION;
+    }
+    else if(vecPlayerBases[nClosestBaseNum]->getFrame() == 1) {
+        this->nextMove = EnemyState::PICKUP_MODE;
+    }
+    else if(inDistance(viewDis)) {
+        this->nextMove = EnemyState::PLAYER_CHASE;
+    }
+    
+    MoveTo(ClosestBaseDis);
+}
+
+void EnemyAI::BASE_PROTECTION() {
+    if(lessDistance(EBCPDis, {50,50}) && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
+        sf::Vector2f shortestDis = PlayerShipDis;
+
+        if(lessDistance(ClosestChaosDis, shortestDis))
+            shortestDis = ClosestChaosDis;
+        if(lessDistance(ClosestInvinDis, shortestDis))
+            shortestDis = ClosestInvinDis;
+        if(lessDistance(ClosestBaseDis, shortestDis) && vecPlayerBases[nClosestBaseNum]->getFrame() == 0)
+            shortestDis = ClosestBaseDis;
+
+        MoveTo(shortestDis);
+    }
+    else {
+        this->nextMove = EnemyState::BASE_CHASE;
+        MoveTo(ClosestBaseDis);
+    }
+}
+
+void EnemyAI::PICKUP_MODE() {
+    if(vecPlayerBases[nClosestBaseNum]->getFrame() == 1) {
+        if(lessDistance(ClosestInvinDis, PlayerShipDis)) MoveTo(ClosestInvinDis);
+        else MoveTo(PlayerShipDis);
+    }
+    else {
+        this->nextMove = EnemyState::BASE_CHASE;
+        MoveTo(ClosestBaseDis);
+    }
+}
+
+void EnemyAI::PLAYER_CHASE() {
+    if(inDistance(viewDis)) MoveTo(PlayerShipDis);
+    else {
+        this->nextMove = EnemyState::BASE_CHASE;
+        MoveTo(ClosestBaseDis);
+    }
 }
