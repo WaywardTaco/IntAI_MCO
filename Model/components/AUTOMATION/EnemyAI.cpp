@@ -83,37 +83,28 @@ void EnemyAI::perform(){
     else this->shooting = false;
 
     if(getDistance(EBCPDis) < 50*50 && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
-        if(lessDistance(ClosestInvinDis, ClosestChaosDis) 
-        && lessDistance(ClosestInvinDis, PlayerShipDis)
-        && lessDistance(ClosestInvinDis, ClosestBaseDis))
-            MoveTo(ClosestInvinDis);
-        else if(lessDistance(ClosestChaosDis, ClosestInvinDis) 
-        && lessDistance(ClosestChaosDis, PlayerShipDis)
-        && lessDistance(ClosestChaosDis, ClosestBaseDis))
-            MoveTo(ClosestChaosDis);
-        else if(lessDistance(PlayerShipDis, ClosestInvinDis) 
-        && lessDistance(PlayerShipDis, ClosestChaosDis)
-        && lessDistance(PlayerShipDis, ClosestBaseDis))
-            MoveTo(PlayerShipDis);
-        else MoveTo(ClosestBaseDis);
+    
+        sf::Vector2f shortestDis = ClosestInvinDis;
+
+        if(lessDistance(shortestDis, ClosestChaosDis))
+            shortestDis = ClosestChaosDis;
+        if(lessDistance(shortestDis, PlayerShipDis))
+            shortestDis = PlayerShipDis;
+        if(lessDistance(shortestDis, ClosestBaseDis) && vecPlayerBases[nClosestBaseNum]->getFrame() == 0)
+            shortestDis = ClosestBaseDis;
+
+        MoveTo(shortestDis);
     }
     else if(vecPlayerBases[nClosestBaseNum]->getFrame() == 1) {
-        //std::cout << "Player" << std::endl;
         if(lessDistance(ClosestInvinDis, PlayerShipDis)) MoveTo(ClosestInvinDis);
         else MoveTo(PlayerShipDis);
     }
-    else if(lessDistance(ClosestBaseDis, PlayerShipDis)) {
-        //std::cout << "base" << std::endl;
+    else if(lessDistance(ClosestBaseDis, PlayerShipDis))
         MoveTo(ClosestBaseDis);
-    }
-    else if(inDistance(viewDis)) {
-        //std::cout << "Player" << std::endl;
+    else if(inDistance(viewDis))
         MoveTo(PlayerShipDis);
-    }
-    else {
-        //std::cout << "base" << std::endl;
+    else
         MoveTo(ClosestBaseDis);
-    }
 
     this->elapsedTime = 0.f;
 }
