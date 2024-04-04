@@ -32,16 +32,18 @@ namespace components {
             sf::Vector2f EBCPDis;
             sf::Vector2f ClosestBaseDis;
             sf::Vector2f PlayerShipDis;
-            
+            sf::Vector2f PtoBDis;
             sf::Vector2f ClosestChaosDis;
             sf::Vector2f ClosestInvinDis;
             int nEBCPNum;
             int nClosestBaseNum;
+            int nClosestInvinNum = 0;
                                 //Left, Right,    Up,  Down
             bool vecMineCD[4] = {false, false, false, false};
             bool vecShipCD[4] = {false, false, false, false};
                                     //Defense, Powerup, Offense
-            int priorityPercent[3] = {50, 50, 50};
+            float priorityPercent[3] = {50, 50, 50};
+            sf::Vector2f heuristicValue = {priorityPercent[1], priorityPercent[1]};
 
         public:
             EnemyAI(std::string name);

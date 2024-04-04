@@ -43,7 +43,7 @@ void EnemyAI::perform(){
     }
 
     sf::Vector2f powerupDis, MinePos, ClosestChaosDis{99999,99999}, ClosestInvinDis{99999,99999};
-    int nClosestMineNum = 0, nClosestChaosNum = 0, nClosestInvinNum = 0;
+    int nClosestChaosNum = 0;
     for(int i = 0; i < vecPowerUps.size(); i++) {
         if(vecPowerUps[i]->isEnabled()) {
             powerupDis = EnemyPos - vecPowerUps[i]->getPosition();
@@ -64,7 +64,10 @@ void EnemyAI::perform(){
                 break;
                 
                 //BASE_INVINCIBILITY Powerup
-                case 2 : if(lessDistance(powerupDis, ClosestInvinDis)) ClosestInvinDis = powerupDis;
+                case 2 : if(lessDistance(powerupDis, ClosestInvinDis)) {
+                    ClosestInvinDis = powerupDis;
+                    nClosestInvinNum = i;
+                }
                 break;
             }
         }
@@ -96,6 +99,7 @@ void EnemyAI::perform(){
     this->PlayerShipDis = EnemyPos - Ship1Pos;
     this->ClosestChaosDis = ClosestChaosDis;
     this->ClosestInvinDis = ClosestInvinDis;
+    this->PtoBDis = vecPowerUps[nClosestInvinNum]->getPosition() - vecPlayerBases[nClosestBaseNum]->getPosition();
 
     switch(this->nextMove) {
         case EnemyState::BASE_CHASE      : BASE_CHASE();
@@ -194,8 +198,11 @@ void EnemyAI::BASE_CHASE() {
     else if(inDistance(Ship1Pos, viewDis)) {
         if(perceptionCheck < this->priorityPercent[2]) this->nextMove = EnemyState::PLAYER_CHASE;
     }
-    
-    MoveTo(ClosestBaseDis);
+
+    if(lessDistance(ClosestInvinDis + PtoBDis - heuristicValue, ClosestBaseDis)) {
+        MoveTo(ClosestInvinDis);
+    }
+    else MoveTo(ClosestBaseDis);
 }
 
 void EnemyAI::BASE_PROTECTION() {
@@ -229,7 +236,12 @@ void EnemyAI::PICKUP_MODE() {
 }
 
 void EnemyAI::PLAYER_CHASE() {
-    if(inDistance(Ship1Pos, viewDis)) MoveTo(PlayerShipDis);
+    if(inDistance(Ship1Pos, viewDis)) {
+        if(lessDistance(ClosestInvinDis + PtoBDis - heuristicValue, PlayerShipDis)) {
+        MoveTo(ClosestInvinDis);
+        }
+        MoveTo(PlayerShipDis);
+    }
     else {
         this->nextMove = EnemyState::BASE_CHASE;
         MoveTo(ClosestBaseDis);
