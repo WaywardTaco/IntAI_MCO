@@ -83,6 +83,14 @@ void EnemyAI::perform(){
         }
     }
 
+    if(inDistance(Ship1Pos, shootDis)) {
+        if(PlayerShipDis.x > 0 && inDistance(Ship1Pos, {this->shootDis, this->viewRange})) this->vecShipCD[0] = true;
+        else if(PlayerShipDis.x < 0 && inDistance(Ship1Pos, {this->shootDis, this->viewRange})) this->vecShipCD[1] = true;
+                   
+        if(PlayerShipDis.y > 0 && inDistance(Ship1Pos, {this->viewRange, this->shootDis})) this->vecShipCD[2] = true;
+        else if(PlayerShipDis.y < 0 && inDistance(Ship1Pos, {this->viewRange, this->shootDis})) this->vecShipCD[3] = true;
+    }
+
     this->EBCPDis = EBCPDis;
     this->ClosestBaseDis = ClosestBaseDis;
     this->PlayerShipDis = EnemyPos - Ship1Pos;
@@ -98,14 +106,6 @@ void EnemyAI::perform(){
         break;
         case EnemyState::PLAYER_CHASE    : PLAYER_CHASE();
         break;
-    }
-
-    if(inDistance(Ship1Pos, shootDis)) {
-        if(PlayerShipDis.x > 0 && inDistance(Ship1Pos, {this->shootDis, this->viewRange})) this->vecShipCD[0] = true;
-        else if(PlayerShipDis.x < 0 && inDistance(Ship1Pos, {this->shootDis, this->viewRange})) this->vecShipCD[1] = true;
-                   
-        if(PlayerShipDis.y > 0 && inDistance(Ship1Pos, {this->viewRange, this->shootDis})) this->vecShipCD[2] = true;
-        else if(PlayerShipDis.y < 0 && inDistance(Ship1Pos, {this->viewRange, this->shootDis})) this->vecShipCD[3] = true;
     }
 
     this->shooting = false;
@@ -184,7 +184,7 @@ bool EnemyAI::lessDistance(sf::Vector2f disOne, sf::Vector2f disTwo) {
 }
 
 void EnemyAI::BASE_CHASE() {
-    if(lessDistance(EBCPDis, {50,50}) && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
+    if(lessDistance(EBCPDis, viewRange) && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
         this->nextMove = EnemyState::BASE_PROTECTION;
     }
     else if(vecPlayerBases[nClosestBaseNum]->getFrame() == 1) {
@@ -198,7 +198,7 @@ void EnemyAI::BASE_CHASE() {
 }
 
 void EnemyAI::BASE_PROTECTION() {
-    if(lessDistance(EBCPDis, {50,50}) && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
+    if(lessDistance(EBCPDis, viewRange) && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
         sf::Vector2f shortestDis = PlayerShipDis;
 
         if(lessDistance(ClosestChaosDis, shortestDis))
