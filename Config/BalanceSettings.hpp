@@ -10,7 +10,7 @@ const float
     SPAWN_SECONDS = 1.f,
     SHIP_MAX_HEALTH = 10.f,
 
-    MINE_DAMAGE = 5.f,
+    MINE_DAMAGE = SHIP_MAX_HEALTH,
     SHIELD_TIMELIMIT = 10.f,
 
     BASE_MAX_HEALTH = 15.f,

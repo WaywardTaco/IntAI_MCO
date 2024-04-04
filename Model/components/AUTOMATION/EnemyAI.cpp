@@ -42,14 +42,21 @@ void EnemyAI::perform(){
         }
     }
 
-    sf::Vector2f powerupDis, ClosestMineDis{99999,99999}, ClosestChaosDis{99999,99999}, ClosestInvinDis{99999,99999};
+    sf::Vector2f powerupDis, MinePos, ClosestChaosDis{99999,99999}, ClosestInvinDis{99999,99999};
     int nClosestMineNum = 0, nClosestChaosNum = 0, nClosestInvinNum = 0;
     for(int i = 0; i < vecPowerUps.size(); i++) {
         if(vecPowerUps[i]->isEnabled()) {
             powerupDis = EnemyPos - vecPowerUps[i]->getPosition();
             switch(vecPowerUps[i]->getFrame()) {
                 //SPACE_MINE Powerup
-                case 0 : if(lessDistance(powerupDis, ClosestMineDis)) ClosestMineDis = powerupDis;
+                case 0 : if(inDistance(vecPowerUps[i]->getPosition(), shootDis)) {
+                    MinePos = vecPowerUps[i]->getPosition();
+                    if(powerupDis.x > 0 && inDistance(MinePos, {this->shootDis, this->viewRange})) this->vecMineCD[0] = true;
+                    else if(powerupDis.x < 0 && inDistance(MinePos, {this->shootDis, this->viewRange})) this->vecMineCD[1] = true;
+                   
+                    if(powerupDis.y > 0 && inDistance(MinePos, {this->viewRange, this->shootDis})) this->vecMineCD[2] = true;
+                    else if(powerupDis.y < 0 && inDistance(MinePos, {this->viewRange, this->shootDis})) this->vecMineCD[3] = true;
+                }
                 break;
 
                 //BASE_CHAOS Powerup
@@ -83,29 +90,44 @@ void EnemyAI::perform(){
     this->ClosestInvinDis = ClosestInvinDis;
 
     switch(this->nextMove) {
-        case EnemyState::BASE_CHASE : BASE_CHASE();
+        case EnemyState::BASE_CHASE      : BASE_CHASE();
         break;
         case EnemyState::BASE_PROTECTION : BASE_PROTECTION();
         break;
-        case EnemyState::PICKUP_MODE : PICKUP_MODE();
+        case EnemyState::PICKUP_MODE     : PICKUP_MODE();
         break;
-        case EnemyState::PLAYER_CHASE : PLAYER_CHASE();
+        case EnemyState::PLAYER_CHASE    : PLAYER_CHASE();
         break;
+    }
+
+    if(inDistance(Ship1Pos, shootDis)) {
+        if(PlayerShipDis.x > 0 && inDistance(Ship1Pos, {this->shootDis, this->viewRange})) this->vecShipCD[0] = true;
+        else if(PlayerShipDis.x < 0 && inDistance(Ship1Pos, {this->shootDis, this->viewRange})) this->vecShipCD[1] = true;
+                   
+        if(PlayerShipDis.y > 0 && inDistance(Ship1Pos, {this->viewRange, this->shootDis})) this->vecShipCD[2] = true;
+        else if(PlayerShipDis.y < 0 && inDistance(Ship1Pos, {this->viewRange, this->shootDis})) this->vecShipCD[3] = true;
     }
 
     this->shooting = false;
-    if(inDistance(shootDis)) {
-        if(this->nextDirection == FacingDir::LEFT && PlayerShipDis.x > 0)
+    switch(this->nextDirection) {
+        case  FacingDir::LEFT  : if(this->vecShipCD[0] == true || this->vecMineCD[0] == true)
             this->shooting = true;
-        else if(this->nextDirection == FacingDir::RIGHT && PlayerShipDis.x < 0)
+            break;
+        case  FacingDir::RIGHT : if(this->vecShipCD[1] == true || this->vecMineCD[1] == true)
             this->shooting = true;
-        
-        if(this->nextDirection == FacingDir::UP && PlayerShipDis.y > 0)
+            break;
+        case  FacingDir::UP    : if(this->vecShipCD[2] == true || this->vecMineCD[2] == true)
             this->shooting = true;
-        else if(this->nextDirection == FacingDir::DOWN && PlayerShipDis.y < 0)
+            break;
+        case  FacingDir::DOWN  : if(this->vecShipCD[3] == true || this->vecMineCD[3] == true)
             this->shooting = true;
+            break;
     }
 
+    for(int i = 0; i < 4; i++) {
+        this->vecMineCD[i] = false;
+        this->vecShipCD[i] = false;
+    }
     this->elapsedTime = 0.f;
 }
 
@@ -133,11 +155,20 @@ void EnemyAI::MoveTo(sf::Vector2f DisToObj) {
     }
 }
 
-bool EnemyAI::inDistance(float Distance) {
-    if(this->Ship1Pos.x >= (this->EnemyPos.x - Distance) && 
-       this->Ship1Pos.x <= (this->EnemyPos.x + Distance) &&
-       this->Ship1Pos.y >= (this->EnemyPos.y - Distance) && 
-       this->Ship1Pos.y <= (this->EnemyPos.y + Distance) )
+bool EnemyAI::inDistance(sf::Vector2f Position, float Distance) {
+    if(Position.x >= (this->EnemyPos.x - Distance) && 
+       Position.x <= (this->EnemyPos.x + Distance) &&
+       Position.y >= (this->EnemyPos.y - Distance) && 
+       Position.y <= (this->EnemyPos.y + Distance) )
+       return true;
+    return false;
+}
+
+bool EnemyAI::inDistance(sf::Vector2f Position, sf::Vector2f Distance) {
+    if(Position.x >= (this->EnemyPos.x - Distance.x) && 
+       Position.x <= (this->EnemyPos.x + Distance.x) &&
+       Position.y >= (this->EnemyPos.y - Distance.y) && 
+       Position.y <= (this->EnemyPos.y + Distance.y) )
        return true;
     return false;
 }
@@ -159,7 +190,7 @@ void EnemyAI::BASE_CHASE() {
     else if(vecPlayerBases[nClosestBaseNum]->getFrame() == 1) {
         this->nextMove = EnemyState::PICKUP_MODE;
     }
-    else if(inDistance(viewDis)) {
+    else if(inDistance(Ship1Pos, viewDis)) {
         this->nextMove = EnemyState::PLAYER_CHASE;
     }
     
@@ -197,7 +228,7 @@ void EnemyAI::PICKUP_MODE() {
 }
 
 void EnemyAI::PLAYER_CHASE() {
-    if(inDistance(viewDis)) MoveTo(PlayerShipDis);
+    if(inDistance(Ship1Pos, viewDis)) MoveTo(PlayerShipDis);
     else {
         this->nextMove = EnemyState::BASE_CHASE;
         MoveTo(ClosestBaseDis);

@@ -19,6 +19,7 @@ namespace components {
             float elapsedTime;
             float shootDis = BULLET_SPEED * BULLET_MAX_SECONDS;
             float viewDis = shootDis + 50.0f;
+            float viewRange = 50.0f;
             int nBases;
             std::vector<GameObject*> vecPlayerBases;
             std::vector<GameObject*> vecEnemyBases;
@@ -30,10 +31,14 @@ namespace components {
             sf::Vector2f EBCPDis;
             sf::Vector2f ClosestBaseDis;
             sf::Vector2f PlayerShipDis;
+            
             sf::Vector2f ClosestChaosDis;
             sf::Vector2f ClosestInvinDis;
             int nEBCPNum;
             int nClosestBaseNum;
+                                //Left, Right,    Up,  Down
+            bool vecMineCD[4] = {false, false, false, false};
+            bool vecShipCD[4] = {false, false, false, false};
 
         public:
             EnemyAI(std::string name);
@@ -43,7 +48,8 @@ namespace components {
             bool isShooting();
             void resetShooting();
             void MoveTo(sf::Vector2f DisToObj);
-            bool inDistance(float Distance);
+            bool inDistance(sf::Vector2f Position, float Distance);
+            bool inDistance(sf::Vector2f Position, sf::Vector2f Distance);
             float getDistance(sf::Vector2f distance);
             bool lessDistance(sf::Vector2f first, sf::Vector2f second);
             void BASE_CHASE();

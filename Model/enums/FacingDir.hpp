@@ -3,8 +3,8 @@
 
 enum class FacingDir : int {
     NONE = -1,
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
+    LEFT = 0,
+    RIGHT = 1,
+    UP = 2,
+    DOWN = 3
 };
