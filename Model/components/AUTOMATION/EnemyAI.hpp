@@ -40,6 +40,8 @@ namespace components {
                                 //Left, Right,    Up,  Down
             bool vecMineCD[4] = {false, false, false, false};
             bool vecShipCD[4] = {false, false, false, false};
+                                    //Defense, Powerup, Offense
+            int priorityPercent[3] = {50, 50, 50};
 
         public:
             EnemyAI(std::string name);

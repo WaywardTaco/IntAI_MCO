@@ -184,14 +184,15 @@ bool EnemyAI::lessDistance(sf::Vector2f disOne, sf::Vector2f disTwo) {
 }
 
 void EnemyAI::BASE_CHASE() {
+    int perceptionCheck = Utility::getRandomNumber(1, 100);
     if(lessDistance(EBCPDis, BaseRange) && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
-        this->nextMove = EnemyState::BASE_PROTECTION;
+        if(perceptionCheck < this->priorityPercent[0]) this->nextMove = EnemyState::BASE_PROTECTION;
     }
     else if(vecPlayerBases[nClosestBaseNum]->getFrame() == 1) {
-        this->nextMove = EnemyState::PICKUP_MODE;
+        if(perceptionCheck < this->priorityPercent[1]) this->nextMove = EnemyState::PICKUP_MODE;
     }
     else if(inDistance(Ship1Pos, viewDis)) {
-        this->nextMove = EnemyState::PLAYER_CHASE;
+        if(perceptionCheck < this->priorityPercent[2]) this->nextMove = EnemyState::PLAYER_CHASE;
     }
     
     MoveTo(ClosestBaseDis);
