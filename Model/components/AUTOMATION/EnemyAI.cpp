@@ -183,11 +183,11 @@ void EnemyAI::BASE_CHASE() {
     else if(vecPlayerBases[nClosestBaseNum]->getFrame() == 1) {
         this->nextMove = EnemyState::PICKUP_MODE;
     }
-    else if(inDistance(Ship1Pos, viewDis) && perceptionCheck < this->priorityPercent[2] * this->booleanVision) {
+    else if(inDistance(Ship1Pos, shootDis) && perceptionCheck < this->priorityPercent[2] * this->booleanVision) {
         this->nextMove = EnemyState::PLAYER_CHASE;
     }
 
-    if(lessDistance(ClosestInvinDis + PtoBDis - heuristicValue, ClosestBaseDis)) {
+    if(lessDistance(ClosestInvinDis + PtoBDis - heuristicValue, ClosestBaseDis) && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
         MoveTo(ClosestInvinDis);
     }
     else MoveTo(ClosestBaseDis);
@@ -229,8 +229,8 @@ void EnemyAI::PICKUP_MODE() {
 }
 
 void EnemyAI::PLAYER_CHASE() {
-    if(inDistance(Ship1Pos, viewDis)) {
-        if(lessDistance(ClosestInvinDis + PtoBDis - heuristicValue, PlayerShipDis)) {
+    if(inDistance(Ship1Pos, shootDis)) {
+        if(lessDistance(ClosestInvinDis + PtoBDis - heuristicValue, PlayerShipDis) && vecEnemyBases[nEBCPNum]->getFrame() == 0) {
         MoveTo(ClosestInvinDis);
         }
         else if(!inDistance(Ship1Pos, ShipArea)) MoveTo(PlayerShipDis);
