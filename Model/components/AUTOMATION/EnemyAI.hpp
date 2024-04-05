@@ -23,7 +23,7 @@ namespace components {
             float shootDis = BULLET_SPEED * BULLET_MAX_SECONDS;
             float viewDis = shootDis + 100.0f;
             float viewRange = 50.0f;
-            float huntRange = 20.0f;
+            float huntRange = 5.0f;
             float ShipArea = 50;
             int nBases;
             sf::Vector2f BaseRange{50, 50};
