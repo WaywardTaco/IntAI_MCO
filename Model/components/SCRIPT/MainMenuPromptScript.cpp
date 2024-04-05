@@ -20,6 +20,15 @@ void MainMenuPromptScript::perform(){
             ((MainMenuScene*)SceneManager::Instance()->getScene(SceneTag::MAIN_MENU))->getMap()
         );
     }
+
+    if(input->isEnterPressed()){
+        input->resetEnterPressed();
+        SceneManager::Instance()->loadScene(SceneTag::SETTINGS);
+        ((SettingsScene*)SceneManager::Instance()->getScene(SceneTag::SETTINGS))->passMap(
+            ((MainMenuScene*)SceneManager::Instance()->getScene(SceneTag::MAIN_MENU))->getMap()
+        );
+    }
+
     if(input->isEscapePressed()){
         Game::Instance()->close();
     }

@@ -36,6 +36,9 @@
 #include "Model/components/INPUT/MainMenuPromptInput.cpp"
 #include "Model/components/INPUT/MapSelectPromptInput.cpp"
 #include "Model/components/INPUT/ResultsPromptInput.cpp"
+#include "Model/components/INPUT/QuitPromptInput.cpp"
+#include "Model/components/INPUT/SettingPromptInput.cpp"
+#include "Model/components/INPUT/ArenaPromptInput.cpp"
 #include "Model/components/COLLIDER/ColliderBase.cpp"
 #include "Model/components/RENDERER/GenericRenderer.cpp"
 #include "Model/components/SCRIPT/GenericScript.cpp"
@@ -51,6 +54,9 @@
 #include "Model/components/SCRIPT/MainMenuPromptScript.cpp"
 #include "Model/components/SCRIPT/MapSelectPromptScript.cpp"
 #include "Model/components/SCRIPT/ResultsPromptScript.cpp"
+#include "Model/components/SCRIPT/QuitPromptScript.cpp"
+#include "Model/components/SCRIPT/ArenaPromptScript.cpp"
+#include "Model/components/SCRIPT/SettingPromptScript.cpp"
 
 #include "Model/GameObject.cpp"
 #include "Model/ObjectPool.cpp"
@@ -76,8 +82,10 @@
 
 #include "Model/scenes/Scene.cpp"
 #include "Model/scenes/MainMenuScene.cpp"
+#include "Model/scenes/QuitScene.cpp"
 #include "Model/scenes/ArenaScene.cpp"
 #include "Model/scenes/ResultsScene.cpp"
+#include "Model/scenes/SettingsScene.cpp"
 
 #include "Controller/Game.cpp"
 

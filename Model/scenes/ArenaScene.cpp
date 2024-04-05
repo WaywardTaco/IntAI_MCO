@@ -60,7 +60,11 @@ void ArenaScene::onLoadObjects(){
     }
 
     Background* background = new Background("Background");
+   
     ObjectManager::Instance()->addObject(background);
+    background->attachComponent(new ArenaPromptInput(background->getName() + "Input"));
+    background->attachComponent(new ArenaPromptScript(background->getName() + "Script"));
+
     if(this->currentMap == MapTypes::MINE){
         background->iterateFrames();
     }
