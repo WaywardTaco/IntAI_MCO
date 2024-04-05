@@ -9,6 +9,9 @@
 #include "../../../Controller/Utility.hpp"
 #include "../../../Controller/managers/ObjectManager.hpp"
 #include "../../../Config/BalanceSettings.hpp"
+#include "../../entities/Ship.hpp"
+#include "../COLLIDER/ColliderBase.hpp"
+#include "../SCRIPT/MatchTrackerScript.hpp"
 
 namespace components {
     using namespace controllers;
@@ -18,8 +21,10 @@ namespace components {
             bool shooting; 
             float elapsedTime;
             float shootDis = BULLET_SPEED * BULLET_MAX_SECONDS;
-            float viewDis = shootDis + 50.0f;
+            float viewDis = shootDis + 100.0f;
             float viewRange = 50.0f;
+            float huntRange = 20.0f;
+            float ShipArea = 50;
             int nBases;
             sf::Vector2f BaseRange{50, 50};
             std::vector<GameObject*> vecPlayerBases;
@@ -38,6 +43,7 @@ namespace components {
             int nEBCPNum;
             int nClosestBaseNum;
             int nClosestInvinNum = 0;
+            float booleanVision = 1.00;
                                 //Left, Right,    Up,  Down
             bool vecMineCD[4] = {false, false, false, false};
             bool vecShipCD[4] = {false, false, false, false};
@@ -49,6 +55,11 @@ namespace components {
             EnemyAI(std::string name);
             void perform();
 
+            void BASE_CHASE();
+            void BASE_PROTECTION();
+            void PICKUP_MODE();
+            void PLAYER_CHASE();
+
             FacingDir moveDirection();
             bool isShooting();
             void resetShooting();
@@ -57,9 +68,5 @@ namespace components {
             bool inDistance(sf::Vector2f Position, sf::Vector2f Distance);
             float getDistance(sf::Vector2f distance);
             bool lessDistance(sf::Vector2f first, sf::Vector2f second);
-            void BASE_CHASE();
-            void BASE_PROTECTION();
-            void PICKUP_MODE();
-            void PLAYER_CHASE();
     };
 }

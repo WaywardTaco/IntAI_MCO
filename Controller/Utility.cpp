@@ -13,14 +13,20 @@ void Utility::setRandomLoc(Entity* refEntity){
     ColliderBase* collider = (ColliderBase*) object->getComponent(object->getName() + "Collider");
     do{
         collider->removeAllCollisions();
-        object->setPosition({
-            Utility::getRandomNumber(
-                (WINDOW_BORDER + (object->getSprite()->getLocalBounds().width * object->getSprite()->getScale().x)), 
-                ((WINDOW_WIDTH - WINDOW_BORDER) - ((object->getSprite()->getLocalBounds().width * object->getSprite()->getScale().x)))), 
-            Utility::getRandomNumber(
-                (WINDOW_BORDER + (object->getSprite()->getLocalBounds().height * object->getSprite()->getScale().y)), 
-                ((WINDOW_HEIGHT - WINDOW_BORDER) - ((object->getSprite()->getLocalBounds().height * object->getSprite()->getScale().y))))});
+
+        int
+        xlb = (WINDOW_BORDER + (object->getSprite()->getLocalBounds().width * object->getSprite()->getScale().x)),
+        xup = ((WINDOW_WIDTH - WINDOW_BORDER) - ((object->getSprite()->getLocalBounds().width * object->getSprite()->getScale().x))),
+        ylb = (WINDOW_BORDER + (object->getSprite()->getLocalBounds().height * object->getSprite()->getScale().y)),
+        yup = ((WINDOW_HEIGHT - WINDOW_BORDER) - ((object->getSprite()->getLocalBounds().height * object->getSprite()->getScale().y)));
+
+        float
+        xPos = Utility::getRandomNumber(xlb, xup),
+        yPos = Utility::getRandomNumber(ylb, yup);
+
+        object->setPosition({xPos, yPos});
         ColliderManager::Instance()->processCollisions();
+
     } while (collider->hasColliding());
     collider->removeAllCollisions();
 }

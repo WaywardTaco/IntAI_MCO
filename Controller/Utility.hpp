@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "../Model/entities/Entity.hpp"
+#include "../Config/GameSettings.hpp"
 
 namespace controllers {
     using namespace entities;
