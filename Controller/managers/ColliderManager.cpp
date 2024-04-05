@@ -5,6 +5,8 @@ using namespace managers;
 
 void ColliderManager::processCollisions(){
     for(ColliderBase* currentCollider : this->colliders){
+        currentCollider->removeAllCollisions();
+
         if(!currentCollider->getOwner()->isEnabled())
             continue;
 
