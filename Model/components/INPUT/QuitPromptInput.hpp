@@ -4,15 +4,14 @@
 #include "GenericInput.hpp"
 
 namespace components {
-    class MainMenuPromptInput : public GenericInput {
+    class QuitPromptInput : public GenericInput {
         private:
             bool   
                 spacePressed,
-                escapePressed,
-                enterPressed;
+                escapePressed;
 
         public:
-            MainMenuPromptInput(std::string name);
+            QuitPromptInput(std::string name);
 
             void processKeyInput(sf::Keyboard::Key key, bool isPressed);
             void processMousePress(sf::Event::MouseButtonEvent buttonEvent, bool isPressed);
@@ -23,7 +22,5 @@ namespace components {
             bool isEscapePressed();
             void resetEscapePressed();
 
-            bool isEnterPressed();
-            void resetEnterPressed();
     };
 }

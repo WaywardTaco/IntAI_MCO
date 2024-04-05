@@ -22,6 +22,8 @@
 #include "../systems/MatchTracker.hpp"
 #include "../ObjectPool.hpp"
 #include "../../View/AnimateTexture.hpp"
+#include "../components/SCRIPT/ArenaPromptScript.hpp"
+#include "../components/INPUT/ArenaPromptInput.hpp"
 
 namespace scenes {
     using namespace uiElements;

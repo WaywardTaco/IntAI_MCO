@@ -10,6 +10,9 @@
 #include "../Model/scenes/MainMenuScene.hpp"
 #include "../Model/scenes/ArenaScene.hpp"
 #include "../Model/scenes/ResultsScene.hpp"
+#include "../Model/scenes/QuitScene.hpp"
+#include "../Model/scenes/SettingsScene.hpp"
+
 
 namespace controllers{
     using namespace managers;

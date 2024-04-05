@@ -1,8 +1,7 @@
-
 #pragma once
 
 #include "GenericScript.hpp"
-#include "../INPUT/MainMenuPromptInput.hpp"
+#include "../INPUT/QuitPromptInput.hpp"
 #include "../../enums/SceneTag.hpp"
 #include "../../../Controller/Game.hpp"
 #include "../../../Controller/managers/SceneManager.hpp"
@@ -11,9 +10,9 @@
 namespace components {
     using namespace controllers;
     using namespace managers;
-    class MainMenuPromptScript : public GenericScript {
+    class QuitPromptScript : public GenericScript {
         public:
-            MainMenuPromptScript(std::string name);
+            QuitPromptScript(std::string name);
             void perform();
     };
 }

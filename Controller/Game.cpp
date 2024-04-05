@@ -8,7 +8,9 @@ Game::Game() :
     windowToClose(false)
 {
     SceneManager::Instance()->registerScene(new MainMenuScene());
+    SceneManager::Instance()->registerScene(new SettingsScene());
     SceneManager::Instance()->registerScene(new ArenaScene());
+    SceneManager::Instance()->registerScene(new QuitScene());
     SceneManager::Instance()->registerScene(new ResultsScene());
     
     SceneManager::Instance()->loadScene(SceneTag::MAIN_MENU);

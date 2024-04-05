@@ -69,6 +69,11 @@ void MainMenuScene::onLoadObjects(){
     ObjectManager::Instance()->addObject(escape);
     escape->setText("=== Press Escape to Exit ===", true);
     escape->setPosition({PROMPT_POSITION.x, PROMPT_POSITION.y + MAIN_MENU_ESCAPE_OFFSET});
+
+    TextElement* setting = new TextElement("Settings", "", &this->uiFont, ESCAPE_FONT_SIZE, ObjectType::PLAIN_TEXT);
+    ObjectManager::Instance()->addObject(setting);
+    setting->setText("=== Press Enter for Settings ===", true);
+    setting->setPosition({PROMPT_POSITION.x, PROMPT_POSITION.y + 120.f});
 }
 
 void MainMenuScene::passMap(MapTypes map){
