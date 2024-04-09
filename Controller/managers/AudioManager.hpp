@@ -10,7 +10,7 @@
 namespace managers {
     class AudioManager {
         private:
-            std::unordered_map<SoundType, sf::SoundBuffer*> mapSounds;
+            std::unordered_map<SoundType, std::vector<sf::SoundBuffer*>> mapSounds;
             std::unordered_map<MusicType, sf::Music*> mapMusic;
             sf::Music* playingMusic;
             std::vector<sf::Sound*> vecSoundChannels;
@@ -34,6 +34,7 @@ namespace managers {
         private:
             static AudioManager* SHARED_INSTANCE;
             AudioManager();
+            ~AudioManager();
             AudioManager(const AudioManager&);
             AudioManager& operator = (const AudioManager&);
         public:

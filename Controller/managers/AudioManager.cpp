@@ -102,9 +102,9 @@ void AudioManager::clearAllAudio(){
 
 void AudioManager::clearSounds(){
     for(sf::Sound* sound : this->vecSoundChannels){
-        std::cout << "Sound" << std::endl;
         if(sound != NULL){
             sound->stop();
+            sound->resetBuffer();
             delete sound;
         }
     }
@@ -112,11 +112,13 @@ void AudioManager::clearSounds(){
     this->vecSoundChannels.clear();
 
     for(auto itr : this->mapSounds){
-        for(sf::SoundBuffer* sound : itr.second)
+        for(sf::SoundBuffer* sound : itr.second){
             delete sound;
-
+        }
         itr.second.clear();
     }
+
+    this->mapSounds.clear();
 }
 
 void AudioManager::clearMusic(){
@@ -132,6 +134,7 @@ void AudioManager::clearMusic(){
 /* SINGLETON RELATED CONTENT */
 AudioManager* AudioManager::SHARED_INSTANCE = NULL;
 AudioManager::AudioManager() : mapSounds(), mapMusic(), playingMusic(NULL){}
+AudioManager::~AudioManager(){this->clearAllAudio();}
 AudioManager::AudioManager(const AudioManager&){}
 AudioManager* AudioManager::Instance(){
     if(SHARED_INSTANCE == NULL)
