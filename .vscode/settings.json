@@ -64,7 +64,15 @@
     "mutex": "cpp",
     "semaphore": "cpp",
     "stop_token": "cpp",
-    "thread": "cpp"
+    "thread": "cpp",
+    "queue": "cpp",
+    "stack": "cpp",
+    "xhash": "cpp",
+    "xtree": "cpp",
+    "ranges": "cpp",
+    "span": "cpp",
+    "xstring": "cpp",
+    "xutility": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

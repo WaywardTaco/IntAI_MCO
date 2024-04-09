@@ -12,6 +12,7 @@
 #include "Config/ControlSettings.hpp"
 #include "Controller/Utility.cpp"
 
+#include "Controller/managers/AudioManager.cpp"
 #include "Controller/managers/SceneManager.cpp"
 #include "Controller/managers/TextureManager.cpp"
 #include "Controller/managers/ObjectManager.cpp"
@@ -26,6 +27,8 @@
 #include "Model/enums/PowerupType.hpp"
 #include "Model/enums/SceneTag.hpp"
 #include "Model/enums/TextureType.hpp"
+#include "Model/enums/SoundType.hpp"
+#include "Model/enums/MusicType.hpp"
 
 #include "View/AnimateTexture.cpp"
 

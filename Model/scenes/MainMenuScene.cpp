@@ -8,6 +8,9 @@ MainMenuScene::MainMenuScene() :
     currentMap(MapTypes::PLAIN){}
 
 void MainMenuScene::onLoadResources(){
+    AudioManager::Instance()->clearAllAudio();
+    AudioManager::Instance()->loadMusic(MusicType::BACKGROUND, "View/Music/title_music.wav");
+
     TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "PlainBG");
     TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "MineBG");
     TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "ChaosBG");
@@ -18,6 +21,8 @@ void MainMenuScene::onLoadResources(){
 }
 
 void MainMenuScene::onLoadObjects(){
+    AudioManager::Instance()->playMusic(MusicType::BACKGROUND, 100.f);
+
     Background* background = new Background("Background");
     ObjectManager::Instance()->addObject(background);
     if(this->currentMap == MapTypes::MINE){

@@ -19,6 +19,7 @@ void MainMenuPromptScript::perform(){
         ((ArenaScene*)SceneManager::Instance()->getScene(SceneTag::ARENA))->passMap(
             ((MainMenuScene*)SceneManager::Instance()->getScene(SceneTag::MAIN_MENU))->getMap()
         );
+        AudioManager::Instance()->clearAllAudio();
     }
 
     if(input->isEnterPressed()){
@@ -30,6 +31,7 @@ void MainMenuPromptScript::perform(){
     }
 
     if(input->isEscapePressed()){
+        AudioManager::Instance()->clearAllAudio();
         Game::Instance()->close();
     }
 

@@ -19,6 +19,7 @@ void ResultsPromptScript::perform(){
         ((MainMenuScene*)SceneManager::Instance()->getScene(SceneTag::MAIN_MENU))->passMap(
             ((ResultsScene*)SceneManager::Instance()->getScene(SceneTag::RESULTS))->getMap()
         );
+        AudioManager::Instance()->clearAllAudio();
     }
 
 }

@@ -8,6 +8,9 @@ ArenaScene::ArenaScene() :
     currentMap(MapTypes::PLAIN){}
 
 void ArenaScene::onLoadResources(){
+    AudioManager::Instance()->loadMusic(MusicType::BACKGROUND, "View/Music/game_music.wav");
+    AudioManager::Instance()->loadSound(SoundType::BULLET_SHOOT, "View/Sounds/shoot_sfx.wav");
+
     TextureManager::Instance()->loadTexture(TextureType::SHIP, "Basic");
     TextureManager::Instance()->loadTexture(TextureType::BULLET, "Frame1");
     TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "PlainBG");
@@ -26,6 +29,8 @@ void ArenaScene::onLoadResources(){
 }
 
 void ArenaScene::onLoadObjects(){
+    AudioManager::Instance()->playMusic(MusicType::BACKGROUND, 30.f);
+
     float  
         maxMines = 0,
         maxChaos = 0,

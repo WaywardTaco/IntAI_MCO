@@ -8,6 +8,7 @@
 #include "TextureManager.hpp"
 #include "ColliderManager.hpp"
 #include "ObjectPoolManager.hpp"
+#include "AudioManager.hpp"
 
 namespace managers{
     using namespace scenes;
