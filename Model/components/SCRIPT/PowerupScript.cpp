@@ -56,6 +56,8 @@ void PowerupScript::perform(){
 }
 
 void PowerupScript::chaosEffect(Ship* ship){
+    AudioManager::Instance()->playSound(SoundType::CHAOS, 0, 1, 100.f);
+
     std::vector<GameObject*> bases = ObjectManager::Instance()->getObjects(ObjectType::BASE);
     for(GameObject* object : bases){
         Base* base = (Base*) object;
@@ -65,6 +67,8 @@ void PowerupScript::chaosEffect(Ship* ship){
 }
 
 void PowerupScript::shieldEffect(Ship* ship){
+    AudioManager::Instance()->playSound(SoundType::SHIELD, 0, 2, 80.f);
+
     std::vector<GameObject*> bases = ObjectManager::Instance()->getObjects(ObjectType::BASE);
     for(GameObject* object : bases){
         Base* base = (Base*) object;

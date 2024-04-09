@@ -22,6 +22,8 @@ namespace entities{
             void initialize();
             GameObject* copy();
 
+            void onRelease();
+
             PowerupType getPowerupType();
     };
 }

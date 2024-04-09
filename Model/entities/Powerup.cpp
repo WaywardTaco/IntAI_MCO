@@ -29,6 +29,12 @@ GameObject* Powerup::copy(){
     return new Powerup(this->name, this->powerupType);
 }
 
+void Powerup::onRelease(){
+    if(this->getPowerupType() == PowerupType::SPACE_MINE)
+        AudioManager::Instance()->playSound(SoundType::MINE, 0, 1, 80.f);
+}
+
 PowerupType Powerup::getPowerupType(){
     return this->powerupType;
 }
+

@@ -8,15 +8,16 @@
 #include "../../entities/Ship.hpp"
 #include "../../entities/Base.hpp"
 #include "../../entities/Powerup.hpp"
+#include "../../../Controller/managers/AudioManager.hpp"
 
 namespace components{
+    using namespace managers;
     using namespace entities;
     class PowerupScript : public GenericScript {
         public:
             PowerupScript(std::string name);
             void perform();
         private:
-            void asteroidEffect(Ship* ship);
             void chaosEffect(Ship* ship);
             void shieldEffect(Ship* ship);
             void mineEffect(Ship* ship);

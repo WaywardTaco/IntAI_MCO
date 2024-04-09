@@ -10,6 +10,9 @@ ArenaScene::ArenaScene() :
 void ArenaScene::onLoadResources(){
     AudioManager::Instance()->loadMusic(MusicType::BACKGROUND, "View/Music/game_music.wav");
     AudioManager::Instance()->loadSound(SoundType::BULLET_SHOOT, "View/Sounds/shoot_sfx.wav");
+    AudioManager::Instance()->loadSound(SoundType::MINE, "View/Sounds/mine_sfx.wav");
+    AudioManager::Instance()->loadSound(SoundType::CHAOS, "View/Sounds/chaos_sfx.wav");
+    AudioManager::Instance()->loadSound(SoundType::SHIELD, "View/Sounds/shield_sfx.wav");
 
     TextureManager::Instance()->loadTexture(TextureType::SHIP, "Basic");
     TextureManager::Instance()->loadTexture(TextureType::BULLET, "Frame1");
@@ -29,7 +32,7 @@ void ArenaScene::onLoadResources(){
 }
 
 void ArenaScene::onLoadObjects(){
-    AudioManager::Instance()->playMusic(MusicType::BACKGROUND, 30.f);
+    AudioManager::Instance()->playMusic(MusicType::BACKGROUND, 20.f);
 
     float  
         maxMines = 0,

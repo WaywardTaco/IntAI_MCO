@@ -27,7 +27,7 @@ void Bullet::initialize(){
 }
 
 void Bullet::onActivate(){
-    AudioManager::Instance()->playSound(SoundType::BULLET_SHOOT, 0, 0, 20.f);
+    AudioManager::Instance()->playSound(SoundType::BULLET_SHOOT, 0, 0, 10.f);
 
     this->setPosition(this->getParent()->getPosition());
     FacingDir facing = ((Ship*) this->getParent())->getFacing();
