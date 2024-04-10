@@ -4,11 +4,11 @@
 using namespace components;
 
 SpawnerScript::SpawnerScript(std::string name) :
-    GenericScript(name){}
+    GenericScript(name), elapsedTime(0.f){}
 
 void SpawnerScript::perform(){
     this->elapsedTime += this->deltaTime.asSeconds();
-    if(elapsedTime < SPAWN_SECONDS)
+    if(this->elapsedTime < SPAWN_SECONDS)
         return;
 
     ObjectPool* spawnPool = NULL;
@@ -24,7 +24,6 @@ void SpawnerScript::perform(){
             spawnPool = ((Spawner*)this->getOwner())->getShieldPool();
             break;
     }
-
 
     if(spawnPool == NULL)
         return;

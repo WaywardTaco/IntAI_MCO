@@ -91,17 +91,6 @@ void ArenaScene::onLoadObjects(){
 
     ObjectManager::Instance()->addObject(new MatchTracker("MatchTracker"));
 
-    ObjectManager::Instance()->addObject(
-        new Spawner("PowerupSpawner", 
-            new ObjectPool("MinePool", maxMines, 
-            new Powerup("Mine", PowerupType::SPACE_MINE)), 
-            new ObjectPool("ChaosPool", maxChaos, 
-            new Powerup("Chaos", PowerupType::BASE_CHAOS)),
-            new ObjectPool("ShieldPool", maxShields, 
-            new Powerup("Shield", PowerupType::BASE_INVINCIBILITY))
-        )
-    );
-
     for(int i = 0; i < maxBases; i++){
         Base* base = new Base("BaseE" + std::to_string(i), ObjectTeams::ENEMY);
         ObjectManager::Instance()->addObject(base);
@@ -145,8 +134,18 @@ void ArenaScene::onLoadObjects(){
     if(playerYSpawn > WINDOW_HEIGHT - WINDOW_BORDER)
         playerYSpawn = WINDOW_HEIGHT - WINDOW_BORDER;
         
+    ObjectManager::Instance()->addObject(
+        new Spawner("PowerupSpawner", 
+            new ObjectPool("MinePool", maxMines, 
+            new Powerup("Mine", PowerupType::SPACE_MINE)), 
+            new ObjectPool("ChaosPool", maxChaos, 
+            new Powerup("Chaos", PowerupType::BASE_CHAOS)),
+            new ObjectPool("ShieldPool", maxShields, 
+            new Powerup("Shield", PowerupType::BASE_INVINCIBILITY))
+        )
+    );
+
     EnemyShip* enemy;
-    
     switch(Utility::getRandomNumber(0,2)){
         case 0:
             enemy = new BalanceEnemy("Enemy", {enemyXSpawn, enemyYSpawn});
@@ -183,3 +182,4 @@ void ArenaScene::passMap(MapTypes map){
 MapTypes ArenaScene::getMap(){
     return this->currentMap;
 }
+
