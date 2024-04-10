@@ -61,7 +61,7 @@ void AudioManager::playSound(SoundType soundType, int index, int channel, float 
     this->vecSoundChannels[channel]->play();
 }
 
-void AudioManager::playMusic(MusicType musicType, float volume){
+void AudioManager::playMusic(MusicType musicType, float volume, float startTime){
     if(this->mapMusic[musicType] == NULL)
         return;
 
@@ -78,6 +78,7 @@ void AudioManager::playMusic(MusicType musicType, float volume){
     this->playingMusic->setVolume(volume);
 
     this->playingMusic->play();
+    this->playingMusic->setPlayingOffset(sf::seconds(startTime));
 }
 
 void AudioManager::startMusic(){

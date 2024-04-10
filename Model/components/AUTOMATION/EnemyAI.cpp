@@ -3,38 +3,46 @@
 
 using namespace components;
 
-EnemyAI::EnemyAI(std::string name) : 
+EnemyAI::EnemyAI(std::string name, float defPrio, float buffPrio, float atkPrio) : 
     GenericScript(name),
     nextDirection(FacingDir::NONE),
     shooting(false),
     elapsedTime(2.f)
-    {
-        this->nBases = (int) ObjectManager::Instance()->getObjects(ObjectType::BASE).size() / 2;
+{
+    this->priorityPercent[0] = defPrio;
+    this->priorityPercent[1] = buffPrio;
+    this->priorityPercent[2] = atkPrio;
 
-        for(int i = 0; i < nBases; i++) {
-        this->vecPlayerBases.push_back(ObjectManager::Instance()->findObjectByName("BaseP" + std::to_string(i)));
-        }
+    this->nBases = (int) ObjectManager::Instance()->getObjects(ObjectType::BASE).size() / 2;
 
-        for(int i = 0; i < nBases; i++) {
-        this->vecEnemyBases.push_back(ObjectManager::Instance()->findObjectByName("BaseE" + std::to_string(i)));
-        }
+    for(int i = 0; i < nBases; i++) {
+    this->vecPlayerBases.push_back(ObjectManager::Instance()->findObjectByName("BaseP" + std::to_string(i)));
+    }
 
-        this->vecPowerUps = ObjectManager::Instance()->getObjects(ObjectType::POWERUP);
-    };
+    for(int i = 0; i < nBases; i++) {
+    this->vecEnemyBases.push_back(ObjectManager::Instance()->findObjectByName("BaseE" + std::to_string(i)));
+    }
+
+    for(GameObject* powerup : ObjectManager::Instance()->getObjects(ObjectType::POWERUP))
+        this->vecPowerUps.push_back((Powerup*) powerup);
+};
 
 void EnemyAI::perform(){
+    // Updates its AI every 0.3 seconds
     this->elapsedTime += this->deltaTime.asSeconds();
     if(this->elapsedTime < 0.3f)
         return;
+    this->elapsedTime = 0.f;
 
-    Ship* EnemyShip = (entities::Ship*) ObjectManager::Instance()->getObjects(ObjectType::SHIP)[0];
-    Ship* PlayerShip = (entities::Ship*) ObjectManager::Instance()->getObjects(ObjectType::SHIP)[1];
+    Ship* EnemyShip = (Ship*) ObjectManager::Instance()->getObjects(ObjectType::SHIP)[0];
+    Ship* PlayerShip = (Ship*) ObjectManager::Instance()->getObjects(ObjectType::SHIP)[1];
 
     this->EnemyPos = EnemyShip->getPosition();
     this->Ship1Pos = PlayerShip->getPosition();
 
     sf::Vector2f BaseDis, ClosestBaseDis{99999,99999};
     for(int i = 0; i < nBases; i++) {
+        // Skips over destroyed Bases
         if(vecPlayerBases[i]->getFrame() != 2) {
             BaseDis = EnemyPos - vecPlayerBases[i]->getPosition();
 
@@ -50,28 +58,29 @@ void EnemyAI::perform(){
     for(int i = 0; i < vecPowerUps.size(); i++) {
         if(vecPowerUps[i]->isEnabled()) {
             powerupDis = EnemyPos - vecPowerUps[i]->getPosition();
-            switch(vecPowerUps[i]->getFrame()) {
-                //SPACE_MINE Powerup
-                case 0 : if(inDistance(vecPowerUps[i]->getPosition(), shootDis)) {
-                    MinePos = vecPowerUps[i]->getPosition();
-                    if(powerupDis.x > 0 && inDistance(MinePos, {this->shootDis, this->viewRange})) this->vecMineCD[0] = true;
-                    else if(powerupDis.x < 0 && inDistance(MinePos, {this->shootDis, this->viewRange})) this->vecMineCD[1] = true;
-                   
-                    if(powerupDis.y > 0 && inDistance(MinePos, {this->viewRange, this->shootDis})) this->vecMineCD[2] = true;
-                    else if(powerupDis.y < 0 && inDistance(MinePos, {this->viewRange, this->shootDis})) this->vecMineCD[3] = true;
-                }
-                break;
+            switch(vecPowerUps[i]->getPowerupType()) {
+                case PowerupType::SPACE_MINE : 
+                    if(inDistance(vecPowerUps[i]->getPosition(), shootDis)) {
+                        MinePos = vecPowerUps[i]->getPosition();
+                        if(powerupDis.x > 0 && inDistance(MinePos, {this->shootDis, this->viewRange})) this->vecMineCD[0] = true;
+                        else if(powerupDis.x < 0 && inDistance(MinePos, {this->shootDis, this->viewRange})) this->vecMineCD[1] = true;
+                    
+                        if(powerupDis.y > 0 && inDistance(MinePos, {this->viewRange, this->shootDis})) this->vecMineCD[2] = true;
+                        else if(powerupDis.y < 0 && inDistance(MinePos, {this->viewRange, this->shootDis})) this->vecMineCD[3] = true;
+                    }
+                    break;
 
-                //BASE_CHAOS Powerup
-                case 1 : if(lessDistance(powerupDis, ClosestChaosDis)) ClosestChaosDis = powerupDis;
-                break;
+                case PowerupType::BASE_CHAOS : 
+                    if(lessDistance(powerupDis, ClosestChaosDis)) 
+                        ClosestChaosDis = powerupDis;
+                    break;
                 
-                //BASE_INVINCIBILITY Powerup
-                case 2 : if(lessDistance(powerupDis, ClosestInvinDis)) {
-                    ClosestInvinDis = powerupDis;
-                    nClosestInvinNum = i;
-                }
-                break;
+                case PowerupType::BASE_INVINCIBILITY : 
+                    if(lessDistance(powerupDis, ClosestInvinDis)) {
+                        ClosestInvinDis = powerupDis;
+                        nClosestInvinNum = i;
+                    }
+                    break;
             }
         }
     }
@@ -79,6 +88,7 @@ void EnemyAI::perform(){
     //EBCTP: Enemy Base Closest to Player
     sf::Vector2f EnemyBaseDis, EBCPDis{99999,99999};
     for(int i = 0; i < nBases; i++) {
+        // Check if the Base is destroyed
         if(vecEnemyBases[i]->getFrame() != 2) {
             EnemyBaseDis = Ship1Pos - vecEnemyBases[i]->getPosition();
 
@@ -159,18 +169,17 @@ void EnemyAI::perform(){
             break;
     }
 
-    switch((int) this->nextMove) {
-        case 0 : std::cout << "Chase" << std::endl;
-        case 1 : std::cout << "Protect" << std::endl;
-        case 2 : std::cout << "Pickup" << std::endl;
-        case 3 : std::cout << "Attack" << std::endl;
-    }
+    // switch((int) this->nextMove) {
+    //     case 0 : std::cout << "Chase" << std::endl;
+    //     case 1 : std::cout << "Protect" << std::endl;
+    //     case 2 : std::cout << "Pickup" << std::endl;
+    //     case 3 : std::cout << "Attack" << std::endl;
+    // }
 
     for(int i = 0; i < 4; i++) {
         this->vecMineCD[i] = false;
         this->vecShipCD[i] = false;
     }
-    this->elapsedTime = 0.f;
 }
 
 void EnemyAI::BASE_CHASE() {
