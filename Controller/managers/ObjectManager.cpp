@@ -21,7 +21,7 @@ void ObjectManager::processEvents(sf::Event event){
 
 void ObjectManager::update(sf::Time deltaTime){
     for(GameObject* object : this->vecObjects){
-        if(!object->isEnabled())
+        if(!object->isEnabled() || object->isPaused())
             continue;
         
         std::vector<Component*> components = object->getComponents(ComponentType::SCRIPT);
@@ -100,6 +100,21 @@ void ObjectManager::deleteAllObjects(){
 
     this->vecObjects.clear();
     this->mapObjects.clear();
+}
+
+void ObjectManager::pauseAllObjects(){
+    for(GameObject* object : this->vecObjects)
+        object->pause();
+}
+
+void ObjectManager::unpauseAllObjects(){
+    for(GameObject* object : this->vecObjects)
+        object->unpause();
+}
+
+void ObjectManager::togglePauseAllObjects(){
+    for(GameObject* object : this->vecObjects)
+        object->togglePause();
 }
 
 /* SINGLETON CODE */

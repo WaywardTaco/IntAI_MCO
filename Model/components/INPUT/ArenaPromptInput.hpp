@@ -17,6 +17,5 @@ namespace components {
 
             bool isEscapePressed();
             void resetEscapePressed();
-
     };
 }

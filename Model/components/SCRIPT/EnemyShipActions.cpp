@@ -45,4 +45,7 @@ void EnemyShipActions::perform(){
         ObjectPoolManager::Instance()->getObjectPoolByName(ship->getName() + "Bullets")->getObject();
     }
 
+    ColliderBase* collider = (ColliderBase*) ship->getComponent(ship->getName() + "Collider");
+    collider->setRadii(ship->getSprite()->getGlobalBounds().width / 3.f, ship->getSprite()->getGlobalBounds().height / 3.f);
+
 }

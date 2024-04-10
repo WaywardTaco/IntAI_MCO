@@ -26,6 +26,8 @@ namespace components{
             void removeCollision(ColliderBase* collider);
             void removeAllCollisions();
 
+            void setRadii(float xRad, float yRad);
+
             float getXRadius();
             float getYRadius();
             sf::Vector2f getPosition();

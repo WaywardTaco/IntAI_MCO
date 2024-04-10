@@ -55,8 +55,10 @@ void Game::processEvents(){
 }
 
 void Game::update(){
-    if(this->windowToClose)
+    if(this->windowToClose){
         window.close();
+        AudioManager::Instance()->clearAllAudio();
+    }
 
     ObjectManager::Instance()->update(sf::seconds(FRAME_TIME));
 }
