@@ -23,6 +23,7 @@ namespace scenes {
 
             void onLoadResources();
             void onLoadObjects();
+            void createControlOptions(int count);
             void passMap(MapTypes map);
             MapTypes getMap();
     };

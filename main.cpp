@@ -18,6 +18,7 @@
 #include "Controller/managers/ObjectManager.cpp"
 #include "Controller/managers/ObjectPoolManager.cpp"
 #include "Controller/managers/ColliderManager.cpp"
+#include "Controller/managers/ControlManager.cpp"
 
 #include "Model/enums/ComponentType.hpp"
 #include "Model/enums/FacingDir.hpp"

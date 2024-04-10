@@ -3,6 +3,7 @@
 
 #include "GenericInput.hpp"
 #include "../../../Config/ControlSettings.hpp"
+#include "../../../Controller/managers/ControlManager.hpp"
 
 namespace components {
     class PlayerInput : public GenericInput {

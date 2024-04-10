@@ -8,7 +8,9 @@ namespace components {
         private:
             bool   
                 spacePressed,
-                escapePressed;
+                escapePressed,
+                leftPressed,
+                rightPressed;
 
         public:
             SettingPromptInput(std::string name);
@@ -21,6 +23,12 @@ namespace components {
 
             bool isEscapePressed();
             void resetEscapePressed();
+
+            bool isLeftPressed();
+            void resetLeftPressed();
+
+            bool isRightPressed();
+            void resetRightPressed();
 
     };
 }

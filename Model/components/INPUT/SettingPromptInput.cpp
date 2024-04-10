@@ -4,7 +4,7 @@
 using namespace components;
 
 SettingPromptInput::SettingPromptInput(std::string name) :
-    GenericInput(name), spacePressed(false), escapePressed(false){}
+    GenericInput(name), spacePressed(false), escapePressed(false), leftPressed(false), rightPressed(false){}
 
 void SettingPromptInput::processKeyInput(sf::Keyboard::Key key, bool isPressed){
     switch(key){
@@ -14,11 +14,18 @@ void SettingPromptInput::processKeyInput(sf::Keyboard::Key key, bool isPressed){
         case sf::Keyboard::Escape:
             this->escapePressed = isPressed;
             break;
-
+        case sf::Keyboard::Left:
+            this->leftPressed = isPressed;
+            break;
+        case sf::Keyboard::Right:
+            this->rightPressed = isPressed;
+            break;
     }
 }
 
-void SettingPromptInput::processMousePress(sf::Event::MouseButtonEvent buttonEvent, bool isPressed){}
+void SettingPromptInput::processMousePress(sf::Event::MouseButtonEvent buttonEvent, bool isPressed){
+
+}
 
 bool SettingPromptInput::isSpacePressed(){
     return this->spacePressed;
@@ -34,4 +41,20 @@ bool SettingPromptInput::isEscapePressed(){
 
 void SettingPromptInput::resetEscapePressed(){
     this->escapePressed = false;
+}
+
+bool SettingPromptInput::isLeftPressed(){
+    return this->leftPressed;
+}
+
+void SettingPromptInput::resetLeftPressed(){
+    this->leftPressed = false;
+}
+
+bool SettingPromptInput::isRightPressed(){
+    return this->rightPressed;
+}
+
+void SettingPromptInput::resetRightPressed(){
+    this->rightPressed = false;
 }

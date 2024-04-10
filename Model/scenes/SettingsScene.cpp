@@ -29,13 +29,33 @@ void SettingsScene::onLoadObjects(){
     TextElement* title = new TextElement("Title", "", &this->uiFont, TITLE_FONT_SIZE, ObjectType::PLAIN_TEXT);
     ObjectManager::Instance()->addObject(title);
     title->setText("Settings", true);
-    title->setPosition(TITLE_POSITION);
+    title->setPosition({800.f, 150.f});
 
     TextElement* escape = new TextElement("Escape", "", &this->uiFont, ESCAPE_FONT_SIZE, ObjectType::PLAIN_TEXT);
     ObjectManager::Instance()->addObject(escape);
     escape->setText("[ Press Space to Return ]", true);
     escape->setPosition({PROMPT_POSITION.x, PROMPT_POSITION.y + MAIN_MENU_ESCAPE_OFFSET});
 
+    TextElement* controlPrompt = new TextElement("ControlPrompt", "", &this->uiFont, 80.f, ObjectType::PLAIN_TEXT);
+    ObjectManager::Instance()->addObject(controlPrompt);
+    controlPrompt->setText("Control Scheme", true);
+    controlPrompt->setPosition({PROMPT_POSITION.x, PROMPT_POSITION.y - 250});
+
+    TextElement* option = new TextElement("ControlScheme", "", &this->uiFont, 50.f, ObjectType::PLAIN_TEXT);
+    ObjectManager::Instance()->addObject(option);
+    option->setText("<        WASD        >", true);
+    option->setPosition({PROMPT_POSITION.x, PROMPT_POSITION.y - 160});
+}
+
+void SettingsScene::createControlOptions(int count){
+    TextElement* option = (TextElement*) ObjectManager::Instance()->findObjectByName("ControlScheme");
+    
+    if(count % 2 == 1){
+        option->setText("<  ARROW KEYS  >", true);
+    }
+    else{
+        option->setText("<        WASD        >", true);
+    }
 }
 
 

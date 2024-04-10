@@ -20,6 +20,10 @@ void GenericInput::perform(){
         case sf::Event::MouseButtonReleased:
             processMousePress(event.mouseButton, false);
             break;
+        case sf::Event::MouseMoved:
+            this->vecLocation.x = this->event.mouseMove.x;
+            this->vecLocation.y = this->event.mouseMove.y;
+            break;
     }
 }
 

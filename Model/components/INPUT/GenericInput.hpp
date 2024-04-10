@@ -6,8 +6,9 @@
 
 namespace components {
     class GenericInput : public Component {
-        private:
+        protected:
             sf::Event event;
+            sf::Vector2f vecLocation;
 
         public:
             GenericInput(std::string name);
