@@ -2,7 +2,9 @@
 
 using namespace managers;
 
-void ControlManager::setControlScheme(int count){
+void ControlManager::setControlScheme(){
+    this->count++;
+
     if(count % 2 == 0){
         this->up = sf::Keyboard::W;
         this->down = sf::Keyboard::S;
@@ -37,7 +39,7 @@ sf::Keyboard::Key ControlManager::getRight(){
 
 ControlManager* ControlManager::P_SHARED_INSTANCE = NULL;
 ControlManager::ControlManager() : up(sf::Keyboard::W), down(sf::Keyboard::S), 
-                                    left(sf::Keyboard::A), right(sf::Keyboard::D){}
+                                    left(sf::Keyboard::A), right(sf::Keyboard::D), count(0){}
 ControlManager::ControlManager(const ControlManager&){}
 ControlManager* ControlManager::getInstance(){
     if(P_SHARED_INSTANCE == NULL)

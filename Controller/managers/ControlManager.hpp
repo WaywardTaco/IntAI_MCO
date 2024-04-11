@@ -13,9 +13,10 @@ namespace managers{
             sf::Keyboard::Key down;
             sf::Keyboard::Key left;
             sf::Keyboard::Key right;
+            int count;
 
         public:
-            void setControlScheme(int count);
+            void setControlScheme();
 
         private:
             static ControlManager* P_SHARED_INSTANCE;

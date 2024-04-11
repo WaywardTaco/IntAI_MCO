@@ -27,12 +27,12 @@ void SettingPromptScript::perform(){
     if(input->isLeftPressed()){
         input->resetLeftPressed();
         scene->switchCheck();
-        ControlManager::getInstance()->setControlScheme(this->count);
+        ControlManager::getInstance()->setControlScheme();
     }
 
     if(input->isRightPressed()){
         input->resetRightPressed();
         scene->switchCheck();
-        ControlManager::getInstance()->setControlScheme(this->count);
+        ControlManager::getInstance()->setControlScheme();
     }
 }

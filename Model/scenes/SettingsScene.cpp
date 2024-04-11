@@ -58,7 +58,7 @@ MapTypes SettingsScene::getMap(){
 void SettingsScene::switchCheck(){
     this->usingArrows = !this->usingArrows;
 
-    std::cout << this->usingArrows << std::endl;
+    //std::cout << this->usingArrows << std::endl;
 
     TextElement* option = (TextElement*) ObjectManager::Instance()->findObjectByName("ControlScheme");
 
