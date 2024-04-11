@@ -14,9 +14,11 @@ void SettingPromptInput::processKeyInput(sf::Keyboard::Key key, bool isPressed){
         case sf::Keyboard::Escape:
             this->escapePressed = isPressed;
             break;
+        case sf::Keyboard::A:
         case sf::Keyboard::Left:
             this->leftPressed = isPressed;
             break;
+        case sf::Keyboard::D:
         case sf::Keyboard::Right:
             this->rightPressed = isPressed;
             break;

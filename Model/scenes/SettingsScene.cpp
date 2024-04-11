@@ -5,7 +5,7 @@ using namespace scenes;
 
 SettingsScene::SettingsScene() : 
     Scene(SceneTag::SETTINGS),
-    currentMap(MapTypes::PLAIN), check(false){} //SET CHECK TO FALSE
+    currentMap(MapTypes::PLAIN), usingArrows(false){} 
 
 void SettingsScene::onLoadResources(){
     TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "PlainBG");
@@ -21,7 +21,7 @@ void SettingsScene::onLoadObjects(){
 
     TextElement* startPrompt = new TextElement("Prompt", "", &this->uiFont, PROMPT_FONT_SIZE, ObjectType::PROMPT);
     ObjectManager::Instance()->addObject(startPrompt);
-    startPrompt->setText("[ Press Escape to Exit ]", true);
+    startPrompt->setText("[ Press Escape to Return ]", true);
     startPrompt->setPosition(PROMPT_POSITION);
     startPrompt->attachComponent(new SettingPromptInput(startPrompt->getName() + "Input"));
     startPrompt->attachComponent(new SettingPromptScript(startPrompt->getName() + "Script"));
@@ -31,11 +31,6 @@ void SettingsScene::onLoadObjects(){
     title->setText("Settings", true);
     title->setPosition({800.f, 150.f});
 
-    TextElement* escape = new TextElement("Escape", "", &this->uiFont, ESCAPE_FONT_SIZE, ObjectType::PLAIN_TEXT);
-    ObjectManager::Instance()->addObject(escape);
-    escape->setText("[ Press Space to Return ]", true);
-    escape->setPosition({PROMPT_POSITION.x, PROMPT_POSITION.y + MAIN_MENU_ESCAPE_OFFSET});
-
     TextElement* controlPrompt = new TextElement("ControlPrompt", "", &this->uiFont, 80.f, ObjectType::PLAIN_TEXT);
     ObjectManager::Instance()->addObject(controlPrompt);
     controlPrompt->setText("Control Scheme", true);
@@ -43,32 +38,14 @@ void SettingsScene::onLoadObjects(){
 
     TextElement* option = new TextElement("ControlScheme", "", &this->uiFont, 50.f, ObjectType::PLAIN_TEXT);
     ObjectManager::Instance()->addObject(option);
-    option->setText("<        WASD        >", true);
-    option->setPosition({PROMPT_POSITION.x, PROMPT_POSITION.y - 160}); //Position of this doesn't matter, checked alr
+    option->setPosition({PROMPT_POSITION.x, PROMPT_POSITION.y - 160}); 
 
-    /* CHECK WHAT TO PRINT
-    if(!this->check)
+    if(!this->usingArrows)
         option->setText("<        WASD        >", true);
     else
-        option->setText("<  ARROW KEYS  >", true);*/
-    
-}
-
-void SettingsScene::createControlOptions(int count){
-    TextElement* option = (TextElement*) ObjectManager::Instance()->findObjectByName("ControlScheme");
-    
-    if(count % 2 == 1){
         option->setText("<  ARROW KEYS  >", true);
-        //this->check = true; //SET VAR TO TRUE SO SCENE PRINTS ACCORDINGLY. ADDING THIS MAKES IT CRASH
-    }
-    else{
-        option->setText("<        WASD        >", true);
-        //this->check = false; //SAME AS ABOVE
-    }
-
-    //std::cout << "Test" << std::endl; //MAKES IT OUT OF THE FUNCTION
+    
 }
-
 
 void SettingsScene::passMap(MapTypes map){
     this->currentMap = map;
@@ -76,4 +53,17 @@ void SettingsScene::passMap(MapTypes map){
 
 MapTypes SettingsScene::getMap(){
     return this->currentMap;
+}
+
+void SettingsScene::switchCheck(){
+    this->usingArrows = !this->usingArrows;
+
+    std::cout << this->usingArrows << std::endl;
+
+    TextElement* option = (TextElement*) ObjectManager::Instance()->findObjectByName("ControlScheme");
+
+    if(!this->usingArrows)
+        option->setText("<        WASD        >", true);
+    else
+        option->setText("<  ARROW KEYS  >", true);
 }

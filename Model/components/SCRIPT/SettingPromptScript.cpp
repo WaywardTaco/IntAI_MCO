@@ -8,7 +8,7 @@ SettingPromptScript::SettingPromptScript(std::string name) :
 
 void SettingPromptScript::perform(){
     SettingPromptInput* input = (SettingPromptInput*) this->getOwner()->getComponent(this->getOwner()->getName() + "Input");
-    SettingsScene* owner = (SettingsScene*) this->getOwner();
+    SettingsScene* scene = (SettingsScene*) SceneManager::Instance()->getScene(SceneTag::SETTINGS);
 
     if(input == NULL){
         std::cout << "Dependency Missing!" << std::endl;
@@ -26,15 +26,13 @@ void SettingPromptScript::perform(){
 
     if(input->isLeftPressed()){
         input->resetLeftPressed();
-        this->count++;
+        scene->switchCheck();
         ControlManager::getInstance()->setControlScheme(this->count);
-        owner->createControlOptions(this->count);
     }
 
     if(input->isRightPressed()){
         input->resetRightPressed();
-        this->count++;
+        scene->switchCheck();
         ControlManager::getInstance()->setControlScheme(this->count);
-        owner->createControlOptions(this->count);
     }
 }

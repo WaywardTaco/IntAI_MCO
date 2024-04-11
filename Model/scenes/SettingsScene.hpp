@@ -17,15 +17,15 @@ namespace scenes {
         private:
             sf::Font uiFont;
             MapTypes currentMap;
-            bool check; //CHECK FOR PRINTING
+            bool usingArrows;
 
         public:
             SettingsScene();
 
             void onLoadResources();
             void onLoadObjects();
-            void createControlOptions(int count);
             void passMap(MapTypes map);
             MapTypes getMap();
+            void switchCheck();
     };
 }
