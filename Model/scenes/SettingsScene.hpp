@@ -17,6 +17,7 @@ namespace scenes {
         private:
             sf::Font uiFont;
             MapTypes currentMap;
+            bool check; //CHECK FOR PRINTING
 
         public:
             SettingsScene();

@@ -3,7 +3,6 @@
 using namespace managers;
 
 void ControlManager::setControlScheme(int count){
-    std::cout << "Test" << std::endl;
     if(count % 2 == 0){
         this->up = sf::Keyboard::W;
         this->down = sf::Keyboard::S;

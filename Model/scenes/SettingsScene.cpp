@@ -5,7 +5,7 @@ using namespace scenes;
 
 SettingsScene::SettingsScene() : 
     Scene(SceneTag::SETTINGS),
-    currentMap(MapTypes::PLAIN){}
+    currentMap(MapTypes::PLAIN), check(false){} //SET CHECK TO FALSE
 
 void SettingsScene::onLoadResources(){
     TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "PlainBG");
@@ -44,7 +44,14 @@ void SettingsScene::onLoadObjects(){
     TextElement* option = new TextElement("ControlScheme", "", &this->uiFont, 50.f, ObjectType::PLAIN_TEXT);
     ObjectManager::Instance()->addObject(option);
     option->setText("<        WASD        >", true);
-    option->setPosition({PROMPT_POSITION.x, PROMPT_POSITION.y - 160});
+    option->setPosition({PROMPT_POSITION.x, PROMPT_POSITION.y - 160}); //Position of this doesn't matter, checked alr
+
+    /* CHECK WHAT TO PRINT
+    if(!this->check)
+        option->setText("<        WASD        >", true);
+    else
+        option->setText("<  ARROW KEYS  >", true);*/
+    
 }
 
 void SettingsScene::createControlOptions(int count){
@@ -52,10 +59,14 @@ void SettingsScene::createControlOptions(int count){
     
     if(count % 2 == 1){
         option->setText("<  ARROW KEYS  >", true);
+        //this->check = true; //SET VAR TO TRUE SO SCENE PRINTS ACCORDINGLY. ADDING THIS MAKES IT CRASH
     }
     else{
         option->setText("<        WASD        >", true);
+        //this->check = false; //SAME AS ABOVE
     }
+
+    //std::cout << "Test" << std::endl; //MAKES IT OUT OF THE FUNCTION
 }
 
 
