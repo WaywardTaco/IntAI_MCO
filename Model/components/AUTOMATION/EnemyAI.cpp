@@ -256,25 +256,6 @@ void EnemyAI::resetShooting(){
 }
 
 void EnemyAI::MoveTo(sf::Vector2f DisToObj) {
-    if(DisToObj == PlayerShipDis && inDistance(Ship1Pos, shootDis)) {
-        if(PlayerShipDis.x > 0 && inDistance(Ship1Pos, {this->shootDis, this->huntRange})) {
-            this->nextDirection = FacingDir::LEFT;
-            return;
-        }
-        else if(PlayerShipDis.x < 0 && inDistance(Ship1Pos, {this->shootDis, this->huntRange})) {
-            this->nextDirection = FacingDir::RIGHT;
-            return;
-        }
-        else if(PlayerShipDis.y > 0 && inDistance(Ship1Pos, {this->huntRange, this->shootDis})) {
-            this->nextDirection = FacingDir::UP;
-            return;
-        }
-        else if(PlayerShipDis.y < 0 && inDistance(Ship1Pos, {this->huntRange, this->shootDis})) {
-            this->nextDirection = FacingDir::DOWN;
-            return;
-        }
-    }
-
     if(abs(DisToObj.x) > abs(DisToObj.y)) {
         if(DisToObj.x > 0) this->nextDirection = FacingDir::LEFT;
         else if(DisToObj.x < 0) this->nextDirection = FacingDir::RIGHT;
