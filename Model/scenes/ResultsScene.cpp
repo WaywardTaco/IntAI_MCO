@@ -96,7 +96,7 @@ void ResultsScene::onLoadObjects(){
 
     TextElement* enemyBaseseDestroyed = new TextElement("EnemyBasesDestroyed", "", &this->uiFont, RESULTS_BREAKDOWN_FONT_SIZE, ObjectType::PLAIN_TEXT);
     ObjectManager::Instance()->addObject(enemyBaseseDestroyed);
-    enemyBaseseDestroyed->setText(std::to_string(this->playerBasesLeft) + " Bases Destroyed x " + std::to_string(SCORE_PER_BASE_DESTROYED) + " = " + std::to_string(this->enemyBasesDestroyed * SCORE_PER_BASE_DESTROYED), true);
+    enemyBaseseDestroyed->setText(std::to_string(this->enemyBasesDestroyed) + " Bases Destroyed x " + std::to_string(SCORE_PER_BASE_DESTROYED) + " = " + std::to_string(this->enemyBasesDestroyed * SCORE_PER_BASE_DESTROYED), true);
     enemyBaseseDestroyed->setPosition({RESULTS_WINNER_CENTER.x, RESULTS_WINNER_CENTER.y + 3*RESULTS_BREAKDOWN_PADDING + RESULTS_BREAKDOWN_OFFSET + RESULTS_SCORE_OFFSET});
 
     TextElement* timeLeft = new TextElement("TimeLeft", "", &this->uiFont, RESULTS_BREAKDOWN_FONT_SIZE, ObjectType::PLAIN_TEXT);

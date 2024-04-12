@@ -58,4 +58,5 @@ void BaseCaptureScript::perform(){
 
 void BaseCaptureScript::startShield(){
     this->shielded = true;
+    this->shieldTime = 0.f;
 }

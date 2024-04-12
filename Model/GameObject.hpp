@@ -24,6 +24,7 @@ namespace models {
             AnimateTexture* texture;
             sf::Vector2f position;
             bool enabled;
+            bool paused;
             int frame = 0;
 
         public:
@@ -58,9 +59,13 @@ namespace models {
             void setPosition(sf::Vector2f position);
             void movePosition(sf::Vector2f position);
             sf::FloatRect getBounds();
+            int getFrame();
             bool isEnabled();
             void enable();
             void disable();
-            int getFrame();
+            bool isPaused();
+            void pause();
+            void unpause();
+            void togglePause();
     };
 }

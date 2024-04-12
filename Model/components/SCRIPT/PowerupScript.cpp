@@ -4,9 +4,32 @@
 using namespace components;
 
 PowerupScript::PowerupScript(std::string name) :
-    GenericScript(name){}
+    GenericScript(name), elapsedTime(0.f), driftVec(0.f, 0.f){}
 
 void PowerupScript::perform(){
+    this->elapsedTime -= this->deltaTime.asSeconds();
+    if(this->elapsedTime <= 0.f || 
+        this->owner->getPosition().x < WINDOW_BORDER ||
+        this->owner->getPosition().y < WINDOW_BORDER ||
+        this->owner->getPosition().x > WINDOW_WIDTH - WINDOW_BORDER ||
+        this->owner->getPosition().y > WINDOW_HEIGHT - WINDOW_BORDER
+    ){
+        this->elapsedTime = POWERUP_DRIFT_CHANGE_FREQ * (Utility::getRandomNumber(0,120) / 100.f);
+
+        float transform = -1.f;
+        if(this->owner->getPosition().x < WINDOW_BORDER ||
+        this->owner->getPosition().y < WINDOW_BORDER)
+            transform = 0.f;
+        if(this->owner->getPosition().x > WINDOW_WIDTH - WINDOW_BORDER ||
+        this->owner->getPosition().y > WINDOW_HEIGHT - WINDOW_BORDER)
+            transform = -2.f;
+
+        this->driftVec = {
+            ((Utility::getRandomNumber(0,200) / 100.f) - 1.f) * POWERUP_DRIFT_SPEED,
+            ((Utility::getRandomNumber(0,200) / 100.f) - 1.f) * POWERUP_DRIFT_SPEED
+        };
+    }
+    this->owner->movePosition(sf::Vector2f(this->driftVec.x * this->deltaTime.asSeconds(), this->driftVec.y * this->deltaTime.asSeconds()));
 
     ColliderBase* collider = (ColliderBase*) this->owner->getComponent(this->owner->getName() + "Collider");
 
@@ -50,7 +73,7 @@ void PowerupScript::perform(){
 
         }
     }
-    if(bulletColliders.size() >= 0)
+    if(bulletColliders.size() > 0 || shipColliders.size() > 0)
         ObjectPoolManager::Instance()->getObjectPoolByName(this->getOwner()->getName() + "Pool")->releaseObject(this->owner);
     
 }

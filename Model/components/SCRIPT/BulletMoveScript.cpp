@@ -46,6 +46,8 @@ void BulletMoveScript::perform(){
         this->elapsedTime = 0;
     }
 
+    collider->setRadii(this->owner->getSprite()->getGlobalBounds().width / 1.2f, this->owner->getSprite()->getGlobalBounds().height / 1.2f);
+
     collider->removeAllCollisions();
 }
 

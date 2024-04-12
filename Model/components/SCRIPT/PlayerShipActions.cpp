@@ -40,4 +40,6 @@ void PlayerShipActions::perform(){
         input->resetSpace();
     }
 
+    ColliderBase* collider = (ColliderBase*) ship->getComponent(ship->getName() + "Collider");
+    collider->setRadii(ship->getSprite()->getGlobalBounds().width / 3.f, ship->getSprite()->getGlobalBounds().height / 3.f);
 }

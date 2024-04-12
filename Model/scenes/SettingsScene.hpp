@@ -17,6 +17,7 @@ namespace scenes {
         private:
             sf::Font uiFont;
             MapTypes currentMap;
+            bool usingArrows;
 
         public:
             SettingsScene();
@@ -25,5 +26,6 @@ namespace scenes {
             void onLoadObjects();
             void passMap(MapTypes map);
             MapTypes getMap();
+            void switchCheck();
     };
 }

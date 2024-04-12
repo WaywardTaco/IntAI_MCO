@@ -18,6 +18,7 @@
 #include "Controller/managers/ObjectManager.cpp"
 #include "Controller/managers/ObjectPoolManager.cpp"
 #include "Controller/managers/ColliderManager.cpp"
+#include "Controller/managers/ControlManager.cpp"
 
 #include "Model/enums/ComponentType.hpp"
 #include "Model/enums/FacingDir.hpp"
@@ -71,6 +72,9 @@
 #include "Model/entities/Ship.cpp"
 #include "Model/entities/PlayerShip.cpp"
 #include "Model/entities/EnemyShip.cpp"
+#include "Model/entities/BalanceEnemy.cpp"
+#include "Model/entities/AggroEnemy.cpp"
+#include "Model/entities/DefenseEnemy.cpp"
 #include "Model/entities/Bullet.cpp"
 #include "Model/entities/Base.cpp"
 

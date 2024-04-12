@@ -33,6 +33,10 @@ namespace managers{
             std::vector<GameObject*> getObjects(ObjectType type);
             void deleteAllObjects();
 
+            void pauseAllObjects();
+            void unpauseAllObjects();
+            void togglePauseAllObjects();
+
         /* SINGLETON CODE */
         private:
             static ObjectManager* SHARED_INSTANCE;

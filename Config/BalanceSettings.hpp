@@ -5,6 +5,8 @@ const float
     // Bullets should be notably faster than the ship
     SHIP_SPEED = 300.f,
     BULLET_SPEED = 700.f,
+    POWERUP_DRIFT_SPEED = 8.f,
+    POWERUP_DRIFT_CHANGE_FREQ = 10.f,
 
     BULLET_MAX_SECONDS = 0.5f,
     SPAWN_SECONDS = 1.f,
@@ -52,7 +54,7 @@ const int
 
 const int
     SCORE_PER_KILL = 100,
-    SCORE_PER_DEATH = -200,
+    SCORE_PER_DEATH = -150,
     SCORE_PER_BASE_LEFT = 200,
     SCORE_PER_BASE_DESTROYED = 200,
     SCORE_PER_SECOND_LEFT = 10;

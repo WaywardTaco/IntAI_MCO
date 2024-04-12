@@ -51,6 +51,11 @@ void ColliderBase::removeAllCollisions(){
     this->hasCollisions = false;
 }
 
+void ColliderBase::setRadii(float xRad, float yRad){
+    this->xRadius = xRad;
+    this->yRadius = yRad;
+}
+
 float ColliderBase::getXRadius(){
     return this->xRadius;
 }

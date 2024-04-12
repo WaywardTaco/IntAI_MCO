@@ -28,13 +28,13 @@ void QuitScene::onLoadObjects(){
 
     TextElement* title = new TextElement("Title", "", &this->uiFont, TITLE_FONT_SIZE, ObjectType::PLAIN_TEXT);
     ObjectManager::Instance()->addObject(title);
-    title->setText("Quit?", true);
+    title->setText("Return to Main Menu?", true);
     title->setPosition(TITLE_POSITION);
 
-    TextElement* escape = new TextElement("Escape", "", &this->uiFont, ESCAPE_FONT_SIZE, ObjectType::PLAIN_TEXT);
-    ObjectManager::Instance()->addObject(escape);
-    escape->setText("[ Press Space to Return ]", true);
-    escape->setPosition({PROMPT_POSITION.x, PROMPT_POSITION.y + MAIN_MENU_ESCAPE_OFFSET});
+    // TextElement* escape = new TextElement("Escape", "", &this->uiFont, ESCAPE_FONT_SIZE, ObjectType::PLAIN_TEXT);
+    // ObjectManager::Instance()->addObject(escape);
+    // escape->setText("[ Press Space to Return ]", true);
+    // escape->setPosition({PROMPT_POSITION.x, PROMPT_POSITION.y + MAIN_MENU_ESCAPE_OFFSET});
 
 }
 

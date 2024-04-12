@@ -20,7 +20,7 @@ namespace managers {
             void loadMusic(MusicType musicType, std::string path);
 
             void playSound(SoundType soundType, int index, int channel, float volume);
-            void playMusic(MusicType musicType, float volume);
+            void playMusic(MusicType musicType, float volume, float startTime = 0);
 
             void startMusic();
             void pauseMusic();

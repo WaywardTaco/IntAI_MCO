@@ -13,7 +13,7 @@ void Spawner::initialize(){
     if(this->minePool != NULL){
         ObjectPoolManager::Instance()->registerPool(this->minePool);
         this->minePool->initialize();
-    }
+    } 
     if(this->chaosPool != NULL){
         ObjectPoolManager::Instance()->registerPool(this->chaosPool);
         this->chaosPool->initialize();

@@ -28,7 +28,7 @@ namespace components {
             sf::Vector2f BaseRange{50, 50};
             std::vector<GameObject*> vecPlayerBases;
             std::vector<GameObject*> vecEnemyBases;
-            std::vector<GameObject*> vecPowerUps;
+            std::vector<Powerup*> vecPowerUps;
             sf::Vector2f EnemyPos;
             sf::Vector2f Ship1Pos;
 
@@ -46,12 +46,11 @@ namespace components {
                                 //Left, Right,    Up,  Down
             bool vecMineCD[4] = {false, false, false, false};
             bool vecShipCD[4] = {false, false, false, false};
-                                    //Defense, Powerup, Offense
-            float priorityPercent[3] = {50, 50, 50};
+            float priorityPercent[3];
             sf::Vector2f heuristicValue = {priorityPercent[1], priorityPercent[1]};
 
         public:
-            EnemyAI(std::string name);
+            EnemyAI(std::string name, float defPrio, float buffPrio, float atkPrio);
             void perform();
 
             void BASE_CHASE();

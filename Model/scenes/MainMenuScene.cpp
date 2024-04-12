@@ -21,7 +21,7 @@ void MainMenuScene::onLoadResources(){
 }
 
 void MainMenuScene::onLoadObjects(){
-    AudioManager::Instance()->playMusic(MusicType::BACKGROUND, 100.f);
+    AudioManager::Instance()->playMusic(MusicType::BACKGROUND, 100.f, 7.f);
 
     Background* background = new Background("Background");
     ObjectManager::Instance()->addObject(background);

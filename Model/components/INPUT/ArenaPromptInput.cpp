@@ -11,7 +11,6 @@ void ArenaPromptInput::processKeyInput(sf::Keyboard::Key key, bool isPressed){
         case sf::Keyboard::Escape:
             this->escapePressed = isPressed;
             break;
-
     }
 }
 

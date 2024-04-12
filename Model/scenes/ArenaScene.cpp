@@ -15,6 +15,9 @@ void ArenaScene::onLoadResources(){
     AudioManager::Instance()->loadSound(SoundType::SHIELD, "View/Sounds/shield_sfx.wav");
 
     TextureManager::Instance()->loadTexture(TextureType::SHIP, "Basic");
+    TextureManager::Instance()->loadTexture(TextureType::SHIP, "Balance");
+    TextureManager::Instance()->loadTexture(TextureType::SHIP, "Aggro");
+    TextureManager::Instance()->loadTexture(TextureType::SHIP, "Defense");
     TextureManager::Instance()->loadTexture(TextureType::BULLET, "Frame1");
     TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "PlainBG");
     TextureManager::Instance()->loadTexture(TextureType::BACKGROUND, "MineBG");
@@ -88,17 +91,6 @@ void ArenaScene::onLoadObjects(){
 
     ObjectManager::Instance()->addObject(new MatchTracker("MatchTracker"));
 
-    ObjectManager::Instance()->addObject(
-        new Spawner("PowerupSpawner", 
-            new ObjectPool("MinePool", maxMines, 
-            new Powerup("Mine", PowerupType::SPACE_MINE)), 
-            new ObjectPool("ChaosPool", maxChaos, 
-            new Powerup("Chaos", PowerupType::BASE_CHAOS)),
-            new ObjectPool("ShieldPool", maxShields, 
-            new Powerup("Shield", PowerupType::BASE_INVINCIBILITY))
-        )
-    );
-
     for(int i = 0; i < maxBases; i++){
         Base* base = new Base("BaseE" + std::to_string(i), ObjectTeams::ENEMY);
         ObjectManager::Instance()->addObject(base);
@@ -142,7 +134,29 @@ void ArenaScene::onLoadObjects(){
     if(playerYSpawn > WINDOW_HEIGHT - WINDOW_BORDER)
         playerYSpawn = WINDOW_HEIGHT - WINDOW_BORDER;
         
-    EnemyShip* enemy = new EnemyShip("Enemy", {enemyXSpawn, enemyYSpawn});
+    ObjectManager::Instance()->addObject(
+        new Spawner("PowerupSpawner", 
+            new ObjectPool("MinePool", maxMines, 
+            new Powerup("Mine", PowerupType::SPACE_MINE)), 
+            new ObjectPool("ChaosPool", maxChaos, 
+            new Powerup("Chaos", PowerupType::BASE_CHAOS)),
+            new ObjectPool("ShieldPool", maxShields, 
+            new Powerup("Shield", PowerupType::BASE_INVINCIBILITY))
+        )
+    );
+
+    EnemyShip* enemy;
+    switch(Utility::getRandomNumber(0,2)){
+        case 0:
+            enemy = new BalanceEnemy("Enemy", {enemyXSpawn, enemyYSpawn});
+            break;
+        case 1:
+            enemy = new AggroEnemy("Enemy", {enemyXSpawn, enemyYSpawn});
+            break;
+        case 2:
+            enemy = new DefenseEnemy("Enemy", {enemyXSpawn, enemyYSpawn});
+            break;
+    }
     ObjectManager::Instance()->addObject(enemy);
 
     PlayerShip* player = new PlayerShip("Ship1", {playerXSpawn, playerYSpawn});
@@ -168,3 +182,4 @@ void ArenaScene::passMap(MapTypes map){
 MapTypes ArenaScene::getMap(){
     return this->currentMap;
 }
+

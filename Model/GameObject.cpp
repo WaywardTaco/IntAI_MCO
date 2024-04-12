@@ -12,6 +12,7 @@ GameObject::GameObject(std::string name, ObjectType type) :
     texture(NULL),
     position({0.f, 0.f}), 
     enabled(true),
+    paused(false),
     components({}){}
 
 GameObject::~GameObject(){
@@ -166,6 +167,10 @@ sf::FloatRect GameObject::getBounds(){
     return this->sprite->getGlobalBounds();
 }
 
+int GameObject::getFrame() {
+    return this->frame;
+}
+
 bool GameObject::isEnabled(){
     return enabled;
 }
@@ -178,6 +183,18 @@ void GameObject::disable(){
     this->enabled = false;
 }
 
-int GameObject::getFrame() {
-    return this->frame;
+bool GameObject::isPaused(){
+    return this->paused;
+}
+
+void GameObject::pause(){
+    this->paused = true;
+}
+
+void GameObject::unpause(){
+    this->paused = false;
+}
+
+void GameObject::togglePause(){
+    this->paused = !this->paused;
 }

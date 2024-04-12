@@ -8,7 +8,7 @@ PlayerInput::PlayerInput(std::string name) :
     moveLeft(false), moveRight(false) {}
 
 void PlayerInput::processKeyInput(sf::Keyboard::Key key, bool isPressed){
-    switch(key){
+    /*switch(key){
         case PLAYER_UP:
             this->moveUp = isPressed;
             break;
@@ -24,7 +24,22 @@ void PlayerInput::processKeyInput(sf::Keyboard::Key key, bool isPressed){
         case PLAYER_SHOOT:
             this->spacePress = isPressed;
             break;
-    }
+    }*/
+
+    if(key == ControlManager::getInstance()->getUp())
+        this->moveUp = isPressed;
+
+    if(key == ControlManager::getInstance()->getDown())
+        this->moveDown = isPressed;
+
+    if(key == ControlManager::getInstance()->getLeft())
+        this->moveLeft = isPressed;
+
+    if(key == ControlManager::getInstance()->getRight())
+        this->moveRight = isPressed;
+
+    if(key == sf::Keyboard::Space)
+        this->spacePress = isPressed;
 }
 
 void PlayerInput::processMousePress(sf::Event::MouseButtonEvent buttonEvent, bool isPressed){}
